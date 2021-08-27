@@ -1,0 +1,219 @@
+@charset "UTF-8";
+
+.slides {
+  display: grid;
+}
+.slides > .slide {
+  grid-area: 1/-1;
+}
+.slides > button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: white;
+  position: absolute;
+  font-size: 3rem;
+  width: 5rem;
+  height: 5rem;
+  top: 30%;
+  transition: opacity 0.3s;
+  opacity: 0.7;
+  z-index: 5;
+}
+.slides > button:hover {
+  opacity: 1;
+}
+.slides > button:focus {
+  outline: none;
+}
+.slides > button:first-child {
+  left: -20%;
+}
+.slides > button:last-child {
+  right: -20%;
+}
+
+.slideContent {
+  width: 70vh;
+  height: 100vh;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: transform 0.5s ease-in-out;
+  opacity: 0.7;
+  display: grid;
+  align-content: center;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) translateX(calc(100% * var(--offset)))
+    rotateY(calc(-45deg * var(--dir)));
+}
+
+.slideContentInner .slideRarityFoil {
+  font-family: fantasy;
+  color: gold;
+  letter-spacing: 0.2ch;
+  padding-left: 150px;
+  margin-left: -5%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Shine */
+.shine:before {
+  content: "";
+  top: 0;
+  transform: translateX(200%);
+  transform-style: preserve-3d;
+  width: 100vw;
+  position: absolute;
+  height: 100%;
+  z-index: 6;
+  animation: shine 0.5s 2 ease-in;
+  animation-delay: 0.8s;
+  /* 
+  CSS Gradient - complete browser support from http://www.colorzilla.com/gradient-editor/ 
+  */
+  background: -moz-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(201, 201, 44, 0.8) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0) 100%
+  ); /* FF3.6+ */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0%, rgba(255, 255, 255, 0)),
+    color-stop(50%, rgba(201, 201, 44, 0.8)),
+    color-stop(99%, rgba(128, 186, 232, 0)),
+    color-stop(100%, rgba(125, 185, 232, 0))
+  ); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(201, 201, 44, 0.8) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0) 100%
+  ); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(201, 201, 44, 0.8) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0) 100%
+  ); /* Opera 11.10+ */
+  background: -ms-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(201, 201, 44, 0.8) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0) 100%
+  ); /* IE10+ */
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(201, 201, 44, 0.8) 50%,
+    rgba(128, 186, 232, 0) 99%,
+    rgba(125, 185, 232, 0) 100%
+  ); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#007db9e8',GradientType=1 ); /* IE6-9 */
+}
+
+/* animation */
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.slideContentInner .slideRarityMint {
+  font-family: fantasy;
+  padding-left: 150px;
+  margin-left: -5%;
+  background-color: rgba(0, 0, 0, 0.4);
+  text-decoration-style: solid;
+  color: silver;
+}
+
+.slideContentInner .slideRarityWorn {
+  font-family: fantasy;
+  padding-left: 150px;
+  margin-left: -5%;
+  background-color: rgba(0, 0, 0, 0.4);
+  text-decoration-style: solid;
+  color: grey;
+}
+
+.slideContentInner {
+  padding-top: 90%;
+  text-decoration-style: solid;
+  color: white;
+  transform-style: preserve-3d;
+  transform: translateZ(2rem);
+  transition: opacity 0.3s linear;
+  text-shadow: 0 0.1rem 1rem #000;
+  opacity: 0;
+}
+
+.slideContentInner .slideSubtitle,
+.slideContentInner .slideTitle {
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  font-weight: normal;
+  letter-spacing: 0.2ch;
+  text-transform: uppercase;
+  margin: 0;
+}
+.slideContentInner .slideSubtitle::before {
+  content: "— ";
+}
+.slideContentInner .slideDescription {
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.2ch;
+}
+
+.slideBackground {
+  position: fixed;
+  top: 0;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  background-size: cover;
+  background-position: center center;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s linear, transform 0.3s ease-in-out;
+  pointer-events: none;
+  transform: translateX(calc(10% * var(--dir)));
+}
+
+.slide[data-active] {
+  z-index: 2;
+  pointer-events: auto;
+}
+.slide[data-active] .slideBackground {
+  opacity: 0.2;
+  transform: none;
+}
+.slide[data-active] .slideContentInner {
+  opacity: 1;
+}
+.slide[data-active] .slideContent {
+  --x: calc(var(--px) - 0.5);
+  --y: calc(var(--py) - 0.5);
+  opacity: 1;
+  transform: perspective(1000px);
+}
+.slide[data-active] .slideContent:hover {
+  transition: none;
+  transform: perspective(1000px) rotateY(calc(var(--x) * 45deg))
+    rotateX(calc(var(--y) * -45deg));
+}

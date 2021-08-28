@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { slides } from './CardList';
+
+// flip component to flip cards over to see the back image of a card.
+// Though can't get this to actually work. useEffect and useReducer is conflicting with simple useState and where it 
+// needs to be 
 import ReactCardFlip from 'react-card-flip';
 
 
@@ -71,6 +75,7 @@ function Slide({ slide, offset }) {
   const active = offset === 0 ? true : null;
   const ref = useTilt(active);
 
+// Function to determine how different card rarities display
 function CardRarity(){
   let rarity = slide.rarity;
 if (rarity == "Mint"){
@@ -110,7 +115,8 @@ return (
         }}
       >
         <div className="slideContentInner">
-      {/* <h2 className="slideTitle">{slide.title}</h2>
+      {/* Optional inner content we might use later 
+      <h2 className="slideTitle">{slide.title}</h2>
           <h3 className="slideSubtitle">{slide.subtitle}</h3>
           <p className="slideDescription">{slide.description}</p> */}
           <CardRarity/>
@@ -120,6 +126,8 @@ return (
   );
 }
 
+// Render cards in slide - see carousel.css
+// Todo: get cardflip to work right onclick slide component
 export default function myCollection() {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   return (

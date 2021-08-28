@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { slides } from './CardList';
 
+// Mock up for toggle of showing a random card unlock in prep for using Comfy.js API Channel Points to unlock cards
+
 export default function ToggleCard() {
 
     const [isHidden, setHidden] = useState(true);

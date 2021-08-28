@@ -1,5 +1,11 @@
 @import "w3.css"; /* w3.css bootstrap */
 @import "carousel.css"; /* Carousel.css by @keyframes*/
+@import "nocardsview.css"; /* custom css for the landing screen without cards in collection */
+
+#root {
+  background-color: #282a35;
+  width: 100vw;
+}
 
 .App {
   font-family: Verdana, Tahoma, sans-serif;

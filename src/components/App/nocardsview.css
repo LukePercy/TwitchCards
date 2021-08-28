@@ -1,0 +1,78 @@
+h1 {
+  color: azure;
+  font-size: 36px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 20px;
+}
+h5 {
+  font-size: 18px;
+}
+h6 {
+  font-size: 16px;
+}
+.w3-serif {
+  font-family: serif;
+}
+.w3-sans-serif {
+  font-family: sans-serif;
+}
+.w3-cursive {
+  font-family: cursive;
+}
+.w3-monospace {
+  font-family: monospace;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-weight: 400;
+  margin: 10px 0;
+}
+/* card Container */
+.container {
+  grid-template-columns: 100px 50px 100px;
+  grid-template-rows: 80px auto 80px;
+  column-gap: 10px;
+  row-gap: 15px;
+  justify-items: center;
+}
+
+.titlecontainer {
+  align-items: baseline;
+  display: grid;
+  place-items: center;
+}
+
+/*rotate image*/
+.rotate {
+  display: grid;
+  transform: rotate(25deg);
+  place-items: center;
+}
+
+/* animation */
+.spin {
+  transform-style: preserve-3d;
+  position: relative;
+  animation: cardspin 3s linear infinite;
+}
+
+@keyframes cardspin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}

@@ -65,6 +65,11 @@ const slidesReducer = (state, event) => {
 };
 
 function Slide({ slide, offset }) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const handleClick = e => {
+    e.preventDefault();
+    setIsFlipped(!isFlipped);
+  }
   const active = offset === 0 ? true : null;
   const ref = useTilt(active);
 
@@ -100,7 +105,8 @@ function Slide({ slide, offset }) {
         isFlipped={isFlipped}
         flipSpeedFrontToBack={1.0}
         flipSpeedBackToFront={1.0}
-        flipDirection='vertical'
+        flipDirection='horizontal'
+        infinite={false}
       >
         <div key='front' onClick={handleClick}>
           <div
@@ -110,14 +116,13 @@ function Slide({ slide, offset }) {
             }}
           >
             <div className='slideContentInner'>
-              <h2 className='slideTitle'>{slide.title}</h2>
+              {/* <h2 className='slideTitle'>{slide.title}</h2>
               <h3 className='slideSubtitle'>{slide.subtitle}</h3>
-              <p className='slideDescription'>{slide.description}</p>
+              <p className='slideDescription'>{slide.description}</p> */}
               <CardRarity />
             </div>
           </div>
         </div>
-
         <div key='back' onClick={handleClick}>
           <div
             className='slideContent'
@@ -125,12 +130,9 @@ function Slide({ slide, offset }) {
               backgroundImage: `url('${slide.backimage}')`,
             }}
           >
-            <div className='slideContentInner'>
-              <CardRarity />
-            </div>
           </div>
         </div>
-      </ReactCardFlip>
+      </ ReactCardFlip>
     </div>
   );
 }

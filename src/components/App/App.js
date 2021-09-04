@@ -4,7 +4,7 @@ import ToggleCard from './ToggleCard'; // replace button toggle with API call to
 
 import './App.css';
 import MyCollection from './MyCollection'; // Carousel component to display users collection of cards
-import ChannelAuth from './ChannelAuth/ChannelAuth';
+import ChannelRewards from './ChannelRewards/ChannelRewards';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -86,7 +86,7 @@ export default class App extends React.Component {
           >
             {/* <ToggleCard/> */}
             {/* <MyCollection /> */}
-            <ChannelAuth />
+            <ChannelRewards />
             {/* <p>I have {this.Authentication.hasSharedId() ? `shared my ID, and my user_id is ${this.Authentication.getUserId()}` : 'not shared my ID'}.</p> */}
           </div>
         </div>

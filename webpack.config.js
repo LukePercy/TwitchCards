@@ -103,7 +103,13 @@ module.exports = (_env,argv)=> {
       filename: "[name].bundle.js",
       path:bundlePath
     },
-    plugins
+    plugins,
+    node: {
+      net: 'empty',
+      tls: 'empty',
+      bufferutil: 'empty',
+      'utf-8-validate': 'empty',
+    },
   }
 
   if(argv.mode==='development'){

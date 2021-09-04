@@ -1,13 +1,18 @@
 import React from 'react';
 import ComfyJS from 'comfy.js';
 
+
 function ChannelRewards() {
-  const channel = process.env.TWITCHCHANNEL;
-  const clientId = process.env.CLIENTID;
-  const twitchAuth = process.env.TWITCHOAUTH;
+  const channel = 'gettingdicey';//make .env when figure it out
+  const clientId = 'k7xl2us0z23wmr0cj169zyz66hbnbq';//make .env when figure it out
+  const twitchAuth = 'ajyeqi3zlvszui1h6wi20yaki06ntz'; //make .env when figure it out
+  const cardname = " Card Title Test";
+  const cardrarity = " Card Rarity Test";
+
+
 
   ComfyJS.onCommand = (user, command, message, flags, extra) => {
-    if (flags.broadcaster && command == 'test') {
+    if (command == 'test') {
       console.log('!test was typed in chat');
     }
   };
@@ -25,12 +30,18 @@ function ChannelRewards() {
       return channelRewards;
     }
   };
+
+  ComfyJS.onReward = async ( user, reward, cost, extra ) => {
+    console.log( user + " redeemed " + reward + " for " + cost );
+    ComfyJS.Say( user + " Unlocked a new card! " + cardname + cardrarity);
+  }
+
   // TODO: may need credentials to test it.
   const createChannelRewardsPoint = async () => {
     let customReward = await ComfyJS.CreateChannelReward(clientId, {
-      title: 'Test Reward',
-      prompt: 'Test Description',
-      cost: 100,
+      title: 'Unlock Card',
+      prompt: 'Collect all Getting Dicey Collectable Cards',
+      cost: 250000,
       is_enabled: true,
       background_color: '#00E5CB',
       is_user_input_required: false,

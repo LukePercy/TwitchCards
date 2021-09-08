@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { slides } from './CardList';
+import ChannelRewards from './ChannelRewards/ChannelRewards';
 
 // flip component to flip cards over to see the back image of a card.
-// Though can't get this to actually work. useEffect and useReducer is conflicting with simple useState and where it 
-// needs to be 
+// Though can't get this to actually work. useEffect and useReducer is conflicting with simple useState and where it
+// needs to be
 import ReactCardFlip from 'react-card-flip';
-
-
 
 function useTilt(active) {
   const ref = React.useRef(null);
@@ -19,7 +18,7 @@ function useTilt(active) {
     const state = {
       rect: undefined,
       mouseX: undefined,
-      mouseY: undefined
+      mouseY: undefined,
     };
 
     let el = ref.current;
@@ -36,15 +35,14 @@ function useTilt(active) {
       const px = (state.mouseX - state.rect.left) / state.rect.width;
       const py = (state.mouseY - state.rect.top) / state.rect.height;
 
-      el.style.setProperty("--px", px);
-      el.style.setProperty("--py", py);
+      el.style.setProperty('--px', px);
+      el.style.setProperty('--py', py);
     };
 
-    el.addEventListener("mousemove", handleMouseMove);
+    el.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      el.removeEventListener("mousemove", handleMouseMove);
-
+      el.removeEventListener('mousemove', handleMouseMove);
     };
   }, [active]);
 
@@ -52,21 +50,21 @@ function useTilt(active) {
 }
 
 const initialState = {
-  slideIndex: 0
+  slideIndex: 0,
 };
 
 const slidesReducer = (state, event) => {
-  if (event.type === "NEXT") {
+  if (event.type === 'NEXT') {
     return {
       ...state,
-      slideIndex: (state.slideIndex + 1) % slides.length
+      slideIndex: (state.slideIndex + 1) % slides.length,
     };
   }
-  if (event.type === "PREV") {
+  if (event.type === 'PREV') {
     return {
       ...state,
       slideIndex:
-        state.slideIndex === 0 ? slides.length - 1 : state.slideIndex - 1
+        state.slideIndex === 0 ? slides.length - 1 : state.slideIndex - 1,
     };
   }
 };
@@ -75,51 +73,47 @@ function Slide({ slide, offset }) {
   const active = offset === 0 ? true : null;
   const ref = useTilt(active);
 
-// Function to determine how different card rarities display
-function CardRarity(){
-  let rarity = slide.rarity;
-if (rarity == "Mint"){
-  return (
-    <h4 className="slideRarityMint">{slide.rarity}</h4>
-  );
+  // Function to determine how different card rarities display
+  function CardRarity() {
+    let rarity = slide.rarity;
+    if (rarity == 'Mint') {
+      return <h4 className='slideRarityMint'>{slide.rarity}</h4>;
+    } else if (rarity == 'Foil') {
+      return <h4 className='slideRarityFoil shine'>{slide.rarity}</h4>;
+    } else {
+      return <h4 className='slideRarityWorn'>{slide.rarity}</h4>;
+    }
   }
-  else if (rarity == "Foil"){
-  return (
-    <h4 className="slideRarityFoil shine">{slide.rarity}</h4>
-    );
-  } else {
-    return (
-    <h4 className="slideRarityWorn">{slide.rarity}</h4>
-    );
-  }
-};
 
-return (
+  return (
     <div
       ref={ref}
-      className="slide"
+      className='slide'
       data-active={active}
       style={{
-        "--offset": offset,
-        "--dir": offset === 0 ? 0 : offset > 0 ? 1 : -1
+        '--offset': offset,
+        '--dir': offset === 0 ? 0 : offset > 0 ? 1 : -1,
       }}
     >
-      <div 
-        className="slideBackground"
+      <div
+        className='slideBackground'
         style={{
-          backgroundImage: `url('${slide.frontimage}')`
-        }}/>
-      <div className="slideContent"
+          backgroundImage: `url('${slide.frontimage}')`,
+        }}
+      />
+      <div
+        className='slideContent'
         style={{
-          backgroundImage: `url('${slide.frontimage}')`
+          backgroundImage: `url('${slide.frontimage}')`,
         }}
       >
-        <div className="slideContentInner">
-      {/* Optional inner content we might use later 
+        <div className='slideContentInner'>
+          {/* Optional inner content we might use later 
       <h2 className="slideTitle">{slide.title}</h2>
           <h3 className="slideSubtitle">{slide.subtitle}</h3>
           <p className="slideDescription">{slide.description}</p> */}
-          <CardRarity/>
+          <CardRarity />
+          <ChannelRewards card={slide} />
         </div>
       </div>
     </div>
@@ -131,13 +125,13 @@ return (
 export default function myCollection() {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   return (
-    <div className="slides">
-      <button onClick={() => dispatch({ type: "PREV" })}>‹</button>
+    <div className='slides'>
+      <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
       {[...slides, ...slides, ...slides].map((slide, i) => {
         let offset = slides.length + (state.slideIndex - i);
         return <Slide slide={slide} offset={offset} key={i} />;
       })}
-      <button onClick={() => dispatch({ type: "NEXT" })}>›</button>
+      <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
     </div>
   );
 }

@@ -30,18 +30,12 @@ function ChannelRewards() {
       return channelRewards;
     }
   };
-
-  ComfyJS.onReward = async ( user, reward, cost, extra ) => {
-    console.log( user + " redeemed " + reward + " for " + cost );
-    ComfyJS.Say( user + " Unlocked a new card! " + cardname + cardrarity);
-  }
-
   // TODO: may need credentials to test it.
   const createChannelRewardsPoint = async () => {
     let customReward = await ComfyJS.CreateChannelReward(clientId, {
-      title: 'Unlock Card',
-      prompt: 'Collect all Getting Dicey Collectable Cards',
-      cost: 250000,
+      title: 'Test Reward',
+      prompt: 'Test Description',
+      cost: 100,
       is_enabled: true,
       background_color: '#00E5CB',
       is_user_input_required: false,

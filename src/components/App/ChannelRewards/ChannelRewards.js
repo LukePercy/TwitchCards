@@ -31,6 +31,7 @@ function ChannelRewards() {
     // Add the card to the viewer
     const response = await fetch(`${BASE_URL}/${userId}`, {
       method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         cardId: card.id,
         cardName: card.title,
@@ -57,13 +58,16 @@ function ChannelRewards() {
     };
 
     // create a viewer
-    const response = await fetch(`${BASE_URL}/${userId}`, {
+    const response = await fetch(`${BASE_URL}`, {
       method: 'POST',
-      body: JSON.stringify({
-        viewerId: userId,
-        viewerName: userName,
-        holdingCards: [holdingCards],
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify([
+        {
+          viewerId: userId,
+          viewerName: userName,
+          holdingCards: [holdingCards],
+        },
+      ]),
     });
 
     const { success } = await response.json();
@@ -78,9 +82,10 @@ function ChannelRewards() {
 
   ComfyJS.Init(channel, twitchAuth);
 
-  function getRandomCard() {
-    return randomCard;
-  }
+  // function getRandomCard() {
+  //   console.log('this is called');
+  //   return randomCard;
+  // }
 
   ComfyJS.onReward = async (user, reward, cost, message, extra) => {
     console.log('extra :>> ', extra);
@@ -100,14 +105,15 @@ function ChannelRewards() {
         response = await createViewerCardsCollection(
           userId,
           username,
-          randomCard.id,
-          randomCard.title
+          randomCard
         );
       }
     }
     console.log('response ==>', response);
 
-    getRandomCard(); // Pick a random card to store in users collection
+    // this getRandomCard() may not be needed here
+    // still, the randomCard var can be reachable with a random card
+    // getRandomCard(); // Pick a random card to store in users collection
 
     if (response) {
       ComfyJS.Say(user + ' unlocked a new' + randomCard.title + ' card!');
@@ -139,6 +145,36 @@ function ChannelRewards() {
     console.log('customReward :>> ', customReward);
   };
 
+  const randCard = {
+    backimage: 'img/Card_Back-01.svg',
+    description: "It's Get...Getting Dicey!",
+    frontimage: 'img/DM_2-01.svg',
+    id: 5,
+    rarity: 'Foil',
+    subtitle: 'The DM',
+    title: 'The DM',
+  };
+
+  const updateNewCard = {
+    backimage: 'img/Card_Back-01.svg',
+    description: 'Run away!',
+    frontimage: 'img/Morely_2.svg',
+    id: 3,
+    rarity: 'Worn',
+    subtitle: 'Rogue',
+    title: 'Cptn. Morely',
+  };
+
+  const updateExistingCard = {
+    backimage: 'img/Card_Back-01.svg',
+    description: 'Run away!',
+    frontimage: 'img/Morely_2.svg',
+    id: 3,
+    rarity: 'Worn',
+    subtitle: 'Rogue',
+    title: 'Cptn. Morely',
+  };
+
   // return testing view w/ buttons
   return (
     <div>
@@ -148,8 +184,28 @@ function ChannelRewards() {
       <br /> */}
       <button onClick={getReward}>Get Reward info</button>
       <br />
-      <button onClick={() => getCardsViewer('abc-efg-hijk')}>
-        Get Cards Info
+      <button
+        onClick={() =>
+          createViewerCardsCollection('zxc-vbn-mlkj', 'skyblue', randCard)
+        }
+      >
+        Create a new Viewer
+      </button>
+      <br />
+      <button
+        onClick={() =>
+          updateViewerCardsCollection('zxc-vbn-mlkj', updateNewCard)
+        }
+      >
+        Update a viewer with a new card
+      </button>
+      <br />
+      <button
+        onClick={() =>
+          updateViewerCardsCollection('zxc-vbn-mlkj', updateExistingCard)
+        }
+      >
+        Update a viewer with an existing card
       </button>
     </div>
   );

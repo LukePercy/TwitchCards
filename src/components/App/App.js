@@ -1,7 +1,5 @@
 import React from 'react';
 import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
-import ToggleCard from './ToggleCard'; // replace button toggle with API call to twitch channel points
-
 import './App.css';
 import MyCollection from './MyCollection'; // Carousel component to display users collection of cards
 import ChannelRewards from './ChannelRewards/ChannelRewards';

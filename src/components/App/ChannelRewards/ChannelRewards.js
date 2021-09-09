@@ -7,8 +7,8 @@ const UPDATEAMOUNT = 1;
 
 function ChannelRewards() {
   const channel = 'gettingdicey';//make .env when figure it out
-  const clientId = 'k7xl2us0z23wmr0cj169zyz66hbnbq';//make .env when figure it out
-  const twitchAuth = 'ajyeqi3zlvszui1h6wi20yaki06ntz'; //make .env when figure it out
+  const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
+  const twitchAuth = '5nuj572wexnwxvt1q7fsjx79q01xy8'; //make .env when figure it out
   const randomCard = slides[Math.floor(Math.random()*slides.length)];
   
   const getCardsViewer = async (userId) => {
@@ -80,7 +80,6 @@ function ChannelRewards() {
 
   function getRandomCard() {
     return randomCard;
-
   }
 
   ComfyJS.onReward = async (user, reward, cost, message, extra) => {
@@ -123,8 +122,8 @@ function ChannelRewards() {
   // TODO: may need credentials to test it.
   const createChannelRewardsPoint = async () => {
     let customReward = await ComfyJS.CreateChannelReward(clientId, {
-      title: 'Test Reward',
-      prompt: 'Test Description',
+      title: 'Unlock a card test',
+      prompt: 'Whoop',
       cost: 1,
       is_enabled: true,
       background_color: '#00E5CB',
@@ -139,22 +138,14 @@ function ChannelRewards() {
     });
     console.log('customReward :>> ', customReward);
   };
-const removeReward = async () => {
-  let updatedReward = await ComfyJS.UpdateChannelReward( clientId, "a9ef1341-1d21-4259-9e8a-d97c05ba2f06", {
-    title: "Test Reward (Updated)",
-    prompt: "Updated Description",
-    cost: 1,
-    is_enabled: false,
-} );
-console.log("updatedReward", updatedReward)
-}
+
 // return testing view w/ buttons
   return (
     <div>
       <button onClick={createChannelRewardsPoint}>Create Reward Info</button>
       <br />
-      <button onClick={removeReward}>Remove Reward</button>
-      <br />
+      {/* <button onClick={removeReward}>Remove Reward</button>
+      <br /> */}
       <button onClick={getReward}>Get Reward info</button>
       <br />
       <button onClick={() => getCardsViewer('abc-efg-hijk')}>Get Cards Info</button>

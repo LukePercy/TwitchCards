@@ -74,6 +74,7 @@ function Slide({ slide, offset }) {
   const ref = useTilt(active);
 
   // Function to determine how different card rarities display
+  // This will be changed to be based off Backend card.holdingAmount 
   function CardRarity() {
     let rarity = slide.rarity;
     if (rarity == 'Mint') {

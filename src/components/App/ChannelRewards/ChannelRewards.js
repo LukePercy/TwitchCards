@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ComfyJS from 'comfy.js';
+import { slides } from '../CardList';
 
 const BASE_URL = 'http://localhost:3003/api/viewers';
 const UPDATEAMOUNT = 1;
 
-function ChannelRewards({ card }) {
+function ChannelRewards() {
   const channel = 'gettingdicey'; //make .env when figure it out
-  const clientId = 'k7xl2us0z23wmr0cj169zyz66hbnbq'; //make .env when figure it out
-  const twitchAuth = 'ajyeqi3zlvszui1h6wi20yaki06ntz'; //make .env when figure it out
-  const cardname = ' Card Title Test';
-  const cardrarity = ' Card Rarity Test';
+  const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
+  const twitchAuth = '5nuj572wexnwxvt1q7fsjx79q01xy8'; //make .env when figure it out
+  const randomCard = slides[Math.floor(Math.random() * slides.length)];
 
   const getCardsViewer = async (userId) => {
     const response = await fetch(`${BASE_URL}/${userId}`);
@@ -71,12 +71,6 @@ function ChannelRewards({ card }) {
     return success;
   };
 
-  ComfyJS.onCommand = (user, command, message, flags, extra) => {
-    if (command == 'test') {
-      console.log('!test was typed in chat');
-    }
-  };
-
   ComfyJS.onChat = (user, message, flags, self, extra) => {
     console.log('extra :>> ', extra);
     console.log(user + ':', message);
@@ -84,7 +78,11 @@ function ChannelRewards({ card }) {
 
   ComfyJS.Init(channel, twitchAuth);
 
-  ComfyJS.onReward = async (user, reward, cost, extra) => {
+  function getRandomCard() {
+    return randomCard;
+  }
+
+  ComfyJS.onReward = async (user, reward, cost, message, extra) => {
     console.log('extra :>> ', extra);
     console.log(user + ' redeemed ' + reward + ' for ' + cost);
     const { rewardFulfilled, userId, username } = extra;
@@ -93,32 +91,40 @@ function ChannelRewards({ card }) {
 
     if (rewardFulfilled) {
       const hasRedeemUserExisted = await getCardsViewer(userId);
-
+      console.log('hasredeemned', hasRedeemUserExisted);
       // Check if the viewer has been stored in db already
       // If true, then update the amount of holding cards for the viewer
       if (hasRedeemUserExisted) {
-        response = await updateViewerCardsCollection(userId);
+        response = await updateViewerCardsCollection(userId, randomCard);
       } else {
         response = await createViewerCardsCollection(
           userId,
           username,
-          card.id,
-          card.title
+          randomCard.id,
+          randomCard.title
         );
       }
     }
+    console.log('response ==>', response);
+
+    getRandomCard(); // Pick a random card to store in users collection
 
     if (response) {
-      ComfyJS.Say(user + ' Unlocked a new card! ' + cardname + cardrarity);
+      ComfyJS.Say(user + ' unlocked a new' + randomCard.title + ' card!');
     }
   };
+
+  function getReward() {
+    const channelRewards = ComfyJS.GetChannelRewards(clientId, true);
+    console.log(channelRewards);
+  }
 
   // TODO: may need credentials to test it.
   const createChannelRewardsPoint = async () => {
     let customReward = await ComfyJS.CreateChannelReward(clientId, {
-      title: 'Unlock Card',
-      prompt: 'Collect all Getting Dicey Collectable Cards',
-      cost: 250000,
+      title: 'Unlock a card test',
+      prompt: 'Whoop',
+      cost: 1,
       is_enabled: true,
       background_color: '#00E5CB',
       is_user_input_required: false,
@@ -133,9 +139,14 @@ function ChannelRewards({ card }) {
     console.log('customReward :>> ', customReward);
   };
 
+  // return testing view w/ buttons
   return (
     <div>
       <button onClick={createChannelRewardsPoint}>Create Reward Info</button>
+      <br />
+      {/* <button onClick={removeReward}>Remove Reward</button>
+      <br /> */}
+      <button onClick={getReward}>Get Reward info</button>
       <br />
       <button onClick={() => getCardsViewer('abc-efg-hijk')}>
         Get Cards Info

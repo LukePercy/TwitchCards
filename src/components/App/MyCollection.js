@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
 import { slides } from './CardList';
-import ChannelRewards from './ChannelRewards/ChannelRewards';
-
-// flip component to flip cards over to see the back image of a card.
-// Though can't get this to actually work. useEffect and useReducer is conflicting with simple useState and where it
-// needs to be
 import ReactCardFlip from 'react-card-flip';
 
 function useTilt(active) {
@@ -70,10 +65,16 @@ const slidesReducer = (state, event) => {
 };
 
 function Slide({ slide, offset }) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const handleClick = (e) => {
+    e.preventDefault();
+    setIsFlipped(!isFlipped);
+  };
   const active = offset === 0 ? true : null;
   const ref = useTilt(active);
 
   // Function to determine how different card rarities display
+  // This will be changed to be based off Backend card.holdingAmount
   function CardRarity() {
     let rarity = slide.rarity;
     if (rarity == 'Mint') {
@@ -100,28 +101,43 @@ function Slide({ slide, offset }) {
         style={{
           backgroundImage: `url('${slide.frontimage}')`,
         }}
-      />
-      <div
-        className='slideContent'
-        style={{
-          backgroundImage: `url('${slide.frontimage}')`,
-        }}
+      ></div>
+      <ReactCardFlip
+        isFlipped={isFlipped}
+        flipSpeedFrontToBack={1.0}
+        flipSpeedBackToFront={1.0}
+        flipDirection='horizontal'
+        infinite={false}
       >
-        <div className='slideContentInner'>
-          {/* Optional inner content we might use later 
-      <h2 className="slideTitle">{slide.title}</h2>
-          <h3 className="slideSubtitle">{slide.subtitle}</h3>
-          <p className="slideDescription">{slide.description}</p> */}
-          <CardRarity />
-          <ChannelRewards card={slide} />
+        <div key='front' onClick={handleClick}>
+          <div
+            className='slideContent'
+            style={{
+              backgroundImage: `url('${slide.frontimage}')`,
+            }}
+          >
+            <div className='slideContentInner'>
+              {/* <h2 className='slideTitle'>{slide.title}</h2>
+              <h3 className='slideSubtitle'>{slide.subtitle}</h3>
+              <p className='slideDescription'>{slide.description}</p> */}
+              <CardRarity />
+            </div>
+          </div>
         </div>
-      </div>
+        <div key='back' onClick={handleClick}>
+          <div
+            className='slideContent'
+            style={{
+              backgroundImage: `url('${slide.backimage}')`,
+            }}
+          ></div>
+        </div>
+      </ReactCardFlip>
     </div>
   );
 }
 
 // Render cards in slide - see carousel.css
-// Todo: get cardflip to work right onclick slide component
 export default function myCollection() {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   return (

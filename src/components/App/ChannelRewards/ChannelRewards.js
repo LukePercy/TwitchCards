@@ -116,7 +116,7 @@ function ChannelRewards() {
     // getRandomCard(); // Pick a random card to store in users collection
 
     if (response) {
-      ComfyJS.Say(user + ' unlocked a new' + randomCard.title + ' card!');
+      ComfyJS.Say(`${user} unlocked a new ${randomCard.title} card!`);
     }
   };
 

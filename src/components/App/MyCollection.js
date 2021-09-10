@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { slides } from './CardList';
 import ReactCardFlip from 'react-card-flip';
+
 
 function useTilt(active) {
   const ref = React.useRef(null);
@@ -140,7 +141,32 @@ function Slide({ slide, offset }) {
 // Render cards in slide - see carousel.css
 export default function myCollection() {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
-  return (
+
+  const [viewersCards, setViewersCards] = useState([])
+
+  const BASE_URL = 'http://localhost:3003/api/viewers';
+
+  useEffect(() => {
+    const getCardsViewer = async (userId = '425762901') => {
+      const response = await fetch(`${BASE_URL}/${userId}`);
+      const result = await response.json();
+      console.log('result :>> ', result);
+      const { data } = result;
+      console.log(`data`, data)
+      // If the viewer exists in db
+      // return true, otherwise false;
+      setViewersCards(data.holdingCards);
+    };
+    getCardsViewer()
+  }, [])
+
+  console.log(`viewersCards`, viewersCards)
+
+    // If HoldingAmount > 5 = show Worn image
+    // if HoldingAmount > 15 = show Mint image
+    // if HoldingAmount > 25 = show Foil Image
+
+    return (
     <div className='slides'>
       <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
       {[...slides, ...slides, ...slides].map((slide, i) => {

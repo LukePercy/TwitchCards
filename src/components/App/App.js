@@ -81,8 +81,8 @@ export default class App extends React.Component {
           <div
             className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}
           >
-            <ChannelRewards />
-            {/* <MyCollection /> */}
+            {/* <ChannelRewards /> */}
+            <MyCollection />
             {/* <p>I have {this.Authentication.hasSharedId() ? `shared my ID, and my user_id is ${this.Authentication.getUserId()}` : 'not shared my ID'}.</p> */}
           </div>
         </div>

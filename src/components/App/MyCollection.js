@@ -162,7 +162,7 @@ export default function myCollection() {
 
   console.log(`viewersCards`, viewersCards)
 
-    // If HoldingAmount > 5 = show Worn image
+    // If HoldingAmount >= 0 = show Worn image
     // if HoldingAmount > 15 = show Mint image
     // if HoldingAmount > 25 = show Foil Image
 

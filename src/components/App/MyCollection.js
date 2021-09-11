@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { slides } from './CardList';
 import ReactCardFlip from 'react-card-flip';
 
+const BASE_URL = 'http://localhost:3003/api/viewers';
 
 function useTilt(active) {
   const ref = React.useRef(null);
@@ -141,10 +142,7 @@ function Slide({ slide, offset }) {
 // Render cards in slide - see carousel.css
 export default function myCollection() {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
-
-  const [viewersCards, setViewersCards] = useState([])
-
-  const BASE_URL = 'http://localhost:3003/api/viewers';
+  const [viewersCards, setViewersCards] = useState([]);
 
   useEffect(() => {
     const getCardsViewer = async (userId = '425762901') => {
@@ -152,27 +150,65 @@ export default function myCollection() {
       const result = await response.json();
       console.log('result :>> ', result);
       const { data } = result;
-      console.log(`data`, data)
+      console.log(`data`, data);
       // If the viewer exists in db
       // return true, otherwise false;
       setViewersCards(data.holdingCards);
     };
-    getCardsViewer()
-  }, [])
+    getCardsViewer();
+  }, []);
 
-  console.log(`viewersCards`, viewersCards)
+  // Dealing with two things here:
+  //  - 1. Display the right cards that the viewer has
+  //  - 2. Display the right card type accordingly based on the holding amount of that card
+  //       - If 0 <= HoldingAmount < 15 ---> show Worn image
+  //       - If 15 <= HoldingAmount < 25 ---> show Mint image
+  //       - If HoldingAmount >= 25 ---> show Foil Image
 
-    // If HoldingAmount >= 0 = show Worn image
-    // if HoldingAmount > 15 = show Mint image
-    // if HoldingAmount > 25 = show Foil Image
+  // use map() to loop all cards
+  // that the viewer is holding
+  const cardsForDisplay = viewersCards.map((holdingCard) => {
+    // use find() to compare two card IDs
+    // then return the matched card object
+    const matchedCard = slides.find((card) => holdingCard.cardId === card.id);
 
-    return (
+    // Then update the card type for displaying
+    if (holdingCard.cardId === matchedCard.id) {
+      if (holdingCard.holdingAmount >= 0 && holdingCard.holdingAmount <= 15) {
+        return {
+          ...matchedCard,
+          rarity: 'Worn',
+        };
+      } else if (
+        holdingCard.holdingAmount > 15 &&
+        holdingCard.holdingAmount <= 25
+      ) {
+        return {
+          ...matchedCard,
+          rarity: 'Mint',
+        };
+      } else if (holdingCard.holdingAmount > 25) {
+        return {
+          ...matchedCard,
+          rarity: 'Foil',
+        };
+      } else {
+        throw new Error('Should not happen');
+      }
+    }
+
+    return matchedCard;
+  });
+
+  return (
     <div className='slides'>
       <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
-      {[...slides, ...slides, ...slides].map((slide, i) => {
-        let offset = slides.length + (state.slideIndex - i);
-        return <Slide slide={slide} offset={offset} key={i} />;
-      })}
+      {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
+        (slide, i) => {
+          let offset = slides.length + (state.slideIndex - i);
+          return <Slide slide={slide} offset={offset} key={i} />;
+        }
+      )}
       <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
     </div>
   );

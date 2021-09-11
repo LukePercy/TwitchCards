@@ -95,7 +95,7 @@ function Slide({ slide, offset }) {
 
     // return values
     return (
-      <div className="cardCount">{count}/{maxCount}</div>
+      <div className="cardCount">{count}</div>
     );
   }
 
@@ -123,12 +123,7 @@ function Slide({ slide, offset }) {
         infinite={false}
       >
         <div key='front' onClick={handleClick}>
-          <div
-            className='slideContent'
-            style={{
-              backgroundImage: `url('${slide.frontimage}')`,
-            }}
-          >
+          <div className='slideContent' style={{backgroundImage: `url('${slide.frontimage}')`,}}>
             <div>
               <GetCardCount/>
             </div>

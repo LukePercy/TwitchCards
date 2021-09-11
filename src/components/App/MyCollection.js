@@ -161,9 +161,9 @@ export default function myCollection() {
   // Dealing with two things here:
   //  - 1. Display the right cards that the viewer has
   //  - 2. Display the right card type accordingly based on the holding amount of that card
-  //       - If 0 <= HoldingAmount < 15 ---> show Worn image
-  //       - If 15 <= HoldingAmount < 25 ---> show Mint image
-  //       - If HoldingAmount >= 25 ---> show Foil Image
+  //       - If 0 <= HoldingAmount < 5 ---> show Worn image
+  //       - If 5 <= HoldingAmount < 15 ---> show Mint image
+  //       - If HoldingAmount >= 15 ---> show Foil Image
 
   // use map() to loop all cards
   // that the viewer is holding
@@ -174,26 +174,26 @@ export default function myCollection() {
 
     // Then update the card type for displaying
     if (holdingCard.cardId === matchedCard.id) {
-      if (holdingCard.holdingAmount >= 0 && holdingCard.holdingAmount <= 15) {
+      if (holdingCard.holdingAmount >= 0 && holdingCard.holdingAmount <= 5) {
         return {
           ...matchedCard,
           rarity: 'Worn',
         };
       } else if (
-        holdingCard.holdingAmount > 15 &&
-        holdingCard.holdingAmount <= 25
+        holdingCard.holdingAmount > 5 &&
+        holdingCard.holdingAmount <= 15
       ) {
         return {
           ...matchedCard,
           rarity: 'Mint',
         };
-      } else if (holdingCard.holdingAmount > 25) {
+      } else if (holdingCard.holdingAmount > 15) {
         return {
           ...matchedCard,
           rarity: 'Foil',
         };
       } else {
-        throw new Error('Should not happen');
+        throw new Error('Should not happen. Holding amount out of numbered ranges');
       }
     }
 

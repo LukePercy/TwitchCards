@@ -1,9 +1,9 @@
-import Bill from './cards/Bill-01.svg';
-import Miraqen from './cards/Miraqen_5.svg';
-import Baron from './cards/Byrem_2.svg';
-import TheDM from './cards/DM_2-01.svg';
-import Morely from './cards/Morely_2.svg';
-import CardBack from './cards/Card_Back-01.svg';
+import Bill from './cards/Bill-s1-worn.svg';
+import Miraqen from './cards/Miraqen-s1-worn.svg';
+import Baron from './cards/Byrem-s1-worn.svg';
+import TheDM from './cards/DM-s1-worn.svg';
+import Morely from './cards/Morely-s1-worn.svg';
+import CardBack from './cards/Card_Back-s1.svg';
 
 export const slides = [
 
@@ -18,7 +18,7 @@ export const slides = [
     },
     {
     id: 2,
-    title: 'Baron "The Baron" Byrem',
+    title: 'Byrem',
     subtitle: "Wizard Necromancer",
     description: "Leave no body behind",
     rarity: "Foil",

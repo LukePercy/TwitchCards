@@ -97,7 +97,7 @@ function Slide({ slide, offset }) {
     return (
       <div className="cardCount">{count}/{maxCount}</div>
     );
-}
+  }
 
   return (
     <div
@@ -128,7 +128,10 @@ function Slide({ slide, offset }) {
             style={{
               backgroundImage: `url('${slide.frontimage}')`,
             }}
-          ><div><GetCardCount/></div>
+          >
+            <div>
+              <GetCardCount/>
+            </div>
             <div className='slideContentInner'>
 
               {/* <h2 className='slideTitle'>{slide.title}</h2>
@@ -160,9 +163,7 @@ export default function myCollection() {
     const getCardsViewer = async (userId = '425762901') => {
       const response = await fetch(`${BASE_URL}/${userId}`);
       const result = await response.json();
-      console.log('result :>> ', result);
       const { data } = result;
-      console.log(`data`, data);
       // If the viewer exists in db
       // return true, otherwise false;
       setViewersCards(data.holdingCards);

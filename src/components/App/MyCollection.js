@@ -88,6 +88,17 @@ function Slide({ slide, offset }) {
     }
   }
 
+  function GetCardCount() {
+    // Mock card count for styling skeleton
+    let count = Math.floor(Math.random() * 26),
+        maxCount = 25;
+
+    // return values
+    return (
+      <div className="cardCount">{count}/{maxCount}</div>
+    );
+}
+
   return (
     <div
       ref={ref}
@@ -117,12 +128,13 @@ function Slide({ slide, offset }) {
             style={{
               backgroundImage: `url('${slide.frontimage}')`,
             }}
-          >
+          ><div><GetCardCount/></div>
             <div className='slideContentInner'>
+
               {/* <h2 className='slideTitle'>{slide.title}</h2>
               <h3 className='slideSubtitle'>{slide.subtitle}</h3>
               <p className='slideDescription'>{slide.description}</p> */}
-              <CardRarity />
+              <CardRarity/>
             </div>
           </div>
         </div>

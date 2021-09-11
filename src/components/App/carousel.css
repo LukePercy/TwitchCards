@@ -150,6 +150,15 @@
   color: grey;
 }
 
+.cardCount {
+  transform: translateZ(2rem);
+  transform-style: preserve-3d;
+  font-family: fantasy;
+  color: #fff;
+  font-size: 1.4rem;
+  padding-left: 80%;
+}
+
 .slideContentInner {
   padding-top: 90%;
   text-decoration-style: solid;

@@ -91,8 +91,6 @@ function Slide({ slide, offset }) {
   function GetCardCount() {
     // Mock card count for styling skeleton
     let count = Math.floor(Math.random() * 26),
-        maxCount = 25;
-
     // return values
     return (
       <div className="cardCount">{count}</div>

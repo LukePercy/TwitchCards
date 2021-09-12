@@ -12,7 +12,7 @@ function useViewersCards () {
   const [viewersCards, setViewersCards] = useState([]);
 
   useEffect(() => {
-    const getCardsViewer = async (userId = 'asd-fgh-hjkl') => {
+    const getCardsViewer = async (userId = '425762901') => {
       const response = await fetch(`${BASE_URL}/${userId}`);
       const result = await response.json();
       const { data } = result;
@@ -110,18 +110,17 @@ function Slide({ slide, offset }) {
   }
   
 //  Get the holdingAmount from viewers card WIP
-  // function GetCardCount() {
-  //   const viewersCards = useViewersCards();
-  //   const countForDisplay = viewersCards.map((holdingCard) => {
+  function GetCardCount({cardId}) {
+    const viewersCards = useViewersCards();
+    const countForDisplay = viewersCards.map((holdingCard) => {
       // use find() to compare two card IDs
       // then return the matched card object
-  //   const matchedCard = slides.find((card) => holdingCard.cardId === card.id);
-  //   if (holdingCard.id = matchedCard.id) {
-  //     return <div className="cardCount">{countForDisplay.holdingAmount}</div>
-  //   }
-  //   return matchedCard;
-  // });
-  // }
+    const matchedCard = slides.find((card) => card.id === cardId)
+    if (matchedCard.id === holdingCard.cardId) 
+      return <div className="cardCount">{holdingCard.holdingAmount}</div>
+    });
+    return countForDisplay
+  }
 
   return (
     <div
@@ -149,7 +148,7 @@ function Slide({ slide, offset }) {
         <div key='front' onClick={handleClick}>
           <div className='slideContent' style={{backgroundImage: `url('${slide.frontimage}')`,}}>
             <div>
-              {/* <GetCardCount /> */}
+              <GetCardCount cardId={slide.id}/>
             </div>
             <div className='slideContentInner'>
               {/* Not used right now 

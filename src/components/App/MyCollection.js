@@ -1,9 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { slides } from './CardList';
-import ReactCardFlip from 'react-card-flip';
+// Card info
+import { slides } from './CardList'; 
+// Flip card over to see back images
+import ReactCardFlip from 'react-card-flip'; 
 
-const BASE_URL = 'http://localhost:3003/api/viewers';
+// Database API. Stores twitch userID and their card collection data
+const BASE_URL = 'http://localhost:3003/api/viewers'; 
 
+// useViewersCards hook
+function useViewersCards () {
+  const [viewersCards, setViewersCards] = useState([]);
+
+  useEffect(() => {
+    const getCardsViewer = async (userId = 'asd-fgh-hjkl') => {
+      const response = await fetch(`${BASE_URL}/${userId}`);
+      const result = await response.json();
+      const { data } = result;
+      // If the viewer exists in db
+      // return true, otherwise false;
+      setViewersCards(data.holdingCards);
+    };
+    getCardsViewer();
+  }, []);
+  return viewersCards;
+}
+
+// Cards 3d effect tilting on mouseover
 function useTilt(active) {
   const ref = React.useRef(null);
 
@@ -49,7 +71,7 @@ function useTilt(active) {
 const initialState = {
   slideIndex: 0,
 };
-
+// Slide navigation
 const slidesReducer = (state, event) => {
   if (event.type === 'NEXT') {
     return {
@@ -65,7 +87,7 @@ const slidesReducer = (state, event) => {
     };
   }
 };
-
+// Slide content
 function Slide({ slide, offset }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClick = (e) => {
@@ -75,9 +97,8 @@ function Slide({ slide, offset }) {
   const active = offset === 0 ? true : null;
   const ref = useTilt(active);
 
-  // Function to determine how different card rarities display
-  // This will be changed to be based off Backend card.holdingAmount
-  function CardRarity() {
+  // Determine how different card rarities display between Worn, Mint and Foil
+   function CardRarity() {
     let rarity = slide.rarity;
     if (rarity == 'Mint') {
       return <h4 className='slideRarityMint'>{slide.rarity}</h4>;
@@ -87,15 +108,20 @@ function Slide({ slide, offset }) {
       return <h4 className='slideRarityWorn'>{slide.rarity}</h4>;
     }
   }
-
-  function GetCardCount() {
-    // Mock card count for styling skeleton
-    let count = Math.floor(Math.random() * 26),
-    // return values
-    return (
-      <div className="cardCount">{count}</div>
-    );
-  }
+  
+//  Get the holdingAmount from viewers card
+  // function GetCardCount() {
+  //   const viewersCards = useViewersCards();
+  //   const countForDisplay = viewersCards.map((holdingCard) => {
+      // use find() to compare two card IDs
+      // then return the matched card object
+  //   const matchedCard = slides.find((card) => holdingCard.cardId === card.id);
+  //   if (holdingCard.id = matchedCard.id) {
+  //     return <div className="cardCount">{countForDisplay.holdingAmount}</div>
+  //   }
+  //   return matchedCard;
+  // });
+  // }
 
   return (
     <div
@@ -123,14 +149,14 @@ function Slide({ slide, offset }) {
         <div key='front' onClick={handleClick}>
           <div className='slideContent' style={{backgroundImage: `url('${slide.frontimage}')`,}}>
             <div>
-              <GetCardCount/>
+              {/* <GetCardCount /> */}
             </div>
             <div className='slideContentInner'>
-
-              {/* <h2 className='slideTitle'>{slide.title}</h2>
+              {/* Not used right now 
+              <h2 className='slideTitle'>{slide.title}</h2>
               <h3 className='slideSubtitle'>{slide.subtitle}</h3>
               <p className='slideDescription'>{slide.description}</p> */}
-              <CardRarity/>
+              {/* <CardRarity/> */}
             </div>
           </div>
         </div>
@@ -150,19 +176,20 @@ function Slide({ slide, offset }) {
 // Render cards in slide - see carousel.css
 export default function myCollection() {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
-  const [viewersCards, setViewersCards] = useState([]);
+  const viewersCards = useViewersCards();
+  // const [viewersCards, setViewersCards] = useState([]);
 
-  useEffect(() => {
-    const getCardsViewer = async (userId = '425762901') => {
-      const response = await fetch(`${BASE_URL}/${userId}`);
-      const result = await response.json();
-      const { data } = result;
-      // If the viewer exists in db
-      // return true, otherwise false;
-      setViewersCards(data.holdingCards);
-    };
-    getCardsViewer();
-  }, []);
+  // useEffect(() => {
+  //   const getCardsViewer = async (userId = '425762901') => {
+  //     const response = await fetch(`${BASE_URL}/${userId}`);
+  //     const result = await response.json();
+  //     const { data } = result;
+  //     // If the viewer exists in db
+  //     // return true, otherwise false;
+  //     setViewersCards(data.holdingCards);
+  //   };
+  //   getCardsViewer();
+  // }, []);
 
   // Dealing with two things here:
   //  - 1. Display the right cards that the viewer has

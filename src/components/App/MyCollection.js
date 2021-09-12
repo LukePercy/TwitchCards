@@ -109,7 +109,7 @@ function Slide({ slide, offset }) {
     }
   }
   
-//  Get the holdingAmount from viewers card
+//  Get the holdingAmount from viewers card WIP
   // function GetCardCount() {
   //   const viewersCards = useViewersCards();
   //   const countForDisplay = viewersCards.map((holdingCard) => {
@@ -177,6 +177,7 @@ function Slide({ slide, offset }) {
 export default function myCollection() {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const viewersCards = useViewersCards();
+  // Moved below to useViewerCards hook
   // const [viewersCards, setViewersCards] = useState([]);
 
   // useEffect(() => {

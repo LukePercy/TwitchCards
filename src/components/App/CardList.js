@@ -3,16 +3,27 @@ import Miraqen from './cards/Miraqen-s1-worn.svg';
 import Baron from './cards/Byrem-s1-worn.svg';
 import TheDM from './cards/DM-s1-worn.svg';
 import Morely from './cards/Morely-s1-worn.svg';
+// change these to dynamic imports later
+import BillMint from './cards/Bill-s1-mint.svg';
+import MiraqenMint from './cards/Miraqen-s1-mint.svg';
+import BaronMint from './cards/Byrem-s1-mint.svg';
+import TheDMMint from './cards/DM-s1-mint.svg';
+import MorelyMint from './cards/Morely-s1-mint.svg';
+import BillFoil from './cards/Bill-s1-foil.svg';
+import MiraqenFoil from './cards/Miraqen-s1-foil.svg';
+import BaronFoil from './cards/Byrem-s1-foil.svg';
+import TheDMFoil from './cards/DM-s1-foil.svg';
+import MorelyFoil from './cards/Morely-s1-foil.svg';
 import CardBack from './cards/Card_Back-s1.svg';
 
 export const slides = [
 
     {
-    id: 1, //unique id Not yet used - may need for checking if card already exists in users collection
+    id: 1, 
     title: "Miraqen",
     subtitle: "The Druid",
     description: "Adventure is never far away",
-    rarity: "Worn",    //Rarity not yet used but we may want to use this to change something or display
+    rarity: "Worn",
     frontimage: Miraqen,
     backimage: CardBack
     },
@@ -21,7 +32,7 @@ export const slides = [
     title: 'Byrem',
     subtitle: "Wizard Necromancer",
     description: "Leave no body behind",
-    rarity: "Foil",
+    rarity: "Worn",
     frontimage: Baron,
     backimage: CardBack
     },
@@ -39,7 +50,7 @@ export const slides = [
     title: "Bill",
     subtitle: "Bard",
     description: "...and my Lute!",
-    rarity: "Mint",
+    rarity: "Worn",
     frontimage: Bill,
     backimage: CardBack
     },
@@ -48,7 +59,7 @@ export const slides = [
     title: "The DM",
     subtitle: "The DM",
     description: "It's Get...Getting Dicey!",
-    rarity: "Foil",
+    rarity: "Worn",
     frontimage: TheDM,
     backimage: CardBack
     }

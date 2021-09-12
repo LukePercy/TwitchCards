@@ -82,11 +82,6 @@ function ChannelRewards() {
 
   ComfyJS.Init(channel, twitchAuth);
 
-  // function getRandomCard() {
-  //   console.log('this is called');
-  //   return randomCard;
-  // }
-
   ComfyJS.onReward = async (user, reward, cost, message, extra) => {
     console.log('extra :>> ', extra);
     console.log(user + ' redeemed ' + reward + ' for ' + cost);

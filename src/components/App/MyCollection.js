@@ -10,18 +10,21 @@ const BASE_URL = 'http://localhost:3003/api/viewers';
 // useViewersCards hook
 function useViewersCards () {
   const [viewersCards, setViewersCards] = useState([]);
-
   useEffect(() => {
-    const getCardsViewer = async (userId = '425762901') => {
-      const response = await fetch(`${BASE_URL}/${userId}`);
+    const getCardsViewer = async (viewerId) => {
+      const response = await fetch(`${BASE_URL}/${viewerId}`);
       const result = await response.json();
       const { data } = result;
-      // If the viewer exists in db
-      // return true, otherwise false;
-      setViewersCards(data.holdingCards);
+      if (data) {
+        // If the viewer exists in db
+        // return true, otherwise false;
+        setViewersCards(data.holdingCards);
+      } else {
+        setViewersCards([]);
+      }
     };
-    getCardsViewer();
-  }, []);
+    getCardsViewer(viewerId);
+  }, [viewerId]);
   return viewersCards;
 }
 
@@ -173,24 +176,9 @@ function Slide({ slide, offset }) {
 }
 
 // Render cards in slide - see carousel.css
-export default function myCollection() {
+export default function myCollection({ viewerId }) {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const viewersCards = useViewersCards();
-  // Moved below to useViewerCards hook
-  // const [viewersCards, setViewersCards] = useState([]);
-
-  // useEffect(() => {
-  //   const getCardsViewer = async (userId = '425762901') => {
-  //     const response = await fetch(`${BASE_URL}/${userId}`);
-  //     const result = await response.json();
-  //     const { data } = result;
-  //     // If the viewer exists in db
-  //     // return true, otherwise false;
-  //     setViewersCards(data.holdingCards);
-  //   };
-  //   getCardsViewer();
-  // }, []);
-
   // Dealing with two things here:
   //  - 1. Display the right cards that the viewer has
   //  - 2. Display the right card type accordingly based on the holding amount of that card
@@ -235,14 +223,29 @@ export default function myCollection() {
 
   return (
     <div className='slides'>
-      <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
-      {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
-        (slide, i) => {
-          let offset = slides.length + (state.slideIndex - i);
-          return <Slide slide={slide} offset={offset} key={i} />;
-        }
+      {cardsForDisplay.length ? (
+        <>
+          <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
+          {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
+            (slide, i) => {
+              let offset = slides.length + (state.slideIndex - i);
+              return <Slide slide={slide} offset={offset} key={i} />;
+            }
+          )}
+          <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
+        </>
+      ) : (
+        <>
+          <div key='back'>
+            <div
+              className='slideContent'
+              style={{
+                backgroundImage: `url('${slides[0].backimage}')`,
+              }}
+            ></div>
+          </div>
+        </>
       )}
-      <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
     </div>
   );
 }

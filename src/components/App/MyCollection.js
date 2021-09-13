@@ -115,7 +115,6 @@ function Slide({ viewerId, slide, offset }) {
   //  Get the holdingAmount from viewers card WIP
   function GetCardCount({ cardId }) {
     const viewersCards = useViewersCards(viewerId);
-    console.log('viewersCards :>> ', viewersCards);
     const countForDisplay = viewersCards.map((holdingCard) => {
       // use find() to compare two card IDs
       // then return the matched card object
@@ -207,6 +206,7 @@ export default function myCollection({ viewerId }) {
         return {
           ...matchedCard,
           rarity: 'Worn',
+          frontimage: `/cards/${matchedCard.title}-s1-worn.svg`
         };
       } else if (
         holdingCard.holdingAmount > 5 &&
@@ -215,11 +215,13 @@ export default function myCollection({ viewerId }) {
         return {
           ...matchedCard,
           rarity: 'Mint',
+          frontimage: `/cards/${matchedCard.title}-s1-mint.svg`
         };
       } else if (holdingCard.holdingAmount > 15) {
         return {
           ...matchedCard,
           rarity: 'Foil',
+          frontimage: `/cards/${matchedCard.title}-s1-foil.svg`
         };
       } else {
         throw new Error(
@@ -227,7 +229,6 @@ export default function myCollection({ viewerId }) {
         );
       }
     }
-
     return matchedCard;
   });
 

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 // Card info
-import { slides } from './CardList'; 
+import { slides } from './CardList';
 // Flip card over to see back images
-import ReactCardFlip from 'react-card-flip'; 
+import ReactCardFlip from 'react-card-flip';
 
 // Database API. Stores twitch userID and their card collection data
-const BASE_URL = 'http://localhost:3003/api/viewers'; 
+const BASE_URL = 'http://localhost:3003/api/viewers';
 
 // useViewersCards hook
-function useViewersCards () {
+function useViewersCards(viewerId) {
   const [viewersCards, setViewersCards] = useState([]);
   useEffect(() => {
     const getCardsViewer = async (viewerId) => {
@@ -91,7 +91,7 @@ const slidesReducer = (state, event) => {
   }
 };
 // Slide content
-function Slide({ slide, offset }) {
+function Slide({ viewerId, slide, offset }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
@@ -101,7 +101,7 @@ function Slide({ slide, offset }) {
   const ref = useTilt(active);
 
   // Determine how different card rarities display between Worn, Mint and Foil
-   function CardRarity() {
+  function CardRarity() {
     let rarity = slide.rarity;
     if (rarity == 'Mint') {
       return <h4 className='slideRarityMint'>{slide.rarity}</h4>;
@@ -111,18 +111,23 @@ function Slide({ slide, offset }) {
       return <h4 className='slideRarityWorn'>{slide.rarity}</h4>;
     }
   }
-  
-//  Get the holdingAmount from viewers card WIP
-  function GetCardCount({cardId}) {
-    const viewersCards = useViewersCards();
+
+  //  Get the holdingAmount from viewers card WIP
+  function GetCardCount({ cardId }) {
+    const viewersCards = useViewersCards(viewerId);
+    console.log('viewersCards :>> ', viewersCards);
     const countForDisplay = viewersCards.map((holdingCard) => {
       // use find() to compare two card IDs
       // then return the matched card object
-    const matchedCard = slides.find((card) => card.id === cardId)
-    if (matchedCard.id === holdingCard.cardId) 
-      return <div className="cardCount">{holdingCard.holdingAmount}</div>
+      const matchedCard = slides.find((card) => card.id === cardId);
+      if (matchedCard.id === holdingCard.cardId)
+        return (
+          <div key={matchedCard.id} className='cardCount'>
+            {holdingCard.holdingAmount}
+          </div>
+        );
     });
-    return countForDisplay
+    return countForDisplay;
   }
 
   return (
@@ -149,12 +154,15 @@ function Slide({ slide, offset }) {
         infinite={false}
       >
         <div key='front' onClick={handleClick}>
-          <div className='slideContent' style={{backgroundImage: `url('${slide.frontimage}')`,}}>
+          <div
+            className='slideContent'
+            style={{ backgroundImage: `url('${slide.frontimage}')` }}
+          >
             <div>
-              <GetCardCount cardId={slide.id}/>
+              <GetCardCount cardId={slide.id} />
             </div>
             <div className='slideContentInner'>
-              {/* Not used right now 
+              {/* Not used right now
               <h2 className='slideTitle'>{slide.title}</h2>
               <h3 className='slideSubtitle'>{slide.subtitle}</h3>
               <p className='slideDescription'>{slide.description}</p> */}
@@ -178,7 +186,7 @@ function Slide({ slide, offset }) {
 // Render cards in slide - see carousel.css
 export default function myCollection({ viewerId }) {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
-  const viewersCards = useViewersCards();
+  const viewersCards = useViewersCards(viewerId);
   // Dealing with two things here:
   //  - 1. Display the right cards that the viewer has
   //  - 2. Display the right card type accordingly based on the holding amount of that card
@@ -214,7 +222,9 @@ export default function myCollection({ viewerId }) {
           rarity: 'Foil',
         };
       } else {
-        throw new Error('Should not happen. Holding amount out of numbered ranges');
+        throw new Error(
+          'Should not happen. Holding amount out of numbered ranges'
+        );
       }
     }
 
@@ -229,7 +239,14 @@ export default function myCollection({ viewerId }) {
           {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
             (slide, i) => {
               let offset = slides.length + (state.slideIndex - i);
-              return <Slide slide={slide} offset={offset} key={i} />;
+              return (
+                <Slide
+                  viewerId={viewerId}
+                  slide={slide}
+                  offset={offset}
+                  key={i}
+                />
+              );
             }
           )}
           <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>

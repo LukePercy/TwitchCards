@@ -1,7 +1,7 @@
 {
   "allowHttpBackend": false,
-  "backendCommand": "",
-  "backendFolderName": "",
+  "backendCommand": "npm start",
+  "backendFolderName": "F:\\dev\\www\\html\\GDDeck\\backend",
   "certificateExceptions": [
     {
       "isAllowed": true,
@@ -30,31 +30,9 @@
         "width": 1280,
         "height": 720
       },
-      "id": "2",
+      "id": "1",
       "isPopout": false,
-      "label": "Viewer",
-      "linked": false,
-      "linkedUserId": "",
-      "orientation": "Portrait",
-      "type": "panel",
-      "viewerType": "Broadcaster"
-    },
-    {
-      "channelId": "425762901",
-      "configurationAnchor": "panel",
-      "displayChannelName": "randomorigins",
-      "features": {
-        "isBitsEnabled": false,
-        "isChatEnabled": true,
-        "isSubscriptionStatusAvailable": false
-      },
-      "frameSize": {
-        "width": 1280,
-        "height": 720
-      },
-      "id": "3",
-      "isPopout": false,
-      "label": "Viewer",
+      "label": "Me",
       "linked": false,
       "linkedUserId": "",
       "orientation": "Portrait",
@@ -72,7 +50,7 @@
     "configurationLocation": "none",
     "description": "Getting Dicey collectable trading cards.",
     "eulaTosUrl": "",
-    "hasChatSupport": false,
+    "hasChatSupport": true,
     "iconUrl": "",
     "iconUrls": {},
     "id": "42xd9tib4hce93bavmhmseapyp7fwj",
@@ -110,7 +88,7 @@
     "whitelistedConfigUrls": [],
     "whitelistedPanelUrls": []
   },
-  "frontendCommand": "",
+  "frontendCommand": "npm start",
   "frontendFolderName": "public",
   "name": "DiceyDeck",
   "usingRandomFrontendHostingPort": false,

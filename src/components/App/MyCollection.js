@@ -3,11 +3,27 @@ import React, { useEffect, useState } from 'react';
 import { slides } from './CardList';
 // Flip card over to see back images
 import ReactCardFlip from 'react-card-flip';
+//cards
+import BillWorn from './cards/Bill-s1-worn.svg';
+import MiraqenWorn from './cards/Miraqen-s1-worn.svg';
+import BaronWorn from './cards/Byrem-s1-worn.svg';
+import DMWorn from './cards/DM-s1-worn.svg';
+import MorelyWorn from './cards/Morely-s1-worn.svg';
+import BillMint from './cards/Bill-s1-mint.svg';
+import MiraqenMint from './cards/Miraqen-s1-mint.svg';
+import BaronMint from './cards/Byrem-s1-mint.svg';
+import DMMint from './cards/DM-s1-mint.svg';
+import MorelyMint from './cards/Morely-s1-mint.svg';
+import BillFoil from './cards/Bill-s1-foil.svg';
+import MiraqenFoil from './cards/Miraqen-s1-foil.svg';
+import BaronFoil from './cards/Byrem-s1-foil.svg';
+import DMFoil from './cards/DM-s1-foil.svg';
+import MorelyFoil from './cards/Morely-s1-foil.svg';
 
 // Database API. Stores twitch userID and their card collection data
 const BASE_URL = 'http://localhost:3003/api/viewers';
 
-// useViewersCards hook
+// useViewersCards hook. Get which cards are held by the viewer, passing in viewerId
 function useViewersCards(viewerId) {
   const [viewersCards, setViewersCards] = useState([]);
   useEffect(() => {
@@ -74,7 +90,7 @@ function useTilt(active) {
 const initialState = {
   slideIndex: 0,
 };
-// Slide navigation
+// Slide navigation to view collection of cards
 const slidesReducer = (state, event) => {
   if (event.type === 'NEXT') {
     return {
@@ -90,7 +106,7 @@ const slidesReducer = (state, event) => {
     };
   }
 };
-// Slide content
+// Slide content. Includes card image and flip behavior.
 function Slide({ viewerId, slide, offset }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClick = (e) => {
@@ -101,18 +117,19 @@ function Slide({ viewerId, slide, offset }) {
   const ref = useTilt(active);
 
   // Determine how different card rarities display between Worn, Mint and Foil
-  function CardRarity() {
-    let rarity = slide.rarity;
-    if (rarity == 'Mint') {
-      return <h4 className='slideRarityMint'>{slide.rarity}</h4>;
-    } else if (rarity == 'Foil') {
-      return <h4 className='slideRarityFoil shine'>{slide.rarity}</h4>;
-    } else {
-      return <h4 className='slideRarityWorn'>{slide.rarity}</h4>;
-    }
-  }
+  // Not used in v1
+  // function CardRarity() {
+  //   let rarity = slide.rarity;
+  //   if (rarity == 'Mint') {
+  //     return <h4 className='slideRarityMint'>{slide.rarity}</h4>;
+  //   } else if (rarity == 'Foil') {
+  //     return <h4 className='slideRarityFoil shine'>{slide.rarity}</h4>;
+  //   } else {
+  //     return <h4 className='slideRarityWorn'>{slide.rarity}</h4>;
+  //   }
+  // }
 
-  //  Get the holdingAmount from viewers card WIP
+  //  Get the holdingAmount from viewers card and display total count over the card
   function GetCardCount({ cardId }) {
     const viewersCards = useViewersCards(viewerId);
     const countForDisplay = viewersCards.map((holdingCard) => {
@@ -128,7 +145,7 @@ function Slide({ viewerId, slide, offset }) {
     });
     return countForDisplay;
   }
-
+  // Return the display of the card and its Flipped state
   return (
     <div
       ref={ref}
@@ -161,7 +178,7 @@ function Slide({ viewerId, slide, offset }) {
               <GetCardCount cardId={slide.id} />
             </div>
             <div className='slideContentInner'>
-              {/* Not used right now
+              {/* Not used right now. But we can show other text properties on cards too
               <h2 className='slideTitle'>{slide.title}</h2>
               <h3 className='slideSubtitle'>{slide.subtitle}</h3>
               <p className='slideDescription'>{slide.description}</p> */}
@@ -186,6 +203,71 @@ function Slide({ viewerId, slide, offset }) {
 export default function myCollection({ viewerId }) {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const viewersCards = useViewersCards(viewerId);
+
+// awfulness becuase strings are stupid
+  function displayCardType(title, type) {
+    if ( title === 'Miraqen' ) {
+      switch (type) {
+        case 'Worn':
+          return MiraqenWorn
+        case 'Mint':
+          return MiraqenMint
+        case 'Foil':
+          return MiraqenFoil
+  
+        default:
+        break;
+      }
+    } else if (title === 'Bill') {
+      switch (type) {
+        case 'Worn':
+          return BillWorn
+        case 'Mint':
+          return BillMint
+        case 'Foil':
+          return BillFoil
+
+        default:
+        break;
+    } 
+  } else if (title === 'Baron') {
+    switch (type) {
+      case 'Worn':
+        return BaronWorn
+      case 'Mint':
+        return BaronMint
+      case 'Foil':
+        return BaronFoil
+
+      default:
+      break;
+    }
+  } else if (title === 'DM') {
+    switch (type) {
+      case 'Worn':
+        return DMWorn
+      case 'Mint':
+        return DMMint
+      case 'Foil':
+        return DMFoil
+
+      default:
+      break;
+    }
+  } else {
+    switch (type) {
+      case 'Worn':
+        return MorelyWorn
+      case 'Mint':
+        return MorelyMint
+      case 'Foil':
+        return MorelyFoil
+
+      default:
+      break;
+    }
+  }
+}
   // Dealing with two things here:
   //  - 1. Display the right cards that the viewer has
   //  - 2. Display the right card type accordingly based on the holding amount of that card
@@ -205,8 +287,8 @@ export default function myCollection({ viewerId }) {
       if (holdingCard.holdingAmount >= 0 && holdingCard.holdingAmount <= 5) {
         return {
           ...matchedCard,
-          rarity: 'Worn',
-          frontimage: `/cards/${matchedCard.title}-s1-worn.svg`
+          rarity: 'Worn', // we dont use this yet. Its used to drive CardRarity() display component.
+          frontimage: displayCardType(matchedCard.title,'Worn')
         };
       } else if (
         holdingCard.holdingAmount > 5 &&
@@ -215,23 +297,24 @@ export default function myCollection({ viewerId }) {
         return {
           ...matchedCard,
           rarity: 'Mint',
-          frontimage: `/cards/${matchedCard.title}-s1-mint.svg`
+          frontimage: displayCardType(matchedCard.title,'Mint') //Mint card image
         };
       } else if (holdingCard.holdingAmount > 15) {
         return {
           ...matchedCard,
           rarity: 'Foil',
-          frontimage: `/cards/${matchedCard.title}-s1-foil.svg`
+          frontimage: displayCardType(matchedCard.title,'Foil') //Foil card image
         };
       } else {
         throw new Error(
-          'Should not happen. Holding amount out of numbered ranges'
+          'Should not happen. Holding amount out of numbered ranges' // if our ranges set fail, throw error
         );
       }
     }
     return matchedCard;
   });
 
+  // render collection if cards exist, if not show just a back card.
   return (
     <div className='slides'>
       {cardsForDisplay.length ? (

@@ -1,9 +1,3 @@
-import Bill from './cards/Bill-s1-worn.svg';
-import Miraqen from './cards/Miraqen-s1-worn.svg';
-import Baron from './cards/Byrem-s1-worn.svg';
-import TheDM from './cards/DM-s1-worn.svg';
-import Morely from './cards/Morely-s1-worn.svg';
-// change these to dynamic imports later
 import CardBack from './cards/Card_Back-s1.svg';
 
 export const slides = [
@@ -13,8 +7,8 @@ export const slides = [
     title: 'Miraqen',
     subtitle: "The Druid",
     description: "Adventure is never far away",
-    rarity: ``,
-    frontimage: '',
+    rarity: '',
+    frontimage: null,
     backimage: CardBack
     },
     {
@@ -22,8 +16,8 @@ export const slides = [
     title: 'Byrem',
     subtitle: "Wizard Necromancer",
     description: "Leave no body behind",
-    rarity: ``,
-    frontimage: ``,
+    rarity: '',
+    frontimage: null,
     backimage: CardBack
     },
     {
@@ -31,8 +25,8 @@ export const slides = [
     title: 'Morely',
     subtitle: "Rogue",
     description: "Run away!",
-    rarity: ``,
-    frontimage: ``,
+    rarity: '',
+    frontimage: null,
     backimage: CardBack
     },
     {
@@ -40,8 +34,8 @@ export const slides = [
     title: 'Bill',
     subtitle: "Bard",
     description: "...and my Lute!",
-    rarity: ``,
-    frontimage: ``,
+    rarity: '',
+    frontimage: null,
     backimage: CardBack
     },
     {
@@ -49,8 +43,8 @@ export const slides = [
     title: 'DM',
     subtitle: "The DM",
     description: "It's Get...Getting Dicey!",
-    rarity: ``,
-    frontimage: ``,
+    rarity: '',
+    frontimage: null,
     backimage: CardBack
     }
 ]

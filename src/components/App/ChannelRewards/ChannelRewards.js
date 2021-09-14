@@ -123,8 +123,8 @@ function ChannelRewards() {
   // TODO: may need credentials to test it.
   const createChannelRewardsPoint = async () => {
     let customReward = await ComfyJS.CreateChannelReward(clientId, {
-      title: 'Unlock a card test',
-      prompt: 'Whoop',
+      title: 'Unlock Trading Cards test',
+      prompt: 'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
       cost: 1,
       is_enabled: true,
       background_color: '#00E5CB',

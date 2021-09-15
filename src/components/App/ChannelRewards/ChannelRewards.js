@@ -2,13 +2,13 @@ import React from 'react';
 import ComfyJS from 'comfy.js';
 import { slides } from '../CardList';
 
-const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const UPDATEAMOUNT = 1;
 
 function ChannelRewards() {
-  const channel = 'gettingdicey'; //make .env when figure it out
-  const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
-  const twitchAuth = '5nuj572wexnwxvt1q7fsjx79q01xy8'; //make .env when figure it out
+  const channel = process.env.REACT_APP_TWITCHUSER; //make .env when figure it out
+  const clientId = process.env.REACT_APP_CLIENTID; //make .env when figure it out
+  const twitchAuth = process.env.REACT_APP_OAUTH; //make .env when figure it out
   const randomCard = slides[Math.floor(Math.random() * slides.length)];
 
   const getCardsViewer = async (userId) => {

@@ -21,7 +21,7 @@ import DMFoil from './cards/DM-s1-foil.svg';
 import MorelyFoil from './cards/Morely-s1-foil.svg';
 
 // Database API. Stores twitch userID and their card collection data
-const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 // useViewersCards hook. Get which cards are held by the viewer, passing in viewerId
 function useViewersCards(viewerId) {

@@ -2,7 +2,7 @@
   "name": "react-frontend",
   "version": "1.0.0",
   "engines": {
-    "node": "14.x"
+    "node": "14.17.5"
   },
   "description": "",
   "main": "index.js",

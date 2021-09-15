@@ -2,7 +2,7 @@ import React from 'react';
 import ComfyJS from 'comfy.js';
 import { slides } from '../CardList';
 
-const BASE_URL = 'http://localhost:3003/api/viewers';
+const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 const UPDATEAMOUNT = 1;
 
 function ChannelRewards() {
@@ -74,16 +74,15 @@ function ChannelRewards() {
 
     return success;
   };
-
-  ComfyJS.onChat = (user, message, flags, self, extra) => {
-    console.log('extra :>> ', extra);
-    console.log(user + ':', message);
-  };
+  // On chat API - not used
+  // ComfyJS.onChat = (user, message, flags, self, extra) => {
+  //   console.log('extra :>> ', extra);
+  //   console.log(user + ':', message);
+  // };
 
   ComfyJS.Init(channel, twitchAuth);
 
   ComfyJS.onReward = async (user, reward, cost, message, extra) => {
-    console.log('extra :>> ', extra);
     console.log(user + ' redeemed ' + reward + ' for ' + cost);
     const { rewardFulfilled, userId, username } = extra;
 
@@ -115,10 +114,10 @@ function ChannelRewards() {
     }
   };
 
-  function getReward() {
-    const channelRewards = ComfyJS.GetChannelRewards(clientId, true);
-    console.log(channelRewards);
-  }
+  // function getReward() {
+  //   const channelRewards = ComfyJS.GetChannelRewards(clientId, true);
+  //   console.log(channelRewards);
+  // }
 
   // TODO: may need credentials to test it.
   const createChannelRewardsPoint = async () => {
@@ -140,44 +139,44 @@ function ChannelRewards() {
     console.log('customReward :>> ', customReward);
   };
 
-  const randCard = {
-    backimage: 'img/Card_Back-01.svg',
-    description: "It's Get...Getting Dicey!",
-    frontimage: 'img/DM_2-01.svg',
-    id: 5,
-    rarity: 'Foil',
-    subtitle: 'The DM',
-    title: 'The DM',
-  };
+  // const randCard = {
+  //   backimage: 'img/Card_Back-01.svg',
+  //   description: "It's Get...Getting Dicey!",
+  //   frontimage: 'img/DM_2-01.svg',
+  //   id: 5,
+  //   rarity: 'Foil',
+  //   subtitle: 'The DM',
+  //   title: 'The DM',
+  // };
 
-  const updateNewCard = {
-    backimage: 'img/Card_Back-01.svg',
-    description: 'Run away!',
-    frontimage: 'img/Morely_2.svg',
-    id: 3,
-    rarity: 'Worn',
-    subtitle: 'Rogue',
-    title: 'Cptn. Morely',
-  };
+  // const updateNewCard = {
+  //   backimage: 'img/Card_Back-01.svg',
+  //   description: 'Run away!',
+  //   frontimage: 'img/Morely_2.svg',
+  //   id: 3,
+  //   rarity: 'Worn',
+  //   subtitle: 'Rogue',
+  //   title: 'Cptn. Morely',
+  // };
 
-  const updateExistingCard = {
-    backimage: 'img/Card_Back-01.svg',
-    description: 'Run away!',
-    frontimage: 'img/Morely_2.svg',
-    id: 3,
-    rarity: 'Worn',
-    subtitle: 'Rogue',
-    title: 'Cptn. Morely',
-  };
+  // const updateExistingCard = {
+  //   backimage: 'img/Card_Back-01.svg',
+  //   description: 'Run away!',
+  //   frontimage: 'img/Morely_2.svg',
+  //   id: 3,
+  //   rarity: 'Worn',
+  //   subtitle: 'Rogue',
+  //   title: 'Cptn. Morely',
+  // };
 
   // return testing view w/ buttons
   return (
     <div>
-      <button onClick={createChannelRewardsPoint}>Create Reward Info</button>
-      <br />
+      {/* <button onClick={createChannelRewardsPoint}>Create Reward Info</button>
+      <br /> */}
       {/* <button onClick={removeReward}>Remove Reward</button>
       <br /> */}
-      <button onClick={getReward}>Get Reward info</button>
+      {/* <button onClick={getReward}>Get Reward info</button>
       <br />
       <button
         onClick={() =>
@@ -201,7 +200,7 @@ function ChannelRewards() {
         }
       >
         Update a viewer with an existing card
-      </button>
+      </button> */}
     </div>
   );
 }

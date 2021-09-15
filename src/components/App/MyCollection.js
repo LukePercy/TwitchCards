@@ -21,7 +21,7 @@ import DMFoil from './cards/DM-s1-foil.svg';
 import MorelyFoil from './cards/Morely-s1-foil.svg';
 
 // Database API. Stores twitch userID and their card collection data
-const BASE_URL = 'http://localhost:3003/api/viewers';
+const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 
 // useViewersCards hook. Get which cards are held by the viewer, passing in viewerId
 function useViewersCards(viewerId) {
@@ -205,6 +205,7 @@ export default function myCollection({ viewerId }) {
   const viewersCards = useViewersCards(viewerId);
 
 // awfulness becuase strings are stupid
+// matchedcard.title from cardslist title 
   function displayCardType(title, type) {
     if ( title === 'Miraqen' ) {
       switch (type) {

@@ -36,9 +36,9 @@
 }
 
 .slideContent {
-  width: 70vh;
+  width: 70vw;
   height: 100vh;
-  background-size: cover;
+  background-size: 95% 95%;
   background-position: center center;
   background-repeat: no-repeat;
   transition: transform 0.5s ease-in-out;

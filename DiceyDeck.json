@@ -1,6 +1,6 @@
 {
   "allowHttpBackend": false,
-  "backendCommand": "npm start",
+  "backendCommand": "npm run dev",
   "backendFolderName": "F:\\dev\\www\\html\\GDDeck\\backend",
   "certificateExceptions": [
     {
@@ -32,34 +32,12 @@
       },
       "id": "1",
       "isPopout": false,
-      "label": "Me",
+      "label": "me",
       "linked": false,
       "linkedUserId": "",
       "orientation": "Portrait",
       "type": "panel",
       "viewerType": "Broadcaster"
-    },
-    {
-      "channelId": "425762901",
-      "configurationAnchor": "panel",
-      "displayChannelName": "randomorigins",
-      "features": {
-        "isBitsEnabled": false,
-        "isChatEnabled": true,
-        "isSubscriptionStatusAvailable": false
-      },
-      "frameSize": {
-        "width": 1280,
-        "height": 720
-      },
-      "id": "2",
-      "isPopout": false,
-      "label": "Logged in viewer",
-      "linked": false,
-      "linkedUserId": "",
-      "orientation": "Portrait",
-      "type": "panel",
-      "viewerType": "Logged-In Viewer"
     }
   ],
   "manifest": {
@@ -79,7 +57,7 @@
     "installationCount": -42,
     "liveConfigUrl": "",
     "name": "DiceyDeck",
-    "panelHeight": 300,
+    "panelHeight": 325,
     "privacyPolicyUrl": "",
     "requestIdentityLink": true,
     "requiredBroadcasterAbilities": [],
@@ -99,7 +77,7 @@
     "views": {
       "panel": {
         "viewerUrl": "https://localhost:8080/panel.html",
-        "height": 300,
+        "height": 325,
         "canLinkExternalContent": false
       },
       "config": {

@@ -94,7 +94,7 @@ export default class App extends React.Component {
     } else {
       return (
         <div className='App'>
-          <p>Log into twitch to collect GD Cards</p>
+          <p>Grant permissions below to start collecting trading cards!</p>
         </div>
       );
     }

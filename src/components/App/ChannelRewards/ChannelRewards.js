@@ -14,7 +14,6 @@ function ChannelRewards() {
   const getCardsViewer = async (userId) => {
     const response = await fetch(`${BASE_URL}/${userId}`);
     const result = await response.json();
-    console.log('result :>> ', result);
     const { success } = result;
 
     // If the viewer exists in db
@@ -83,14 +82,12 @@ function ChannelRewards() {
   ComfyJS.Init(channel, twitchAuth);
 
   ComfyJS.onReward = async (user, reward, cost, message, extra) => {
-    console.log(user + ' redeemed ' + reward + ' for ' + cost);
     const { rewardFulfilled, userId, username } = extra;
 
     let response = false;
 
     if (rewardFulfilled) {
       const hasRedeemUserExisted = await getCardsViewer(userId);
-      console.log('hasredeemned', hasRedeemUserExisted);
       // Check if the viewer has been stored in db already
       // If true, then update the amount of holding cards for the viewer
       if (hasRedeemUserExisted) {
@@ -136,7 +133,6 @@ function ChannelRewards() {
       global_cooldown_seconds: 0,
       should_redemptions_skip_request_queue: true,
     });
-    console.log('customReward :>> ', customReward);
   };
 
   // const randCard = {

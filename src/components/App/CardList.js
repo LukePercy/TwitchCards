@@ -8,7 +8,7 @@ export const slides = [
     subtitle: "The Druid",
     description: "Adventure is never far away",
     rarity: '',
-    frontimage: null,
+    frontimage: '',
     backimage: CardBack
     },
     {
@@ -17,7 +17,7 @@ export const slides = [
     subtitle: "Wizard Necromancer",
     description: "Leave no body behind",
     rarity: '',
-    frontimage: null,
+    frontimage: '',
     backimage: CardBack
     },
     {
@@ -26,7 +26,7 @@ export const slides = [
     subtitle: "Rogue",
     description: "Run away!",
     rarity: '',
-    frontimage: null,
+    frontimage: '',
     backimage: CardBack
     },
     {
@@ -35,7 +35,7 @@ export const slides = [
     subtitle: "Bard",
     description: "...and my Lute!",
     rarity: '',
-    frontimage: null,
+    frontimage: '',
     backimage: CardBack
     },
     {
@@ -44,7 +44,7 @@ export const slides = [
     subtitle: "The DM",
     description: "It's Get...Getting Dicey!",
     rarity: '',
-    frontimage: null,
+    frontimage: '',
     backimage: CardBack
     }
 ]

@@ -90,7 +90,6 @@ function ChannelRewards() {
 
     if (rewardFulfilled) {
       const hasRedeemUserExisted = await getCardsViewer(userId);
-      console.log('hasredeemned', hasRedeemUserExisted);
       // Check if the viewer has been stored in db already
       // If true, then update the amount of holding cards for the viewer
       if (hasRedeemUserExisted) {
@@ -103,14 +102,9 @@ function ChannelRewards() {
         );
       }
     }
-    console.log('response ==>', response);
-
-    // this getRandomCard() may not be needed here
-    // still, the randomCard var can be reachable with a random card
-    // getRandomCard(); // Pick a random card to store in users collection
 
     if (response) {
-      ComfyJS.Say(`${user} unlocked a new ${randomCard.title} card!`);
+      ComfyJS.Say(`${user} unlocked a new '${randomCard.rarity}'' '${randomCard.title} card!`);
     }
   };
 
@@ -122,7 +116,7 @@ function ChannelRewards() {
   // TODO: may need credentials to test it.
   const createChannelRewardsPoint = async () => {
     let customReward = await ComfyJS.CreateChannelReward(clientId, {
-      title: 'Unlock Trading Cards test',
+      title: 'Unlock Trading Cards',
       prompt: 'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
       cost: 1,
       is_enabled: true,
@@ -136,7 +130,6 @@ function ChannelRewards() {
       global_cooldown_seconds: 0,
       should_redemptions_skip_request_queue: true,
     });
-    console.log('customReward :>> ', customReward);
   };
 
   // const randCard = {

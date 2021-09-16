@@ -255,7 +255,7 @@ export default function myCollection({ viewerId }) {
       default:
       break;
     }
-  } else {
+  } else if (title === 'Morely') {
     switch (type) {
       case 'Worn':
         return MorelyWorn

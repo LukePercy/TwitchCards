@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // Card info
 import { slides } from './CardList';
+<<<<<<< HEAD
 // Flip card over to see back images
 import ReactCardFlip from 'react-card-flip';
 //cards
@@ -86,6 +87,10 @@ function useTilt(active) {
 
   return ref;
 }
+=======
+import useViewersCards from '../../customHooks/useViewersCards';
+import Slide from '../App/Slide';
+>>>>>>> e1ed07b2aa9b4ca669789b5b237f0a1d09bfcd08
 
 const initialState = {
   slideIndex: 0,
@@ -106,104 +111,13 @@ const slidesReducer = (state, event) => {
     };
   }
 };
-// Slide content. Includes card image and flip behavior.
-function Slide({ viewerId, slide, offset }) {
-  const [isFlipped, setIsFlipped] = useState(false);
-  const handleClick = (e) => {
-    e.preventDefault();
-    setIsFlipped(!isFlipped);
-  };
-  const active = offset === 0 ? true : null;
-  const ref = useTilt(active);
-
-  // Determine how different card rarities display between Worn, Mint and Foil
-  // Not used in v1
-  // function CardRarity() {
-  //   let rarity = slide.rarity;
-  //   if (rarity == 'Mint') {
-  //     return <h4 className='slideRarityMint'>{slide.rarity}</h4>;
-  //   } else if (rarity == 'Foil') {
-  //     return <h4 className='slideRarityFoil shine'>{slide.rarity}</h4>;
-  //   } else {
-  //     return <h4 className='slideRarityWorn'>{slide.rarity}</h4>;
-  //   }
-  // }
-
-  //  Get the holdingAmount from viewers card and display total count over the card
-  function GetCardCount({ cardId }) {
-    const viewersCards = useViewersCards(viewerId);
-    const countForDisplay = viewersCards.map((holdingCard) => {
-      // use find() to compare two card IDs
-      // then return the matched card object
-      const matchedCard = slides.find((card) => card.id === cardId);
-      if (matchedCard.id === holdingCard.cardId)
-        return (
-          <div key={matchedCard.id} className='cardCount'>
-            {holdingCard.holdingAmount}
-          </div>
-        );
-    });
-    return countForDisplay;
-  }
-  // Return the display of the card and its Flipped state
-  return (
-    <div
-      ref={ref}
-      className='slide'
-      data-active={active}
-      style={{
-        '--offset': offset,
-        '--dir': offset === 0 ? 0 : offset > 0 ? 1 : -1,
-      }}
-    >
-      <div
-        className='slideBackground'
-        style={{
-          backgroundImage: `url('${slide.frontimage}')`,
-        }}
-      ></div>
-      <ReactCardFlip
-        isFlipped={isFlipped}
-        flipSpeedFrontToBack={1.0}
-        flipSpeedBackToFront={1.0}
-        flipDirection='horizontal'
-        infinite={false}
-      >
-        <div key='front' onClick={handleClick}>
-          <div
-            className='slideContent'
-            style={{ backgroundImage: `url('${slide.frontimage}')` }}
-          >
-            <div>
-              <GetCardCount cardId={slide.id} />
-            </div>
-            <div className='slideContentInner'>
-              {/* Not used right now. But we can show other text properties on cards too
-              <h2 className='slideTitle'>{slide.title}</h2>
-              <h3 className='slideSubtitle'>{slide.subtitle}</h3>
-              <p className='slideDescription'>{slide.description}</p> */}
-              {/* <CardRarity/> */}
-            </div>
-          </div>
-        </div>
-        <div key='back' onClick={handleClick}>
-          <div
-            className='slideContent'
-            style={{
-              backgroundImage: `url('${slide.backimage}')`,
-            }}
-          ></div>
-        </div>
-      </ReactCardFlip>
-    </div>
-  );
-}
 
 // Render cards in slide - see carousel.css
-export default function myCollection({ viewerId }) {
+export default function MyCollection({ viewerId }) {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const viewersCards = useViewersCards(viewerId);
 
+<<<<<<< HEAD
 // awfulness becuase strings are stupid
 // matchedcard.title from cardslist title 
   function displayCardType(title, type) {
@@ -269,6 +183,8 @@ export default function myCollection({ viewerId }) {
     }
   }
 }
+=======
+>>>>>>> e1ed07b2aa9b4ca669789b5b237f0a1d09bfcd08
   // Dealing with two things here:
   //  - 1. Display the right cards that the viewer has
   //  - 2. Display the right card type accordingly based on the holding amount of that card
@@ -289,7 +205,7 @@ export default function myCollection({ viewerId }) {
         return {
           ...matchedCard,
           rarity: 'Worn', // we dont use this yet. Its used to drive CardRarity() display component.
-          frontimage: displayCardType(matchedCard.title,'Worn')
+          frontimage: require(`./cards/${matchedCard.title}-s1-worn.svg`),
         };
       } else if (
         holdingCard.holdingAmount > 5 &&
@@ -298,13 +214,13 @@ export default function myCollection({ viewerId }) {
         return {
           ...matchedCard,
           rarity: 'Mint',
-          frontimage: displayCardType(matchedCard.title,'Mint') //Mint card image
+          frontimage: require(`./cards/${matchedCard.title}-s1-mint.svg`), //Mint card image
         };
       } else if (holdingCard.holdingAmount > 15) {
         return {
           ...matchedCard,
           rarity: 'Foil',
-          frontimage: displayCardType(matchedCard.title,'Foil') //Foil card image
+          frontimage: require(`./cards/${matchedCard.title}-s1-foil.svg`), //Foil card image
         };
       } else {
         throw new Error(
@@ -314,7 +230,6 @@ export default function myCollection({ viewerId }) {
     }
     return matchedCard;
   });
-
   // render collection if cards exist, if not show just a back card.
   return (
     <div className='slides'>

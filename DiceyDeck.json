@@ -38,6 +38,28 @@
       "orientation": "Portrait",
       "type": "panel",
       "viewerType": "Logged-In Viewer"
+    },
+    {
+      "channelId": "425762901",
+      "configurationAnchor": "panel",
+      "displayChannelName": "randomorigins",
+      "features": {
+        "isBitsEnabled": false,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "frameSize": {
+        "width": 1280,
+        "height": 720
+      },
+      "id": "10",
+      "isPopout": false,
+      "label": "Me",
+      "linked": true,
+      "linkedUserId": "425762901",
+      "orientation": "Portrait",
+      "type": "panel",
+      "viewerType": "Logged-In Viewer"
     }
   ],
   "manifest": {

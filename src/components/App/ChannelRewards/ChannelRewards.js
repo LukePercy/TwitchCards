@@ -86,6 +86,7 @@ function ChannelRewards() {
 
     let response = false;
 
+    // Bug: this happens twice becuase response is true twice
     if (rewardFulfilled) {
       const hasRedeemUserExisted = await getCardsViewer(userId);
       // Check if the viewer has been stored in db already
@@ -100,8 +101,6 @@ function ChannelRewards() {
         );
       }
     }
-    console.log('response ==>', response);
-
     // this getRandomCard() may not be needed here
     // still, the randomCard var can be reachable with a random card
     // getRandomCard(); // Pick a random card to store in users collection

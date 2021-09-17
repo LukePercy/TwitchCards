@@ -8,11 +8,7 @@ export const slides = [
     subtitle: "The Druid",
     description: "Adventure is never far away",
     rarity: '',
-<<<<<<< HEAD
-    frontimage:'',
-=======
     frontimage: '',
->>>>>>> develop
     backimage: CardBack
     },
     {

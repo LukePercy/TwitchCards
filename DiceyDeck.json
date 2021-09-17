@@ -32,14 +32,6 @@
       },
       "id": "9",
       "isPopout": false,
-<<<<<<< HEAD
-      "label": "me",
-      "linked": false,
-      "linkedUserId": "",
-      "orientation": "Portrait",
-      "type": "panel",
-      "viewerType": "Broadcaster"
-=======
       "label": "Reagan",
       "linked": true,
       "linkedUserId": "52092016",
@@ -68,7 +60,6 @@
       "orientation": "Portrait",
       "type": "panel",
       "viewerType": "Logged-In Viewer"
->>>>>>> develop
     }
   ],
   "manifest": {

@@ -77,7 +77,7 @@ export default function MyCollection({ viewerId }) {
   // render collection if cards exist, if not show just a back card.
   return (
     <div className='slides'>
-      {cardsForDisplay.length >=3 ? (
+      {cardsForDisplay.length >= 3 ? (
         <>
           <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
           {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(

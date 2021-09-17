@@ -5,7 +5,7 @@ import useViewersCards from '../../customHooks/useViewersCards';
 import Slide from '../App/Slide';
 
 const initialState = {
-  slideIndex: 1,
+  slideIndex: 0,
 };
 // Slide navigation to view collection of cards
 const slidesReducer = (state, event) => {
@@ -98,7 +98,7 @@ export default function MyCollection({ viewerId }) {
       ) : cardsForDisplay.length <= 2 ? ( 
         <>
           <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
-          {[...cardsForDisplay,...cardsForDisplay,...cardsForDisplay].map(
+          {[...cardsForDisplay,...cardsForDisplay].map(
             (slide, i) => {
               let offset = state.slideIndex - i;
               return (
@@ -113,7 +113,7 @@ export default function MyCollection({ viewerId }) {
           )}
           <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
         </>
-        ) : cardsForDisplay.length = 0 ? (
+        ) : cardsForDisplay.length = 0 (
           <>
           <div key='back'>
             <div
@@ -124,17 +124,6 @@ export default function MyCollection({ viewerId }) {
             ></div>
           </div>
         </>        
-      ) : (
-        <>
-        <div key='back'>
-          <div
-            className='slideContent'
-            style={{
-              backgroundImage: `url('${slides[0].backimage}')`,
-            }}
-          ></div>
-        </div>
-      </>   
       )
       }
     </div>

@@ -12,7 +12,7 @@ export default class App extends React.Component {
     this.twitch = window.Twitch ? window.Twitch.ext : null;
     this.state = {
       viewerId: '',
-      modId:'',
+      modId:false,
       finishedLoading: false,
       theme: 'light',
       isVisible: true,

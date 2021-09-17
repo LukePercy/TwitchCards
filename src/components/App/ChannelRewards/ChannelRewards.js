@@ -14,7 +14,6 @@ function ChannelRewards() {
   const getCardsViewer = async (userId) => {
     const response = await fetch(`${BASE_URL}/${userId}`);
     const result = await response.json();
-    console.log('result :>> ', result);
     const { success } = result;
 
     // If the viewer exists in db
@@ -83,11 +82,11 @@ function ChannelRewards() {
   ComfyJS.Init(channel, twitchAuth);
 
   ComfyJS.onReward = async (user, reward, cost, message, extra) => {
-    console.log(user + ' redeemed ' + reward + ' for ' + cost);
     const { rewardFulfilled, userId, username } = extra;
 
     let response = false;
 
+    // Bug: this happens twice becuase response is true twice
     if (rewardFulfilled) {
       const hasRedeemUserExisted = await getCardsViewer(userId);
       // Check if the viewer has been stored in db already
@@ -102,6 +101,12 @@ function ChannelRewards() {
         );
       }
     }
+<<<<<<< HEAD
+=======
+    // this getRandomCard() may not be needed here
+    // still, the randomCard var can be reachable with a random card
+    // getRandomCard(); // Pick a random card to store in users collection
+>>>>>>> develop
 
     if (response) {
       ComfyJS.Say(`${user} unlocked a new '${randomCard.rarity}'' '${randomCard.title} card!`);

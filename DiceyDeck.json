@@ -18,26 +18,57 @@
   ],
   "extensionViews": [
     {
-      "channelId": "425762901",
+      "channelId": "52092016",
       "configurationAnchor": "panel",
       "displayChannelName": "randomorigins",
       "features": {
         "isBitsEnabled": false,
-        "isChatEnabled": true,
+        "isChatEnabled": false,
         "isSubscriptionStatusAvailable": false
       },
       "frameSize": {
         "width": 1280,
         "height": 720
       },
-      "id": "1",
+      "id": "9",
       "isPopout": false,
+<<<<<<< HEAD
       "label": "me",
       "linked": false,
       "linkedUserId": "",
       "orientation": "Portrait",
       "type": "panel",
       "viewerType": "Broadcaster"
+=======
+      "label": "Reagan",
+      "linked": true,
+      "linkedUserId": "52092016",
+      "orientation": "Portrait",
+      "type": "panel",
+      "viewerType": "Logged-In Viewer"
+    },
+    {
+      "channelId": "425762901",
+      "configurationAnchor": "panel",
+      "displayChannelName": "randomorigins",
+      "features": {
+        "isBitsEnabled": false,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "frameSize": {
+        "width": 1280,
+        "height": 720
+      },
+      "id": "10",
+      "isPopout": false,
+      "label": "Me",
+      "linked": true,
+      "linkedUserId": "425762901",
+      "orientation": "Portrait",
+      "type": "panel",
+      "viewerType": "Logged-In Viewer"
+>>>>>>> develop
     }
   ],
   "manifest": {

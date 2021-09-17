@@ -5,7 +5,7 @@ import useViewersCards from '../../customHooks/useViewersCards';
 import Slide from '../App/Slide';
 
 const initialState = {
-  slideIndex: 0,
+  slideIndex: 1,
 };
 // Slide navigation to view collection of cards
 const slidesReducer = (state, event) => {
@@ -117,7 +117,7 @@ export default function MyCollection({ viewerId }) {
         return {
           ...matchedCard,
           rarity: 'Worn', // we dont use this yet. Its used to drive CardRarity() display component.
-          frontimage: require(`./cards/${matchedCard.title}-s1-worn.svg`),
+          frontimage: require(`./cards/${matchedCard.title}-s1_worn.jpg`),
         };
       } else if (
         holdingCard.holdingAmount > 5 &&
@@ -126,13 +126,13 @@ export default function MyCollection({ viewerId }) {
         return {
           ...matchedCard,
           rarity: 'Mint',
-          frontimage: require(`./cards/${matchedCard.title}-s1-mint.svg`), //Mint card image
+          frontimage: require(`./cards/${matchedCard.title}-s1_mint.jpg`), //Mint card image
         };
       } else if (holdingCard.holdingAmount > 15) {
         return {
           ...matchedCard,
           rarity: 'Foil',
-          frontimage: require(`./cards/${matchedCard.title}-s1-foil.svg`), //Foil card image
+          frontimage: require(`./cards/${matchedCard.title}-s1_foil.jpg`), //Foil card image
         };
       } else {
         throw new Error(
@@ -145,7 +145,7 @@ export default function MyCollection({ viewerId }) {
   // render collection if cards exist, if not show just a back card.
   return (
     <div className='slides'>
-      {cardsForDisplay.length ? (
+      {cardsForDisplay.length >=3 ? (
         <>
           <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
           {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
@@ -163,8 +163,26 @@ export default function MyCollection({ viewerId }) {
           )}
           <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
         </>
-      ) : (
+      ) : cardsForDisplay.length <= 2 ? ( 
         <>
+          <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
+          {[...cardsForDisplay,...cardsForDisplay,...cardsForDisplay].map(
+            (slide, i) => {
+              let offset = state.slideIndex - i;
+              return (
+                <Slide
+                  viewerId={viewerId}
+                  slide={slide}
+                  offset={offset}
+                  key={i}
+                />
+              );
+            }
+          )}
+          <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
+        </>
+        ) : cardsForDisplay.length = 0 ? (
+          <>
           <div key='back'>
             <div
               className='slideContent'
@@ -173,8 +191,20 @@ export default function MyCollection({ viewerId }) {
               }}
             ></div>
           </div>
-        </>
-      )}
+        </>        
+      ) : (
+        <>
+        <div key='back'>
+          <div
+            className='slideContent'
+            style={{
+              backgroundImage: `url('${slides[0].backimage}')`,
+            }}
+          ></div>
+        </div>
+      </>   
+      )
+      }
     </div>
   );
 }

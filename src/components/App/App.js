@@ -97,11 +97,7 @@ export default class App extends React.Component {
     } else {
       return (
         <div className='App'>
-<<<<<<< HEAD
-          <p>Grant permissions below to start collecting trading cards!</p>
-=======
           <p>Accept permissions below to start collecting Getting Dicey Trading Cards</p>
->>>>>>> develop
         </div>
       );
     }

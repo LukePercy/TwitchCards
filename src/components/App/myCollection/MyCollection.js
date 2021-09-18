@@ -1,8 +1,9 @@
 import React from 'react';
 // Card info
-import { slides } from './CardList';
-import useViewersCards from '../../customHooks/useViewersCards';
-import Slide from '../App/Slide';
+import { slides } from '../cardList/CardList';
+import useViewersCards from '../customHooks/useViewersCards';
+import Slide from './slide/Slide';
+import Loader from "react-loader-spinner";
 
 const initialState = {
   slideIndex: 0,
@@ -49,7 +50,7 @@ export default function MyCollection({ viewerId }) {
         return {
           ...matchedCard,
           rarity: 'Worn', // we dont use this yet. Its used to drive CardRarity() display component.
-          frontimage: require(`./cards/${matchedCard.title}-s1_worn.jpg`),
+          frontimage: require(`../cards/${matchedCard.title}-s1_worn.jpg`),
         };
       } else if (
         holdingCard.holdingAmount > 5 &&
@@ -58,13 +59,13 @@ export default function MyCollection({ viewerId }) {
         return {
           ...matchedCard,
           rarity: 'Mint',
-          frontimage: require(`./cards/${matchedCard.title}-s1_mint.jpg`), //Mint card image
+          frontimage: require(`../cards/${matchedCard.title}-s1_mint.jpg`), //Mint card image
         };
       } else if (holdingCard.holdingAmount > 15) {
         return {
           ...matchedCard,
           rarity: 'Foil',
-          frontimage: require(`./cards/${matchedCard.title}-s1_foil.jpg`), //Foil card image
+          frontimage: require(`../cards/${matchedCard.title}-s1_foil.jpg`), //Foil card image
         };
       } else {
         throw new Error(
@@ -75,6 +76,7 @@ export default function MyCollection({ viewerId }) {
     return matchedCard;
   });
   // render collection if cards exist, if not show just a back card.
+
   return (
     <div className='slides'>
       {cardsForDisplay.length > 3 ? (

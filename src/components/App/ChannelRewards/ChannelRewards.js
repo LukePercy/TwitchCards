@@ -1,6 +1,6 @@
 import React from 'react';
 import ComfyJS from 'comfy.js';
-import { slides } from '../CardList';
+import { slides } from '../cardList/CardList';
 
 const BASE_URL ='https://diceydeckbackend.herokuapp.com/api/viewers/';
 const UPDATEAMOUNT = 1;

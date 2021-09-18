@@ -23,7 +23,7 @@
       "displayChannelName": "randomorigins",
       "features": {
         "isBitsEnabled": false,
-        "isChatEnabled": true,
+        "isChatEnabled": false,
         "isSubscriptionStatusAvailable": false
       },
       "frameSize": {

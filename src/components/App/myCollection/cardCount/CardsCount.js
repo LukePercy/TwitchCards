@@ -1,5 +1,5 @@
 import React from 'react';
-import { slides } from './CardList';
+import { slides } from '../../cardList/CardList';
 import useViewersCards from '../../customHooks/useViewersCards';
 
 //  Get the holdingAmount from viewers card and display total count over the card

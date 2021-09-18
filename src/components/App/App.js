@@ -12,7 +12,6 @@ export default class App extends React.Component {
     this.twitch = window.Twitch ? window.Twitch.ext : null;
     this.state = {
       viewerId: '',
-      modId:false,
       finishedLoading: false,
       theme: 'light',
       isVisible: true,
@@ -45,7 +44,6 @@ export default class App extends React.Component {
           // now we've done the setup for the component, let's set the state to true to force a rerender with the correct data.
           this.setState(() => {
             return {
-              modId: this.Authentication.isModerator(),
               viewerId: this.Authentication.getUserId(),
               finishedLoading: true,
             };
@@ -80,10 +78,9 @@ export default class App extends React.Component {
     }
   }
   render() {
-    const isModerator = this.state.modId;
     const viewerId = this.state.viewerId;
 
-    if (this.state.finishedLoading && this.state.isVisible && viewerId || this.state.finishedLoading && this.state.isVisible && isModerator) {
+    if (this.state.finishedLoading && this.state.isVisible && viewerId) {
       return (
         <div className='App'>
           <div

@@ -1,4 +1,4 @@
-import CardBack from '../cards/Card_Back-s1.svg';
+import CardBack from '../cards/Card_Back-s1_worn.jpg';
 
 export const slides = [
 

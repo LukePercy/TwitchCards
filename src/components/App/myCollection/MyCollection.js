@@ -49,6 +49,7 @@ export default function MyCollection({ viewerId }) {
           ...matchedCard,
           rarity: 'Worn', // we dont use this yet. Its used to drive CardRarity() display component.
           frontimage: require(`../cards/${matchedCard.title}-s1_worn.jpg`),
+          backimage: require(`../cards/Card_Back-s1_worn.jpg`),
         };
       } else if (
         holdingCard.holdingAmount > 5 &&
@@ -58,12 +59,14 @@ export default function MyCollection({ viewerId }) {
           ...matchedCard,
           rarity: 'Mint',
           frontimage: require(`../cards/${matchedCard.title}-s1_mint.jpg`), //Mint card image
+          backimage: require(`../cards/Card_Back-s1_mint.jpg`),
         };
       } else if (holdingCard.holdingAmount > 15) {
         return {
           ...matchedCard,
           rarity: 'Foil',
           frontimage: require(`../cards/${matchedCard.title}-s1_foil.jpg`), //Foil card image
+          backimage: require(`../cards/Card_Back-s1_foil.jpg`),
         };
       } else {
         throw new Error(

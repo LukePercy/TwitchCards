@@ -72,10 +72,28 @@ function ChannelRewards() {
 
     return success;
   };
-  // On chat API - not used
+
+  // On chat API - to add the custom reward
   // ComfyJS.onChat = (user, message, flags, self, extra) => {
-  //   console.log('extra :>> ', extra);
-  //   console.log(user + ':', message);
+  // if (message === '!CardRewardCreate') {
+  //   ComfyJS.CreateChannelReward(clientId, {
+  //     title: 'Unlock Trading Card',
+  //     prompt: 'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
+  //     cost: 250,
+  //     is_enabled: true,
+  //     background_color: '#00E5CB',
+  //     is_user_input_required: false,
+  //     is_max_per_stream_enabled: false,
+  //     max_per_stream: 0,
+  //     is_max_per_user_per_stream_enabled: false,
+  //     max_per_user_per_stream: 0,
+  //     is_global_cooldown_enabled: true,
+  //     global_cooldown_seconds: 30,
+  //     should_redemptions_skip_request_queue: true,
+  //   });
+  //   ComfyJS.Say(`Trading Card Reward Created!`);
+  // }
+  // ComfyJS.Say(`Could not create reward. It may already exist`);
   // };
 
   ComfyJS.Init(channel, twitchAuth);
@@ -105,99 +123,16 @@ function ChannelRewards() {
     // still, the randomCard var can be reachable with a random card
     // getRandomCard(); // Pick a random card to store in users collection
 
-    // if (response) {
-    //   ComfyJS.Say(`${user} unlocked a new ${randomCard.title} card!`);
-    // }
+    if (response) {
+      ComfyJS.Say(`${user} unlocked a new ${randomCard.title} card!`);
+    }
   };
 
   // function getReward() {
   //   const channelRewards = ComfyJS.GetChannelRewards(clientId, true);
   //   console.log(channelRewards);
   // }
-
-  // TODO: may need credentials to test it.
-  const createChannelRewardsPoint = async () => {
-    let customReward = await ComfyJS.CreateChannelReward(clientId, {
-      title: 'Unlock Trading Cards',
-      prompt: 'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
-      cost: 1,
-      is_enabled: true,
-      background_color: '#00E5CB',
-      is_user_input_required: false,
-      is_max_per_stream_enabled: false,
-      max_per_stream: 0,
-      is_max_per_user_per_stream_enabled: false,
-      max_per_user_per_stream: 0,
-      is_global_cooldown_enabled: false,
-      global_cooldown_seconds: 0,
-      should_redemptions_skip_request_queue: true,
-    });
-  };
-
-  // const randCard = {
-  //   backimage: 'img/Card_Back-01.svg',
-  //   description: "It's Get...Getting Dicey!",
-  //   frontimage: 'img/DM_2-01.svg',
-  //   id: 5,
-  //   rarity: 'Foil',
-  //   subtitle: 'The DM',
-  //   title: 'The DM',
-  // };
-
-  // const updateNewCard = {
-  //   backimage: 'img/Card_Back-01.svg',
-  //   description: 'Run away!',
-  //   frontimage: 'img/Morely_2.svg',
-  //   id: 3,
-  //   rarity: 'Worn',
-  //   subtitle: 'Rogue',
-  //   title: 'Cptn. Morely',
-  // };
-
-  // const updateExistingCard = {
-  //   backimage: 'img/Card_Back-01.svg',
-  //   description: 'Run away!',
-  //   frontimage: 'img/Morely_2.svg',
-  //   id: 3,
-  //   rarity: 'Worn',
-  //   subtitle: 'Rogue',
-  //   title: 'Cptn. Morely',
-  // };
-
-  // return testing view w/ buttons
-  return (
-    <div>
-      {/* <button onClick={createChannelRewardsPoint}>Create Reward Info</button>
-      <br /> */}
-      {/* <button onClick={removeReward}>Remove Reward</button>
-      <br /> */}
-      {/* <button onClick={getReward}>Get Reward info</button>
-      <br />
-      <button
-        onClick={() =>
-          createViewerCardsCollection('zxc-vbn-mlkj', 'skyblue', randCard)
-        }
-      >
-        Create a new Viewer
-      </button>
-      <br />
-      <button
-        onClick={() =>
-          updateViewerCardsCollection('zxc-vbn-mlkj', updateNewCard)
-        }
-      >
-        Update a viewer with a new card
-      </button>
-      <br />
-      <button
-        onClick={() =>
-          updateViewerCardsCollection('zxc-vbn-mlkj', updateExistingCard)
-        }
-      >
-        Update a viewer with an existing card
-      </button> */}
-    </div>
-  );
+  return null;
 }
 
 export default ChannelRewards;

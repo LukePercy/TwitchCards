@@ -3,7 +3,6 @@ import React from 'react';
 import { slides } from '../cardList/CardList';
 import useViewersCards from '../customHooks/useViewersCards';
 import Slide from './slide/Slide';
-import Loader from "react-loader-spinner";
 
 const initialState = {
   slideIndex: 0,

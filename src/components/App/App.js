@@ -3,7 +3,6 @@ import Authentication from '../../util/Authentication/Authentication'; //Auth he
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import ChannelRewards from './channelRewards/ChannelRewards';
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -86,8 +85,9 @@ export default class App extends React.Component {
         <div className='App'>
           <div
             className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}
-          > <ChannelRewards />
-            <MyCollection viewerId={viewerId}/>
+          >
+          <ChannelRewards />
+          <MyCollection viewerId={viewerId}/>
           </div>
         </div>
       );

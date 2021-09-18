@@ -28,7 +28,6 @@ const slidesReducer = (state, event) => {
 export default function MyCollection({ viewerId }) {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const viewersCards = useViewersCards(viewerId);
-
   // Dealing with two things here:
   //  - 1. Display the right cards that the viewer has
   //  - 2. Display the right card type accordingly based on the holding amount of that card
@@ -77,7 +76,7 @@ export default function MyCollection({ viewerId }) {
   // render collection if cards exist, if not show just a back card.
 
   return (
-    <div className='slides'>
+      <div className='slides'>
       {cardsForDisplay.length > 3 ? (
         <>
           <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
@@ -116,5 +115,5 @@ export default function MyCollection({ viewerId }) {
         </>
       }
     </div>
-  );
+    );
 }

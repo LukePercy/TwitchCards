@@ -105,9 +105,9 @@ function ChannelRewards() {
     // still, the randomCard var can be reachable with a random card
     // getRandomCard(); // Pick a random card to store in users collection
 
-    if (response) {
-      ComfyJS.Say(`${user} unlocked a new ${randomCard.title} card!`);
-    }
+    // if (response) {
+    //   ComfyJS.Say(`${user} unlocked a new ${randomCard.title} card!`);
+    // }
   };
 
   // function getReward() {

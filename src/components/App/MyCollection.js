@@ -77,7 +77,7 @@ export default function MyCollection({ viewerId }) {
   // render collection if cards exist, if not show just a back card.
   return (
     <div className='slides'>
-      {cardsForDisplay.length >= 3 ? (
+      {cardsForDisplay.length > 3 ? (
         <>
           <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
           {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
@@ -95,36 +95,24 @@ export default function MyCollection({ viewerId }) {
           )}
           <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
         </>
-      ) : cardsForDisplay.length <= 2 ? ( 
-        <>
-          <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
-          {[...cardsForDisplay,...cardsForDisplay].map(
-            (slide, i) => {
-              let offset = state.slideIndex - i;
-              return (
-                <Slide
-                  viewerId={viewerId}
-                  slide={slide}
-                  offset={offset}
-                  key={i}
-                />
-              );
-            }
-          )}
-          <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
-        </>
-        ) : cardsForDisplay.length = 0 (
+      ) :
           <>
+          <div style={{
+            padding: 0,
+            margin: 0,
+          }}>Unlock 3 cards to see your collection</div>
           <div key='back'>
             <div
               className='slideContent'
               style={{
                 backgroundImage: `url('${slides[0].backimage}')`,
+                margin: 0,
+                padding: 20,
+                alignContent: 'center',
               }}
             ></div>
           </div>
-        </>        
-      )
+        </>
       }
     </div>
   );

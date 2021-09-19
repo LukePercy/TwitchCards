@@ -96,12 +96,16 @@ export default function MyCollection({ viewerId }) {
           )}
           <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
         </>
-      ) :
-          <>
-          <div style={{
-            padding: 0,
-            margin: 0,
-          }}>Unlock 3 cards to see your collection</div>
+      ) : (
+        <>
+          <div
+            style={{
+              padding: 0,
+              margin: 0,
+            }}
+          >
+            Unlock 3 cards to see your collection
+          </div>
           <div key='back'>
             <div
               className='slideContent'
@@ -114,7 +118,7 @@ export default function MyCollection({ viewerId }) {
             ></div>
           </div>
         </>
-      }
+      )}
     </div>
   );
 }

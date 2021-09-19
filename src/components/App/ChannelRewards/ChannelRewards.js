@@ -2,13 +2,14 @@ import React from 'react';
 import ComfyJS from 'comfy.js';
 import { slides } from '../cardList/CardList';
 
-const BASE_URL ='https://diceydeckbackend.herokuapp.com/api/viewers/';
+const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers/';
 const UPDATEAMOUNT = 1;
 
-function ChannelRewards() {
+function ChannelRewards({ token }) {
   const channel = 'gettingdicey'; //make .env when figure it out
   const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
   const twitchAuth = 'h7wpt7417rl2djr830vojy0zu5mj6f'; //make .env when figure it out
+  const randomCard = slides[Math.floor(Math.random() * slides.length)];
 
   const getCardsViewer = async (userId) => {
     const response = await fetch(`${BASE_URL}/${userId}`);
@@ -29,7 +30,10 @@ function ChannelRewards() {
     // Add the card to the viewer
     const response = await fetch(`${BASE_URL}/${userId}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authentication: token,
+      },
       body: JSON.stringify({
         cardId: card.id,
         cardName: card.title,
@@ -58,7 +62,10 @@ function ChannelRewards() {
     // create a viewer
     const response = await fetch(`${BASE_URL}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authentication: token,
+      },
       body: JSON.stringify([
         {
           viewerId: userId,
@@ -119,7 +126,8 @@ function ChannelRewards() {
   const createChannelRewardsPoint = async () => {
     let customReward = await ComfyJS.CreateChannelReward(clientId, {
       title: 'Unlock Trading Cards',
-      prompt: 'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
+      prompt:
+        'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
       cost: 1,
       is_enabled: true,
       background_color: '#00E5CB',
@@ -182,9 +190,7 @@ function ChannelRewards() {
       </button>
       <br />
       <button
-        onClick={() =>
-          updateViewerCardsCollection('zxc-vbn-mlkj', updateNewCard)
-        }
+        onClick={() => updateViewerCardsCollection('425762901', updateNewCard)}
       >
         Update a viewer with a new card
       </button>

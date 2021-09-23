@@ -74,27 +74,26 @@ function ChannelRewards() {
   };
 
   // On chat API - to add the custom reward
-  // ComfyJS.onChat = (user, message, flags, self, extra) => {
-  // if (message === '!CardRewardCreate') {
-  //   ComfyJS.CreateChannelReward(clientId, {
-  //     title: 'Unlock Trading Card',
-  //     prompt: 'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
-  //     cost: 250,
-  //     is_enabled: true,
-  //     background_color: '#00E5CB',
-  //     is_user_input_required: false,
-  //     is_max_per_stream_enabled: false,
-  //     max_per_stream: 0,
-  //     is_max_per_user_per_stream_enabled: false,
-  //     max_per_user_per_stream: 0,
-  //     is_global_cooldown_enabled: true,
-  //     global_cooldown_seconds: 30,
-  //     should_redemptions_skip_request_queue: true,
-  //   });
-  //   ComfyJS.Say(`Trading Card Reward Created!`);
-  // }
-  // ComfyJS.Say(`Could not create reward. It may already exist`);
-  // };
+  ComfyJS.onChat = (user, message, flags, self, extra) => {
+  if (message === '!cardrewardcreate') {
+    ComfyJS.CreateChannelReward(clientId, {
+      title: 'Unlock Trading Card',
+      prompt: 'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
+      cost: 250,
+      is_enabled: true,
+      background_color: '#00E5CB',
+      is_user_input_required: false,
+      is_max_per_stream_enabled: false,
+      max_per_stream: 0,
+      is_max_per_user_per_stream_enabled: false,
+      max_per_user_per_stream: 0,
+      is_global_cooldown_enabled: true,
+      global_cooldown_seconds: 30,
+      should_redemptions_skip_request_queue: true,
+    });
+    ComfyJS.Say(`Trading Card Reward Created!`);
+  }
+  };
 
   ComfyJS.Init(channel, twitchAuth);
 

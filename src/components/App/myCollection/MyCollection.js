@@ -6,7 +6,8 @@ import useViewersCards from '../customHooks/useViewersCards';
 import ShowCardsImage from './ShowCardsImage/ShowCardsImage';
 import Loader from 'react-loader-spinner';
 
-const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
+const BASE_URL = 'http://localhost:3003/api/viewers';
+// const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 
 const initialState = {
   slideIndex: 0,

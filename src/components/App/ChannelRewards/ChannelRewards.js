@@ -2,10 +2,11 @@ import React from 'react';
 import ComfyJS from 'comfy.js';
 import { slides } from '../cardList/CardList';
 
-const BASE_URL ='https://diceydeckbackend.herokuapp.com/api/viewers/';
+// const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
+const BASE_URL = 'http://localhost:3003/api/viewers';
 const UPDATEAMOUNT = 1;
 
-function ChannelRewards() {
+function ChannelRewards({ token }) {
   const channel = 'gettingdicey'; //make .env when figure it out
   const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
   const twitchAuth = 'h7wpt7417rl2djr830vojy0zu5mj6f'; //make .env when figure it out
@@ -29,7 +30,10 @@ function ChannelRewards() {
     // Add the card to the viewer
     const response = await fetch(`${BASE_URL}/${userId}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         cardId: card.id,
         cardName: card.title,
@@ -58,7 +62,10 @@ function ChannelRewards() {
     // create a viewer
     const response = await fetch(`${BASE_URL}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify([
         {
           viewerId: userId,
@@ -75,24 +82,25 @@ function ChannelRewards() {
 
   // On chat API - to add the custom reward
   ComfyJS.onChat = (user, message, flags, self, extra) => {
-  if (message === '!cardrewardcreate') {
-    ComfyJS.CreateChannelReward(clientId, {
-      title: 'Unlock Trading Card',
-      prompt: 'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
-      cost: 250,
-      is_enabled: true,
-      background_color: '#00E5CB',
-      is_user_input_required: false,
-      is_max_per_stream_enabled: false,
-      max_per_stream: 0,
-      is_max_per_user_per_stream_enabled: false,
-      max_per_user_per_stream: 0,
-      is_global_cooldown_enabled: true,
-      global_cooldown_seconds: 30,
-      should_redemptions_skip_request_queue: true,
-    });
-    ComfyJS.Say(`Trading Card Reward Created!`);
-  }
+    if (message === '!cardrewardcreate') {
+      ComfyJS.CreateChannelReward(clientId, {
+        title: 'Unlock Trading Card',
+        prompt:
+          'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
+        cost: 250,
+        is_enabled: true,
+        background_color: '#00E5CB',
+        is_user_input_required: false,
+        is_max_per_stream_enabled: false,
+        max_per_stream: 0,
+        is_max_per_user_per_stream_enabled: false,
+        max_per_user_per_stream: 0,
+        is_global_cooldown_enabled: true,
+        global_cooldown_seconds: 30,
+        should_redemptions_skip_request_queue: true,
+      });
+      ComfyJS.Say(`Trading Card Reward Created!`);
+    }
   };
 
   ComfyJS.Init(channel, twitchAuth);
@@ -126,12 +134,29 @@ function ChannelRewards() {
       ComfyJS.Say(`${user} unlocked a new ${randomCard.title} card!`);
     }
   };
+  const updateCard = {
+    id: 5,
+    title: 'DM',
+    subtitle: 'The DM',
+    description: "It's Get...Getting Dicey!",
+    rarity: 'Mint',
+    frontimage: 'DM-s1_mint.jpg',
+    backimage: 'Card_Back-s1_mint.jpg',
+  };
 
   // function getReward() {
   //   const channelRewards = ComfyJS.GetChannelRewards(clientId, true);
   //   console.log(channelRewards);
   // }
-  return null;
+  return (
+    <>
+      <button
+        onClick={() => updateViewerCardsCollection('425762901', updateCard)}
+      >
+        Update an existing Viewer Cards
+      </button>
+    </>
+  );
 }
 
 export default ChannelRewards;

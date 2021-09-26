@@ -12,6 +12,7 @@ export default class App extends React.Component {
     //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
     this.twitch = window.Twitch ? window.Twitch.ext : null;
     this.state = {
+      token: '',
       viewerId: '',
       finishedLoading: false,
       theme: 'light',
@@ -38,6 +39,7 @@ export default class App extends React.Component {
   componentDidMount() {
     if (this.twitch) {
       this.twitch.onAuthorized((auth) => {
+        console.log('auth :>> ', auth);
         this.Authentication.setToken(auth.token, auth.userId);
         if (!this.state.finishedLoading) {
           // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.
@@ -45,6 +47,7 @@ export default class App extends React.Component {
           // now we've done the setup for the component, let's set the state to true to force a rerender with the correct data.
           this.setState(() => {
             return {
+              token: auth.token,
               viewerId: this.Authentication.getUserId(),
               finishedLoading: true,
             };
@@ -87,7 +90,7 @@ export default class App extends React.Component {
           <div
             className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}
           >
-            <ChannelRewards />
+            <ChannelRewards token={this.state.token} />
             <MyCollection viewerId={viewerId} />
           </div>
         </div>
@@ -95,7 +98,10 @@ export default class App extends React.Component {
     } else {
       return (
         <div className='App'>
-          <p>Accept permissions below to start collecting Getting Dicey Trading Cards</p>
+          <p>
+            Accept permissions below to start collecting Getting Dicey Trading
+            Cards
+          </p>
         </div>
       );
     }

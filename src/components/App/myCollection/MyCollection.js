@@ -13,7 +13,7 @@ const slidesReducer = (state, event) => {
     return {
       ...state,
       slideIndex:
-      state.slideIndex === 0 ? slides.length - 1 : state.slideIndex - 1,
+        state.slideIndex === 0 ? slides.length - 1 : state.slideIndex - 1,
     };
   }
   if (event.type === 'PREV') {
@@ -79,7 +79,7 @@ export default function MyCollection({ viewerId }) {
   // render collection if cards exist, if not show just a back card.
 
   return (
-      <div className='slides'>
+    <div className='slides'>
       {cardsForDisplay.length > 3 ? (
         <>
           <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
@@ -98,12 +98,16 @@ export default function MyCollection({ viewerId }) {
           )}
           <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
         </>
-      ) :
-          <>
-          <div style={{
-            padding: 0,
-            margin: 0,
-          }}>Unlock 3 cards to see your collection</div>
+      ) : (
+        <>
+          <div
+            style={{
+              padding: 0,
+              margin: 0,
+            }}
+          >
+            Unlock 3 cards to see your collection
+          </div>
           <div key='back'>
             <div
               className='slideContent'
@@ -116,7 +120,7 @@ export default function MyCollection({ viewerId }) {
             ></div>
           </div>
         </>
-      }
+      )}
     </div>
-    );
+  );
 }

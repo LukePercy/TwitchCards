@@ -10,7 +10,6 @@ function ChannelRewards({ token }) {
   const channel = 'gettingdicey'; //make .env when figure it out
   const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
   const twitchAuth = 'h7wpt7417rl2djr830vojy0zu5mj6f'; //make .env when figure it out
-  const randomCard = slides[Math.floor(Math.random() * slides.length)];
 
   const getCardsViewer = async (userId) => {
     const response = await fetch(`${BASE_URL}/${userId}`);

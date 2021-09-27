@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 /* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
+
+@font-face {
+  font-family: "formata";
+  src: url("./fonts/Formata-Regular.otf") format("opentype");
+}
+
 html {
   background: #151515;
   color: #fff;
@@ -27,6 +33,39 @@ body {
   font-size: 3vmin;
   display: flex;
   justify-content: center;
+}
+
+.velvet {
+  background-image: url(./assets/red-velvet-background.jpg);
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}
+
+.title {
+  display: flex;
+  font-family: "formata";
+  font-weight: bold;
+  justify-content: center;
+  padding-top: 20%;
+  text-decoration-line: underline;
+}
+
+.subtitle {
+  font-family: "formata";
+  font-weight: normal;
+  font-size: 1.3rem;
+  overflow: hidden;
+  display: block;
+  padding-left: 135px;
+}
+
+.allowtext {
+  display: block;
+  font-weight: normal;
+  font-size: 1rem;
+  padding-top: 90px;
+  text-align: center;
 }
 
 body {
@@ -198,7 +237,7 @@ textarea {
 /* End extract */
 html,
 body {
-  font-family: Verdana, sans-serif;
+  font-family: "formata";
   font-size: 15px;
   line-height: 1.5;
 }
@@ -206,7 +245,7 @@ html {
   overflow-x: hidden;
 }
 h1 {
-  font-size: 36px;
+  font-size: 45px;
 }
 h2 {
   font-size: 30px;
@@ -224,10 +263,10 @@ h6 {
   font-size: 16px;
 }
 .w3-serif {
-  font-family: serif;
+  font-family: "formata";
 }
 .w3-sans-serif {
-  font-family: sans-serif;
+  font-family: "formata";
 }
 .w3-cursive {
   font-family: cursive;
@@ -241,7 +280,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: "formata";
   font-weight: 400;
   margin: 10px 0;
 }

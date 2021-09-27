@@ -109,10 +109,9 @@ export default function MyCollection({ viewerId }) {
       {isLoading ? (
         <Loader
           type='ThreeDots'
-          color='#00BFFF'
+          color='#4d727d'
           height={100}
           width={100}
-          timeout={1000} // 1 sec
         />
       ) : (
         <ShowCardsImage

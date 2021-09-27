@@ -3,6 +3,7 @@ import Authentication from '../../util/Authentication/Authentication'; //Auth he
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import ChannelRewards from './ChannelRewards/ChannelRewards';
+import NotSharedIdScreen from './notSharedId/NotSharedId';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -100,10 +101,11 @@ export default class App extends React.Component {
     } else {
       return (
         <div className='App'>
-          <p>
+          <NotSharedIdScreen/>
+          {/* <p>
             Accept permissions below to start collecting Getting Dicey Trading
             Cards
-          </p>
+          </p> */}
         </div>
       );
     }

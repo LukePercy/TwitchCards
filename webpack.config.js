@@ -94,6 +94,10 @@ module.exports = (_env, argv) => {
           test: /\.css$/,
           use: ['style-loader', 'css-loader'],
         },
+        {    
+          test: /\.(woff|woff2|eot|ttf|otf)$/,
+          loader: "file-loader"
+        },
         {
           test: /\.scss$/,
           use: [

@@ -91,9 +91,9 @@ export default function MyCollection({ viewerId }) {
       } else if (holdingCard.holdingAmount > 15) {
         const newCard = {
           ...matchedCard,
-          rarity: 'Mint',
-          frontimage: require(`../cards/${matchedCard.title}-s1_mint.jpg`), //Foil card image
-          backimage: require(`../cards/Card_Back-s1_mint.jpg`),
+          rarity: 'Foil',
+          frontimage: require(`../cards/${matchedCard.title}-s1_foil.jpg`), //Foil card image
+          backimage: require(`../cards/Card_Back-s1_foil.jpg`),
         };
         return newCard;
       } else {

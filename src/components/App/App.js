@@ -16,6 +16,7 @@ export default class App extends React.Component {
       finishedLoading: false,
       theme: 'light',
       isVisible: true,
+      token: '',
     };
   }
 
@@ -38,6 +39,7 @@ export default class App extends React.Component {
   componentDidMount() {
     if (this.twitch) {
       this.twitch.onAuthorized((auth) => {
+        console.log('auth :>> ', auth);
         this.Authentication.setToken(auth.token, auth.userId);
         if (!this.state.finishedLoading) {
           // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.
@@ -46,6 +48,7 @@ export default class App extends React.Component {
           this.setState(() => {
             return {
               viewerId: this.Authentication.getUserId(),
+              token: this.Authentication.getToken(),
               finishedLoading: true,
             };
           });
@@ -78,6 +81,10 @@ export default class App extends React.Component {
       );
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
   render() {
     const viewerId = this.state.viewerId;
 
@@ -87,15 +94,25 @@ export default class App extends React.Component {
           <div
             className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}
           >
+<<<<<<< HEAD
             <ChannelRewards />
             <MyCollection viewerId={viewerId} />
+=======
+            <MyCollection viewerId={viewerId} />
+            <ChannelRewards token={this.state.token} />
+            {/* <MyCollection viewerId={viewerId} /> */}
+            {/* <p>I have {this.Authentication.hasSharedId() ? `shared my ID, and my user_id is ${this.Authentication.getUserId()}` : 'not shared my ID'}.</p> */}
+>>>>>>> develop
           </div>
         </div>
       );
     } else {
       return (
         <div className='App'>
-          <p>Accept permissions below to start collecting Getting Dicey Trading Cards</p>
+          <p>
+            Accept permissions below to start collecting Getting Dicey Trading
+            Cards
+          </p>
         </div>
       );
     }

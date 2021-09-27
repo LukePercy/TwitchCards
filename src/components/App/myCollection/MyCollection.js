@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // Card info
 import { slides } from '../cardList/CardList';
 import useViewersCards from '../customHooks/useViewersCards';
-import Slide from './slide/Slide';
+
+import ShowCardsImage from './ShowCardsImage/ShowCardsImage';
+import Loader from 'react-loader-spinner';
+
+const BASE_URL = 'http://localhost:3003/api/viewers';
+// const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 
 const initialState = {
   slideIndex: 0,
@@ -27,7 +32,29 @@ const slidesReducer = (state, event) => {
 // Render cards in slide - see carousel.css
 export default function MyCollection({ viewerId }) {
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
+  const [hasViewerExisted, setViewerExisted] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const viewersCards = useViewersCards(viewerId);
+
+  // use useEffect to fetch from DB check the viewer has existed in our DB
+  useEffect(() => {
+    const getCardsViewer = async () => {
+      const response = await fetch(`${BASE_URL}/${viewerId}`);
+      const result = await response.json();
+      const { success } = result;
+      // Check the viewer has a card record in our DB first
+      if (success) {
+        // If the viewer has a card record, then set the flag to true
+        setViewerExisted(true);
+      }
+
+      // No matter the viewer has or hasn't a card record
+      // at this moment, stop the spinner by setting the loading flag
+      setLoading(false);
+    };
+    getCardsViewer();
+  }, []);
+
   // Dealing with two things here:
   //  - 1. Display the right cards that the viewer has
   //  - 2. Display the right card type accordingly based on the holding amount of that card
@@ -41,82 +68,62 @@ export default function MyCollection({ viewerId }) {
     // use find() to compare two card IDs
     // then return the matched card object
     const matchedCard = slides.find((card) => holdingCard.cardId === card.id);
-
     // Then update the card type for displaying
     if (holdingCard.cardId === matchedCard.id) {
       if (holdingCard.holdingAmount >= 0 && holdingCard.holdingAmount <= 5) {
-        return {
+        const newCard = {
           ...matchedCard,
           rarity: 'Worn', // we dont use this yet. Its used to drive CardRarity() display component.
-          frontimage: require(`../cards/${matchedCard.title}-s1_worn.jpg`),
-          backimage: require(`../cards/Card_Back-s1_worn.jpg`),
+          frontimage: require(`../cards/Miraqen-s1_worn.jpg`),
         };
+        return newCard;
       } else if (
         holdingCard.holdingAmount > 5 &&
         holdingCard.holdingAmount <= 15
       ) {
-        return {
+        const newCard = {
           ...matchedCard,
           rarity: 'Mint',
           frontimage: require(`../cards/${matchedCard.title}-s1_mint.jpg`), //Mint card image
           backimage: require(`../cards/Card_Back-s1_mint.jpg`),
         };
+        return newCard;
       } else if (holdingCard.holdingAmount > 15) {
-        return {
+        const newCard = {
           ...matchedCard,
           rarity: 'Mint',
           frontimage: require(`../cards/${matchedCard.title}-s1_mint.jpg`), //Foil card image
           backimage: require(`../cards/Card_Back-s1_mint.jpg`),
         };
+        return newCard;
       } else {
         throw new Error(
           'Should not happen. Holding amount out of numbered ranges' // if our ranges set fail, throw error
         );
       }
     }
-    return matchedCard;
   });
-  // render collection if cards exist, if not show just a back card.
 
   return (
-      <div className='slides'>
-      {cardsForDisplay.length > 3 ? (
-        <>
-          <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
-          {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
-            (slide, i) => {
-              let offset = slides.length + (state.slideIndex - i);
-              return (
-                <Slide
-                  viewerId={viewerId}
-                  slide={slide}
-                  offset={offset}
-                  key={i}
-                />
-              );
-            }
-          )}
-          <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
-        </>
-      ) :
-          <>
-          <div style={{
-            padding: 0,
-            margin: 0,
-          }}>Unlock 3 cards to see your collection</div>
-          <div key='back'>
-            <div
-              className='slideContent'
-              style={{
-                backgroundImage: `url('${slides[0].backimage}')`,
-                margin: 0,
-                padding: 20,
-                alignContent: 'center',
-              }}
-            ></div>
-          </div>
-        </>
-      }
+    <div className='slides'>
+      {isLoading ? (
+        <Loader
+          type='ThreeDots'
+          color='#00BFFF'
+          height={100}
+          width={100}
+          timeout={1000} // 1 sec
+        />
+      ) : (
+        <ShowCardsImage
+          hasViewerExisted={hasViewerExisted}
+          state={state}
+          dispatch={dispatch}
+          cardsForDisplay={cardsForDisplay}
+          slides={slides}
+          viewerId={viewerId}
+        />
+      )}
     </div>
     );
 }

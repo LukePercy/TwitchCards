@@ -30,14 +30,13 @@ const ShowCardsImage = ({
           <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
         </>
       ) : (
-        <>
+        <><p>Unlock 3 characters to see your collection</p>
           <div
             style={{
               padding: 0,
               margin: 0,
             }}
           >
-            Unlock 3 cards to see your collection
           </div>
           <div key='back'>
             <div
@@ -45,8 +44,7 @@ const ShowCardsImage = ({
               style={{
                 backgroundImage: `url('${slides[0].backimage}')`,
                 margin: 0,
-                padding: 20,
-                alignContent: 'center',
+                padding: 25,
               }}
             ></div>
           </div>

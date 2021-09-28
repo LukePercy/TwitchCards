@@ -16,6 +16,7 @@ const ShowCardsImage = ({
           <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
           {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
             (slide, i) => {
+              // offset = i - 1 for one card. play with this more for 2 cards
               let offset = slides.length + (state.slideIndex - i);
               return (
                 <Slide

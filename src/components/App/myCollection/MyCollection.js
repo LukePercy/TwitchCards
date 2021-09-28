@@ -6,8 +6,8 @@ import useViewersCards from '../customHooks/useViewersCards';
 import ShowCardsImage from './ShowCardsImage/ShowCardsImage';
 import Loader from 'react-loader-spinner';
 
-const BASE_URL = 'http://localhost:3003/api/viewers';
-// const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
+// const BASE_URL = 'http://localhost:3003/api/viewers';
+const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 
 const initialState = {
   slideIndex: 0,
@@ -74,7 +74,7 @@ export default function MyCollection({ viewerId }) {
         const newCard = {
           ...matchedCard,
           rarity: 'Worn', // we dont use this yet. Its used to drive CardRarity() display component.
-          frontimage: require(`../cards/Miraqen-s1_worn.jpg`),
+          frontimage: require(`../cards/${matchedCard.title}-s1_worn.jpg`),
         };
         return newCard;
       } else if (

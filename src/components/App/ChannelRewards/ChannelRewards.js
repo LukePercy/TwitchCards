@@ -82,7 +82,7 @@ function ChannelRewards({ token }) {
 
   // On chat API - to add the custom reward
   ComfyJS.onCommand = (user, command, message, flags, extra) => {
-  if (command=== '!cardrewardcreate') {
+  if (command=== 'cardrewardcreate') {
     ComfyJS.CreateChannelReward(clientId, {
       title: 'Unlock Trading Card',
       prompt: 'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',

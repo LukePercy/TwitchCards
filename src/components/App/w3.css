@@ -1,12 +1,4 @@
-﻿#root {
-  box-sizing: border-box;
-}
-/* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
-
-@font-face {
-  font-family: "formata";
-  src: url("./fonts/Formata-Regular.otf") format("opentype");
-}
+﻿/* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
 
 html {
   background: #151515;
@@ -44,16 +36,14 @@ body {
 
 .title {
   display: flex;
-  font-family: "formata";
-  font-weight: bold;
+  font-family: "Formata-Regular";
   justify-content: center;
   padding-top: 20%;
   text-decoration-line: underline;
 }
 
 .subtitle {
-  font-family: "formata";
-  font-weight: normal;
+  font-family: "Formata-Regular";
   font-size: 1.3rem;
   overflow: hidden;
   display: block;
@@ -237,7 +227,7 @@ textarea {
 /* End extract */
 html,
 body {
-  font-family: "formata";
+  font-family: "Formata-Regular";
   font-size: 15px;
   line-height: 1.5;
 }
@@ -263,10 +253,10 @@ h6 {
   font-size: 16px;
 }
 .w3-serif {
-  font-family: "formata";
+  font-family: "Formata-Regular";
 }
 .w3-sans-serif {
-  font-family: "formata";
+  font-family: "Formata-Regular";
 }
 .w3-cursive {
   font-family: cursive;
@@ -280,7 +270,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "formata";
+  font-family: "Formata-Regular";
   font-weight: 400;
   margin: 10px 0;
 }

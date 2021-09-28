@@ -1,11 +1,16 @@
 @import "w3.css"; /* w3.css bootstrap */
 @import "./myCollection/carousel.css"; /* Carousel.css by @keyframes*/
 
+@font-face {
+  font-family: "Formata-Regular";
+  src: url("./fonts/Formata-Regular.woff") format("woff");
+}
 #root {
   margin: auto;
 }
+
 .App {
-  font-family: "formata";
+  font-family: "Formata-Regular";
 }
 
 /* if light mode show dark text */

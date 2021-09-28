@@ -93,8 +93,6 @@ export default class App extends React.Component {
           >
             <MyCollection viewerId={viewerId} />
             <ChannelRewards token={this.state.token} />
-            {/* <MyCollection viewerId={viewerId} /> */}
-            {/* <p>I have {this.Authentication.hasSharedId() ? `shared my ID, and my user_id is ${this.Authentication.getUserId()}` : 'not shared my ID'}.</p> */}
           </div>
         </div>
       );
@@ -102,10 +100,6 @@ export default class App extends React.Component {
       return (
         <div className='App'>
           <NotSharedIdScreen/>
-          {/* <p>
-            Accept permissions below to start collecting Getting Dicey Trading
-            Cards
-          </p> */}
         </div>
       );
     }

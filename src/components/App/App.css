@@ -3,7 +3,8 @@
 
 @font-face {
   font-family: "Formata-Regular";
-  src: url("./fonts/Formata-Regular.woff") format("woff");
+  src: url("./fonts/Formata-Regular.woff") format("woff")
+    url("./fonts/Formata-Regular.otf") format("opentype");
 }
 #root {
   margin: auto;

@@ -30,11 +30,33 @@
         "width": 1280,
         "height": 720
       },
+      "id": "3",
+      "isPopout": false,
+      "label": "me",
+      "linked": false,
+      "linkedUserId": "",
+      "orientation": "Portrait",
+      "type": "panel",
+      "viewerType": "Broadcaster"
+    },
+    {
+      "channelId": "425762901",
+      "configurationAnchor": "panel",
+      "displayChannelName": "randomorigins",
+      "features": {
+        "isBitsEnabled": false,
+        "isChatEnabled": false,
+        "isSubscriptionStatusAvailable": false
+      },
+      "frameSize": {
+        "width": 1280,
+        "height": 720
+      },
       "id": "4",
       "isPopout": false,
-      "label": "Me",
-      "linked": true,
-      "linkedUserId": "425762901",
+      "label": "",
+      "linked": false,
+      "linkedUserId": "",
       "orientation": "Portrait",
       "type": "panel",
       "viewerType": "Logged-In Viewer"

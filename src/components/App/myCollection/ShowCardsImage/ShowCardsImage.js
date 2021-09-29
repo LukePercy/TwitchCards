@@ -1,23 +1,23 @@
 import React from 'react';
 import Slide from '../slide/Slide';
+import Backimage from '../../cards/Card_Back-s1_worn.jpg'
 
 const ShowCardsImage = ({
   hasViewerExisted,
   state,
   dispatch,
   cardsForDisplay,
-  slides,
   viewerId,
 }) => {
+  console.log(`Backimage`, Backimage)
   return (
     <>
       {hasViewerExisted ? (
         <>
-          <button onClick={() => dispatch({ type: 'PREV' })}>‹</button>
+          <button onClick={() => dispatch({ type: 'PREV', cardsForDisplay })}>‹</button>
           {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
             (slide, i) => {
-              // offset = i - 1 for one card. play with this more for 2 cards
-              let offset = slides.length + (state.slideIndex - i);
+              let offset = cardsForDisplay.length + (state.slideIndex - i);
               return (
                 <Slide
                   viewerId={viewerId}
@@ -28,22 +28,22 @@ const ShowCardsImage = ({
               );
             }
           )}
-          <button onClick={() => dispatch({ type: 'NEXT' })}>›</button>
+          <button onClick={() => dispatch({ type: 'NEXT', cardsForDisplay })}>›</button>
         </>
       ) : (
         <><p>Unlock 3 characters to see your collection</p>
-          <div
+          {/* <div
             style={{
               padding: 0,
               margin: 0,
             }}
           >
-          </div>
+          </div> */}
           <div key='back'>
             <div
               className='slideContent'
               style={{
-                backgroundImage: `url('${slides[0].backimage}')`,
+                backgroundImage: `url(${Backimage})`,
                 margin: 0,
                 padding: 25,
               }}

@@ -12,58 +12,9 @@ const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 const initialState = {
   slideIndex: 0,
 };
-// Slide navigation to view collection of cards
-const slidesReducer = (state, event) => {
-  if (event.type === 'NEXT') {
-    return {
-      ...state,
-      slideIndex:
-      state.slideIndex === 0 ? slides.length - 1 : state.slideIndex - 1,
-    };
-  }
-  if (event.type === 'PREV') {
-    return {
-      ...state,
-      slideIndex: (state.slideIndex + 1) % slides.length,
-    };
-  }
-};
 
-// Render cards in slide - see carousel.css
-export default function MyCollection({ viewerId }) {
-  const [state, dispatch] = React.useReducer(slidesReducer, initialState);
-  const [hasViewerExisted, setViewerExisted] = useState(false);
-  const [isLoading, setLoading] = useState(true);
+const useCardsForDisplay = (viewerId) => {
   const viewersCards = useViewersCards(viewerId);
-
-  // use useEffect to fetch from DB check the viewer has existed in our DB
-  useEffect(() => {
-    const getCardsViewer = async () => {
-      const response = await fetch(`${BASE_URL}/${viewerId}`);
-      const result = await response.json();
-      const { success } = result;
-      // Check the viewer has a card record in our DB first
-      if (success) {
-        // If the viewer has a card record, then set the flag to true
-        setViewerExisted(true);
-      }
-
-      // No matter the viewer has or hasn't a card record
-      // at this moment, stop the spinner by setting the loading flag
-      setLoading(false);
-    };
-    getCardsViewer();
-  }, []);
-
-  // Dealing with two things here:
-  //  - 1. Display the right cards that the viewer has
-  //  - 2. Display the right card type accordingly based on the holding amount of that card
-  //       - If 0 <= HoldingAmount < 5 ---> show Worn image
-  //       - If 5 <= HoldingAmount < 15 ---> show Mint image
-  //       - If HoldingAmount >= 15 ---> show Foil Image
-
-  // use map() to loop all cards
-  // that the viewer is holding
   const cardsForDisplay = viewersCards.map((holdingCard) => {
     // use find() to compare two card IDs
     // then return the matched card object
@@ -103,6 +54,54 @@ export default function MyCollection({ viewerId }) {
       }
     }
   });
+  return cardsForDisplay;
+}
+
+// Slide navigation to view collection of cards
+const slidesReducer = (state, event) => {
+const {type, cardsForDisplay} = event;
+
+  if (type === 'NEXT') {
+    return {
+      ...state,
+      slideIndex:
+      state.slideIndex === 0 ? cardsForDisplay.length - 1 : state.slideIndex - 1,
+    };
+  }
+  if (type === 'PREV') {
+    return {
+      ...state,
+      slideIndex: (state.slideIndex + 1) % cardsForDisplay.length,
+    };
+  }
+};
+
+// Render cards in slide - see carousel.css
+export default function MyCollection({ viewerId }) {
+  const [state, dispatch] = React.useReducer(slidesReducer, initialState);
+  const [hasViewerExisted, setViewerExisted] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const cardsForDisplay = useCardsForDisplay(viewerId)
+  
+
+  // use useEffect to fetch from DB check the viewer has existed in our DB
+  useEffect(() => {
+    const getCardsViewer = async () => {
+      const response = await fetch(`${BASE_URL}/${viewerId}`);
+      const result = await response.json();
+      const { success } = result;
+      // Check the viewer has a card record in our DB first
+      if (success) {
+        // If the viewer has a card record, then set the flag to true
+        setViewerExisted(true);
+      }
+
+      // No matter the viewer has or hasn't a card record
+      // at this moment, stop the spinner by setting the loading flag
+      setLoading(false);
+    };
+    getCardsViewer();
+  }, []);
 
   return (
     <div className='slides'>
@@ -119,7 +118,6 @@ export default function MyCollection({ viewerId }) {
           state={state}
           dispatch={dispatch}
           cardsForDisplay={cardsForDisplay}
-          slides={slides}
           viewerId={viewerId}
         />
       )}

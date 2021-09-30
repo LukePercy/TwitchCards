@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ComfyJS from 'comfy.js';
 import { slides } from '../cardList/CardList';
 
@@ -6,10 +6,31 @@ import { slides } from '../cardList/CardList';
 const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers/';
 const UPDATEAMOUNT = 1;
 
-function ChannelRewards({ token }) {
-  const channel = 'gettingdicey'; //make .env when figure it out
-  const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
-  const twitchAuth = 'h7wpt7417rl2djr830vojy0zu5mj6f'; //make .env when figure it out
+function ChannelRewards({ token, clientId }) {
+  console.log('ChannelRewards ruturned')
+  console.log(`clientID`, clientId)
+  const [twitchAuth, settwitchAuth] = useState(null)
+  const channel = 'gettingdicey';
+
+  useEffect(() => {
+   const getTwitchAuth = async (clientId) => {
+      const response = await fetch(`https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=http://localhost&response_type=code&scope=channel:manage:redemptions channel:read:redemptions user:read:email chat:edit chat:read`);
+      console.log(`response`, response)
+      const result = await response.json();
+      const {status} = result
+      console.log(`result ==>`, result)
+      // if (status === 200) {
+      // settwitchAuth(twitchAuthResult)
+      // }
+      // throw new Error('invalid client!');
+    };
+    getTwitchAuth(clientId)
+  }, [twitchAuth])
+
+  if (twitchAuth) {
+    console.log('twitch auth has been caught')
+    // ComfyJS.Init(channel, twitchAuth);
+  }
 
   const getCardsViewer = async (userId) => {
     const response = await fetch(`${BASE_URL}/${userId}`);
@@ -101,8 +122,6 @@ function ChannelRewards({ token }) {
     ComfyJS.Say(`Trading Card Reward Created!`);
   }
   };
-
-  ComfyJS.Init(channel, twitchAuth);
 
   ComfyJS.onReward = async (user, reward, cost, message, extra) => {
     const { rewardFulfilled, userId, username } = extra;

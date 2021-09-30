@@ -18,6 +18,7 @@ export default class App extends React.Component {
       theme: 'light',
       isVisible: true,
       token: '',
+      clientId: '',
     };
   }
 
@@ -40,6 +41,7 @@ export default class App extends React.Component {
   componentDidMount() {
     if (this.twitch) {
       this.twitch.onAuthorized((auth) => {
+        console.log(`auth`, auth)
         this.Authentication.setToken(auth.token, auth.userId);
         if (!this.state.finishedLoading) {
           // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.
@@ -50,6 +52,7 @@ export default class App extends React.Component {
               viewerId: this.Authentication.getUserId(),
               token: this.Authentication.getToken(),
               finishedLoading: true,
+              clientId: auth.clientId,
             };
           });
         }
@@ -91,7 +94,7 @@ export default class App extends React.Component {
             className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}
           >
             <MyCollection viewerId={viewerId} />
-            <ChannelRewards token={this.state.token} />
+            <ChannelRewards token={this.state.token} clientId={this.state.clientId} />
           </div>
         </div>
       );

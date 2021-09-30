@@ -40,7 +40,6 @@ export default class App extends React.Component {
   componentDidMount() {
     if (this.twitch) {
       this.twitch.onAuthorized((auth) => {
-        console.log('auth :>> ', auth);
         this.Authentication.setToken(auth.token, auth.userId);
         if (!this.state.finishedLoading) {
           // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.

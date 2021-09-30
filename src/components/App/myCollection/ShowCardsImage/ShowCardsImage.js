@@ -9,7 +9,6 @@ const ShowCardsImage = ({
   cardsForDisplay,
   viewerId,
 }) => {
-  console.log(`Backimage`, Backimage)
   return (
     <>
       {hasViewerExisted ? (

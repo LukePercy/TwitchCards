@@ -95,7 +95,7 @@ function ChannelRewards({ token }) {
       is_max_per_user_per_stream_enabled: false,
       max_per_user_per_stream: 0,
       is_global_cooldown_enabled: true,
-      global_cooldown_seconds: 30,
+      global_cooldown_seconds: 10,
       should_redemptions_skip_request_queue: true,
     });
     ComfyJS.Say(`Trading Card Reward Created!`);
@@ -138,26 +138,6 @@ function ChannelRewards({ token }) {
   //   const channelRewards = ComfyJS.GetChannelRewards(clientId, true);
   //   console.log(channelRewards);
   // }
-
-  // TODO: may need credentials to test it.
-  const createChannelRewardsPoint = async () => {
-    let customReward = await ComfyJS.CreateChannelReward(clientId, {
-      title: 'Unlock Trading Cards',
-      prompt:
-        'Unlock a random Getting Dicey Trading Card and check your collection panel below the stream',
-      cost: 1,
-      is_enabled: true,
-      background_color: '#00E5CB',
-      is_user_input_required: false,
-      is_max_per_stream_enabled: false,
-      max_per_stream: 0,
-      is_max_per_user_per_stream_enabled: false,
-      max_per_user_per_stream: 0,
-      is_global_cooldown_enabled: false,
-      global_cooldown_seconds: 0,
-      should_redemptions_skip_request_queue: true,
-    });
-  };
 
   // const randCard = {
   //   backimage: 'img/Card_Back-01.svg',

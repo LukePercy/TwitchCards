@@ -96,7 +96,10 @@ module.exports = (_env, argv) => {
         },
         {    
           test: /\.(woff|woff2|eot|ttf|otf)$/,
-          loader: "file-loader"
+          loader: "file-loader",
+          options: {
+            name: 'fonts/[name].[ext]',
+          },
         },
         {
           test: /\.scss$/,

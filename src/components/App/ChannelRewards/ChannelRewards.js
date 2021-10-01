@@ -33,7 +33,7 @@ function ChannelRewards({ token }) {
       headers: {
         'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
         'Content-Type': 'application/json',
-        Authentication: token,
+        'Authentication': token,
       },
       body: JSON.stringify({
         cardId: card.id,
@@ -61,12 +61,12 @@ function ChannelRewards({ token }) {
     };
 
     // create a viewer
-    const response = await fetch(`${BASE_URL}/`, {
+    const response = await fetch(`${BASE_URL}/${userId}`, {
       method: 'POST',
       headers: {
         'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
         'Content-Type': 'application/json',
-        Authentication: token,
+        'Authentication': token,
       },
       body: JSON.stringify([
         {

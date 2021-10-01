@@ -90,7 +90,7 @@ export default class App extends React.Component {
           <div
             className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}
           >
-            <MyCollection viewerId={viewerId} />
+            <MyCollection viewerId={viewerId} token={this.state.token} />
             <ChannelRewards token={this.state.token} />
           </div>
         </div>

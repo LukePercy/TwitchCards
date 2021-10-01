@@ -61,7 +61,7 @@ function ChannelRewards({ token }) {
     };
 
     // create a viewer
-    const response = await fetch(`${BASE_URL}/${userId}`, {
+    const response = await fetch(`${BASE_URL}/`, {
       method: 'POST',
       headers: {
         'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',

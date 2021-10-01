@@ -12,7 +12,7 @@ function ChannelRewards({ token }) {
   const twitchAuth = 'h7wpt7417rl2djr830vojy0zu5mj6f'; //make .env when figure it out
 
   const getCardsViewer = async (userId) => {
-    const response = await fetch(`${BASE_URL}/${userId}`);
+    const response = await fetch(`${BASE_URL}/${userId}`, { mode: 'no-cors'});
     const result = await response.json();
     const { success } = result;
 

@@ -87,7 +87,7 @@ export default function MyCollection({ viewerId }) {
   // use useEffect to fetch from DB check the viewer has existed in our DB
   useEffect(() => {
     const getCardsViewer = async () => {
-      const response = await fetch(`${BASE_URL}/${viewerId}` , {mode: 'no-cors'});
+      const response = await fetch(`${BASE_URL}/${viewerId}`, {mode: 'no-cors'});
       const result = await response.json();
       const { success } = result;
       // Check the viewer has a card record in our DB first
@@ -111,6 +111,7 @@ export default function MyCollection({ viewerId }) {
           color='#4d727d'
           height={100}
           width={100}
+          timeout={1000}
         />
       ) : (
         <ShowCardsImage

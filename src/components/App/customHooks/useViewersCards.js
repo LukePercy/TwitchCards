@@ -9,7 +9,7 @@ const useViewersCards = (viewerId) => {
   const [viewersCards, setViewersCards] = useState([]);
   useEffect(() => {
     const getCardsViewer = async (viewerId) => {
-      const response = await fetch(`${BASE_URL}/${viewerId}`, { mode: 'no-cors'});
+      const response = await fetch(`${BASE_URL}/${viewerId}`);
       const result = await response.json();
       const { data } = result;
       if (data) {

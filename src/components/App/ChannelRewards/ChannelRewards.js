@@ -3,7 +3,7 @@ import ComfyJS from 'comfy.js';
 import { slides } from '../cardList/CardList';
 
 // const BASE_URL = 'http://localhost:3003/api/viewers';
-const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers/';
+const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 const UPDATEAMOUNT = 1;
 
 function ChannelRewards({ token }) {

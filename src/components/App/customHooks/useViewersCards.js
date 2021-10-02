@@ -9,7 +9,7 @@ const useViewersCards = (viewerId, token) => {
   console.log(`useViewersCardsToken ==>`, token)
   const [viewersCards, setViewersCards] = useState([]);
   useEffect(() => {
-    const getCardsViewer = async (viewerId) => {
+    const getCardsViewer = async (viewerId, token) => {
       console.log(`useViewerCardsToken useEffect ===>`, token)
       const response = await fetch(`${BASE_URL}/${viewerId}`,{
         method: 'GET',
@@ -29,8 +29,8 @@ const useViewersCards = (viewerId, token) => {
         setViewersCards([]);
       }
     };
-    getCardsViewer(viewerId);
-  }, [viewerId]);
+    getCardsViewer(viewerId, token);
+  }, [viewerId, token]);
   return viewersCards;
 };
 

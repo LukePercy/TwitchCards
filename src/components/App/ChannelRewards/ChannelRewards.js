@@ -7,6 +7,7 @@ const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 const UPDATEAMOUNT = 1;
 
 function ChannelRewards({ token }) {
+  console.log(`token ===>`, token)
   const channel = 'gettingdicey'; //make .env when figure it out
   const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
   const twitchAuth = 'h7wpt7417rl2djr830vojy0zu5mj6f'; //make .env when figure it out
@@ -33,7 +34,7 @@ function ChannelRewards({ token }) {
       headers: {
         'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
         'Content-Type': 'application/json',
-        'Authentication': token,
+        Authentication: token,
       },
       body: JSON.stringify({
         cardId: card.id,
@@ -66,7 +67,7 @@ function ChannelRewards({ token }) {
       headers: {
         'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
         'Content-Type': 'application/json',
-        'Authentication': token,
+        Authentication: token,
       },
       body: JSON.stringify([
         {

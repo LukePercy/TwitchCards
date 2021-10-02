@@ -13,8 +13,8 @@ const initialState = {
   slideIndex: 0,
 };
 
-const useCardsForDisplay = (viewerId) => {
-  const viewersCards = useViewersCards(viewerId);
+const useCardsForDisplay = (viewerId, token) => {
+  const viewersCards = useViewersCards(viewerId, token);
   const cardsForDisplay = viewersCards.map((holdingCard) => {
     // use find() to compare two card IDs
     // then return the matched card object

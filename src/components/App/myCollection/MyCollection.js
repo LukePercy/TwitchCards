@@ -78,17 +78,20 @@ const {type, cardsForDisplay} = event;
 
 // Render cards in slide - see carousel.css
 export default function MyCollection({ viewerId, token }) {
+  console.log(`Mycollection function Token ==>`, token)
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const [hasViewerExisted, setViewerExisted] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const cardsForDisplay = useCardsForDisplay(viewerId)
+  const cardsForDisplay = useCardsForDisplay(viewerId, token)
   
 
   // use useEffect to fetch from DB check the viewer has existed in our DB
   useEffect(() => {
     const getCardsViewer = async () => {
+      console.log(`getCardsViewerToken useEffect ===>`, token)
       const response = await fetch(`${BASE_URL}/${viewerId}`,
       {
+      meothod: 'GET',
       headers: {
         'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
         'Content-Type': 'application/json',

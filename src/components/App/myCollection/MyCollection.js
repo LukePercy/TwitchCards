@@ -91,7 +91,7 @@ export default function MyCollection({ viewerId, token }) {
       console.log(`getCardsViewerToken useEffect ===>`, token)
       const response = await fetch(`${BASE_URL}/${viewerId}`,
       {
-      meothod: 'GET',
+      method: 'GET',
       headers: {
         'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
         'Content-Type': 'application/json',

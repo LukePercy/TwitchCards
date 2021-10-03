@@ -4,7 +4,8 @@ import { slides } from '../cardList/CardList';
 
 // const BASE_URL = 'http://localhost:3003/api/viewers';
 const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
-const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
+// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
+const ORIGIN_URL = 'http://localhost:8080/';
 const UPDATEAMOUNT = 1;
 
 function ChannelRewards({ token }) {
@@ -14,10 +15,10 @@ function ChannelRewards({ token }) {
   const twitchAuth = 'h7wpt7417rl2djr830vojy0zu5mj6f'; //make .env when figure it out
 
   const getCardsViewer = async (userId) => {
-    const response = await fetch(`${BASE_URL}/${userId}`,   {
-      method: 'GET',
+    const response = await fetch(`${BASE_URL}/${userId}`, {
       headers: {
-        'Access-Control-Allow-Origin': `${ORIGIN_URL}`,
+        mode: 'no-cors',
+        'Access-Control-Allow-Origin': `*`,
         'Content-Type': 'application/json',
         Authentication: token,
       }
@@ -40,7 +41,8 @@ function ChannelRewards({ token }) {
     const response = await fetch(`${BASE_URL}/${userId}`, {
       method: 'PUT',
       headers: {
-        'Access-Control-Allow-Origin': `${ORIGIN_URL}`,
+        mode: 'no-cors',
+        'Access-Control-Allow-Origin': `*`,
         'Content-Type': 'application/json',
         Authentication: token,
       },
@@ -71,10 +73,10 @@ function ChannelRewards({ token }) {
 
     // create a viewer
     const response = await fetch(`${BASE_URL}`, {
-      mode: 'cors',
       method: 'POST',
       headers: {
-        'Access-Control-Allow-Origin': `${ORIGIN_URL}`,
+        mode: 'no-cors',
+        'Access-Control-Allow-Origin': `*`,
         'Content-Type': 'application/json',
         Authentication: token,
       },

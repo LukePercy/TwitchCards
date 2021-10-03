@@ -93,6 +93,7 @@ export default class Authentication {
     return new Promise((resolve, reject) => {
       if (this.isAuthenticated()) {
         let headers = {
+          'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
           'Content-Type': 'application/json',
           Authorization: `Bearer ${this.state.token}`,
         };

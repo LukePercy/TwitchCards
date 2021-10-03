@@ -70,7 +70,8 @@ function ChannelRewards({ token }) {
     };
 
     // create a viewer
-    const response = await fetch(`${BASE_URL}/${userId}`, {
+    const response = await fetch(`${BASE_URL}/`, {
+      mode: 'cors',
       method: 'POST',
       headers: {
         'Access-Control-Allow-Origin': `${ORIGIN_URL}`,

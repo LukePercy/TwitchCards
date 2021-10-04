@@ -73,7 +73,7 @@ function ChannelRewards({ token }) {
     const response = await fetch(`${BASE_URL}`, {
       method: 'POST',
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/',
         'Content-Type': 'application/json',
         Authentication: token,
       },

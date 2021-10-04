@@ -139,8 +139,7 @@ module.exports = (_env, argv) => {
       contentBase: path.join(__dirname, 'public'),
       host: argv.devrig ? 'localhost.rig.twitch.tv' : 'localhost',
       headers: {
-        mode: 'no-cors',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/',
       },
       port: 8080,
     };

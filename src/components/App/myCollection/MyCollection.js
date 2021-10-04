@@ -95,8 +95,7 @@ export default function MyCollection({ viewerId, token }) {
       {
       method: 'GET',
       headers: {
-        mode: 'no-cors',
-        'Access-Control-Allow-Origin': `*`,
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authentication: token,
       }

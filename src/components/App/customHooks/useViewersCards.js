@@ -16,8 +16,7 @@ const useViewersCards = (viewerId, token) => {
       const response = await fetch(`${BASE_URL}/${viewerId}`,{
         method: 'GET',
         headers: {
-          mode: 'no-cors',
-          'Access-Control-Allow-Origin': `*`,
+          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json',
           Authentication: token,
         }

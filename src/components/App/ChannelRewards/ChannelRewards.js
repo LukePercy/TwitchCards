@@ -17,8 +17,7 @@ function ChannelRewards({ token }) {
   const getCardsViewer = async (userId) => {
     const response = await fetch(`${BASE_URL}/${userId}`, {
       headers: {
-        mode: 'no-cors',
-        'Access-Control-Allow-Origin': `*`,
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authentication: token,
       }
@@ -41,8 +40,7 @@ function ChannelRewards({ token }) {
     const response = await fetch(`${BASE_URL}/${userId}`, {
       method: 'PUT',
       headers: {
-        mode: 'no-cors',
-        'Access-Control-Allow-Origin': `*`,
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authentication: token,
       },
@@ -75,8 +73,7 @@ function ChannelRewards({ token }) {
     const response = await fetch(`${BASE_URL}`, {
       method: 'POST',
       headers: {
-        mode: 'no-cors',
-        'Access-Control-Allow-Origin': `*`,
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authentication: token,
       },

@@ -15,14 +15,22 @@ function ChannelRewards({ token }) {
   const twitchAuth = 'h7wpt7417rl2djr830vojy0zu5mj6f'; //make .env when figure it out
 
   const getCardsViewer = async (userId) => {
+    
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', token);
+    headers.append('Origin', ORIGIN_URL);
+
     const response = await fetch(`${BASE_URL}/${userId}`, {
-      headers: {
-        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
-        'Content-Type': 'application/json',
-        Authentication: token,
-      }
+      mode: 'cors',
+      credentials: 'include',
+      method: 'GET',
+      headers: headers,
     });
+
     const result = await response.json();
+
     const { success } = result;
 
     // If the viewer exists in db
@@ -78,7 +86,7 @@ function ChannelRewards({ token }) {
     // create a viewer
     const response = await fetch(`${BASE_URL}`, {
       mode: 'cors',
-      // credentials: 'include',
+      credentials: 'include',
       method: 'POST',
       headers: headers,
       body: JSON.stringify([

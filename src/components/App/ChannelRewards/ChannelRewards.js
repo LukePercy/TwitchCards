@@ -4,8 +4,8 @@ import { slides } from '../cardList/CardList';
 
 // const BASE_URL = 'http://localhost:3003/api/viewers';
 const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
-// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
-const ORIGIN_URL = 'http://localhost:8080/';
+const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
+// const ORIGIN_URL = 'http://localhost:8080/';
 const UPDATEAMOUNT = 1;
 
 function ChannelRewards({ token }) {
@@ -17,7 +17,7 @@ function ChannelRewards({ token }) {
   const getCardsViewer = async (userId) => {
     const response = await fetch(`${BASE_URL}/${userId}`, {
       headers: {
-        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/',
+        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
         'Content-Type': 'application/json',
         Authentication: token,
       }
@@ -40,7 +40,7 @@ function ChannelRewards({ token }) {
     const response = await fetch(`${BASE_URL}/${userId}`, {
       method: 'PUT',
       headers: {
-        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/',
+        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
         'Content-Type': 'application/json',
         Authentication: token,
       },
@@ -62,6 +62,12 @@ function ChannelRewards({ token }) {
       throw new Error('some ID or name is not provided!');
     }
 
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', token);
+    headers.append('Origin', ORIGIN_URL);
+
     // Prepare the holding cards object
     const holdingCards = {
       cardId: card.id,
@@ -71,12 +77,10 @@ function ChannelRewards({ token }) {
 
     // create a viewer
     const response = await fetch(`${BASE_URL}`, {
+      mode: 'cors',
+      // credentials: 'include',
       method: 'POST',
-      headers: {
-        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/',
-        'Content-Type': 'application/json',
-        Authentication: token,
-      },
+      headers: headers,
       body: JSON.stringify([
         {
           viewerId: userId,
@@ -90,6 +94,42 @@ function ChannelRewards({ token }) {
 
     return success;
   };
+
+  // OLD
+  // const createViewerCardsCollection = async (userId, userName, card) => {
+  //   // Check if any of the param is not provided
+  //   if (!userId || !userName || !card) {
+  //     throw new Error('some ID or name is not provided!');
+  //   }
+
+  //   // Prepare the holding cards object
+  //   const holdingCards = {
+  //     cardId: card.id,
+  //     cardName: card.title,
+  //     holdingAmount: 1,
+  //   };
+
+  //   // create a viewer
+  //   const response = await fetch(`${BASE_URL}`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
+  //       'Content-Type': 'application/json',
+  //       Authentication: token,
+  //     },
+  //     body: JSON.stringify([
+  //       {
+  //         viewerId: userId,
+  //         viewerName: userName,
+  //         holdingCards: [holdingCards],
+  //       },
+  //     ]),
+  //   });
+
+  //   const { success } = await response.json();
+
+  //   return success;
+  // };
 
   // On chat API - to add the custom reward
   ComfyJS.onCommand = (user, command, message, flags, extra) => {

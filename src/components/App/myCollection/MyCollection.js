@@ -9,7 +9,7 @@ import Loader from 'react-loader-spinner';
 // const BASE_URL = 'http://localhost:3003/api/viewers';
 const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 // const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/';
-const ORIGIN_URL = 'http://localhost:8080/';
+// const ORIGIN_URL = 'http://localhost:8080/';
 
 const initialState = {
   slideIndex: 0,
@@ -95,7 +95,7 @@ export default function MyCollection({ viewerId, token }) {
       {
       method: 'GET',
       headers: {
-        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/',
+        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
         'Content-Type': 'application/json',
         Authentication: token,
       }

@@ -8,7 +8,7 @@ import Loader from 'react-loader-spinner';
 
 // const BASE_URL = 'http://localhost:3003/api/viewers';
 const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
-const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/';
+const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 // const ORIGIN_URL = 'http://localhost:8080/';
 
 const initialState = {
@@ -91,21 +91,19 @@ export default function MyCollection({ viewerId, token }) {
   useEffect(() => {
     const getCardsViewer = async () => {
       console.log(`getCardsViewerToken useEffect ===>`, token)
+      
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', token);
+    headers.append('Origin', ORIGIN_URL);
 
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Accept', 'application/json');
-      headers.append('Authorization', token);
-      headers.append('Origin', ORIGIN_URL);
-
-      const response = await fetch(`${BASE_URL}/${viewerId}`,
-      {
+      const response = await fetch(`${BASE_URL}/${viewerId}`, {
         mode: 'cors',
-        credentials: 'include',
+        // credentials: 'include',
         method: 'GET',
         headers: headers,
-      
-    });
+      });
       const result = await response.json();
       const { success } = result;
       // Check the viewer has a card record in our DB first

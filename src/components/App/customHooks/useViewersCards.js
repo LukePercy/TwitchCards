@@ -8,11 +8,11 @@ const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
 // useViewersCards hook. Get which cards are held by the viewer, passing in viewerId
 const useViewersCards = (viewerId, token) => {
-  console.log(`useViewersCardsToken ==>`, token)
+  
   const [viewersCards, setViewersCards] = useState([]);
   useEffect(() => {
     const getCardsViewer = async (viewerId, token) => {
-      console.log(`useViewerCardsToken useEffect ===>`, token)
+      
       
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

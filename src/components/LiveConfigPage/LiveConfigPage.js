@@ -54,7 +54,7 @@ export default class LiveConfigPage extends React.Component{
 
     componentWillUnmount(){
         if(this.twitch){
-            this.twitch.unlisten('broadcast', ()=>console.log('successfully unlistened'))
+            this.twitch.unlisten('broadcast', ()=>
         }
     }
     

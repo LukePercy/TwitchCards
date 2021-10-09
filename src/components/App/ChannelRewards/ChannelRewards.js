@@ -9,7 +9,7 @@ const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 const UPDATEAMOUNT = 1;
 
 function ChannelRewards({ token }) {
-  console.log(`token ===>`, token)
+  
   const channel = 'gettingdicey'; //make .env when figure it out
   const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
   const twitchAuth = 'h7wpt7417rl2djr830vojy0zu5mj6f'; //make .env when figure it out
@@ -199,7 +199,7 @@ function ChannelRewards({ token }) {
 
   // function getReward() {
   //   const channelRewards = ComfyJS.GetChannelRewards(clientId, true);
-  //   console.log(channelRewards);
+  //   
   // }
 
   // const randCard = {

@@ -24,7 +24,6 @@ function ChannelRewards({ token }) {
 
     const response = await fetch(`${BASE_URL}/${userId}`, {
       mode: 'cors',
-      // credentials: 'include',
       method: 'GET',
       headers: headers,
     });
@@ -53,7 +52,6 @@ function ChannelRewards({ token }) {
     // Add the card to the viewer
     const response = await fetch(`${BASE_URL}/${userId}`, {
       mode: 'cors',
-      // credentials: 'include',
       method: 'PUT',
       headers: headers,
       body: JSON.stringify({
@@ -90,7 +88,6 @@ function ChannelRewards({ token }) {
     // create a viewer
     const response = await fetch(`${BASE_URL}`, {
       mode: 'cors',
-      // credentials: 'include',
       method: 'POST',
       headers: headers,
       body: JSON.stringify([
@@ -106,42 +103,6 @@ function ChannelRewards({ token }) {
 
     return success;
   };
-
-  // OLD
-  // const createViewerCardsCollection = async (userId, userName, card) => {
-  //   // Check if any of the param is not provided
-  //   if (!userId || !userName || !card) {
-  //     throw new Error('some ID or name is not provided!');
-  //   }
-
-  //   // Prepare the holding cards object
-  //   const holdingCards = {
-  //     cardId: card.id,
-  //     cardName: card.title,
-  //     holdingAmount: 1,
-  //   };
-
-  //   // create a viewer
-  //   const response = await fetch(`${BASE_URL}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv',
-  //       'Content-Type': 'application/json',
-  //       Authentication: token,
-  //     },
-  //     body: JSON.stringify([
-  //       {
-  //         viewerId: userId,
-  //         viewerName: userName,
-  //         holdingCards: [holdingCards],
-  //       },
-  //     ]),
-  //   });
-
-  //   const { success } = await response.json();
-
-  //   return success;
-  // };
 
   // On chat API - to add the custom reward
   ComfyJS.onCommand = (user, command, message, flags, extra) => {

@@ -100,7 +100,6 @@ export default function MyCollection({ viewerId, token }) {
 
       const response = await fetch(`${BASE_URL}/${viewerId}`, {
         mode: 'cors',
-        // credentials: 'include',
         method: 'GET',
         headers: headers,
       });

@@ -153,7 +153,6 @@
 .cardCount {
   transform: translateZ(2rem);
   transform-style: preserve-3d;
-  font-family: fantasy;
   font-size: 1.2rem;
   border-radius: 50%;
   width: 24px;

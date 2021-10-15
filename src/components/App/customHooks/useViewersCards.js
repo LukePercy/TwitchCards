@@ -8,12 +8,12 @@ const ORIGIN_URL = 'http://localhost:8080/';
 
 // useViewersCards hook. Get which cards are held by the viewer, passing in viewerId
 const useViewersCards = (viewerId, token) => {
-  
+  console.log(`useViwersCards custom hook called`)
   const [viewersCards, setViewersCards] = useState([]);
   useEffect(() => {
     const getCardsViewer = async (viewerId, token) => {
-      
-      
+    console.log(`in useViwersCards customhook useEffect`)
+    
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');

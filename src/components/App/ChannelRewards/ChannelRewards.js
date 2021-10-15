@@ -156,7 +156,7 @@ function ChannelRewards({ token }) {
 
     if (response) {
       ComfyJS.Say(`${user} unlocked a new ${randomCard.title} card!`);
-      console.log(`Comfy.Say Triggered`)
+      console.log(`Comfy.Say message Triggered`)
     }
   };
 

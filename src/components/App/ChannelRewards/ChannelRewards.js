@@ -2,13 +2,14 @@ import React from 'react';
 import ComfyJS from 'comfy.js';
 import { slides } from '../cardList/CardList';
 
-// const BASE_URL = 'http://localhost:3003/api/viewers';
-const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
-const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
-// const ORIGIN_URL = 'http://localhost:8080/';
+const BASE_URL = 'http://localhost:3003/api/viewers';
+// const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
+// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
+const ORIGIN_URL = 'http://localhost:8080/';
 const UPDATEAMOUNT = 1;
 
 function ChannelRewards({ token }) {
+  console.log(`ChannelRewards component Loaded`)
   
   const channel = 'gettingdicey'; //make .env when figure it out
   const clientId = '42xd9tib4hce93bavmhmseapyp7fwj'; //make .env when figure it out
@@ -134,14 +135,17 @@ function ChannelRewards({ token }) {
 
     let response = false;
 
-    // Bug: this happens twice becuase response is true twice
     if (rewardFulfilled) {
+      console.log(`Reward fullfilled`,rewardFulfilled)
       const hasRedeemUserExisted = await getCardsViewer(userId);
       // Check if the viewer has been stored in db already
       // If true, then update the amount of holding cards for the viewer
       if (hasRedeemUserExisted) {
+        console.log(`Reward fullfilled and user exists`,hasRedeemUserExisted)
         response = await updateViewerCardsCollection(userId, randomCard);
       } else {
+        console.log(`Reward fullfilled`,rewardFulfilled)
+        console.log(`But user does not exist`,hasRedeemUserExisted)
         response = await createViewerCardsCollection(
           userId,
           username,
@@ -149,12 +153,10 @@ function ChannelRewards({ token }) {
         );
       }
     }
-    // this getRandomCard() may not be needed here
-    // still, the randomCard var can be reachable with a random card
-    // getRandomCard(); // Pick a random card to store in users collection
 
     if (response) {
       ComfyJS.Say(`${user} unlocked a new ${randomCard.title} card!`);
+      console.log(`Comfy.Say Triggered`)
     }
   };
 

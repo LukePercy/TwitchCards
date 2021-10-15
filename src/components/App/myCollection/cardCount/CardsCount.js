@@ -11,7 +11,7 @@ const CardsCount = ({ cardId, viewerId }) => {
     const matchedCard = slides.find((card) => card.id === cardId);
     if (matchedCard.id === holdingCard.cardId)
       return (
-        <div key={matchedCard.id} className='cardCount'>
+        <div className='cardCount' key={matchedCard.id}>
           {holdingCard.holdingAmount}
         </div>
       );

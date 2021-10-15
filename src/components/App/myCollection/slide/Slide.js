@@ -56,16 +56,16 @@ const Slide = ({ viewerId, slide, offset }) => {
             className='slideContent'
             style={{ backgroundImage: `url('${slide.frontimage}')` }}
           >
-            <div>
+            <div className='slideContentInner'>
               <CardsCount cardId={slide.id} viewerId={viewerId} />
             </div>
-            <div className='slideContentInner'>
+            {/* <div className='slideContentInner'> */}
               {/* Not used right now. But we can show other text properties on cards too
               <h2 className='slideTitle'>{slide.title}</h2>
               <h3 className='slideSubtitle'>{slide.subtitle}</h3>
               <p className='slideDescription'>{slide.description}</p> */}
               {/* <CardRarity/> */}
-            </div>
+            {/* </div> */}
           </div>
         </div>
         <div key='back' onClick={handleClick}>

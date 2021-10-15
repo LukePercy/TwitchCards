@@ -16,30 +16,7 @@
       "value": "wss://localhost:8080"
     }
   ],
-  "extensionViews": [
-    {
-      "channelId": "425762901",
-      "configurationAnchor": "panel",
-      "displayChannelName": "randomorigins",
-      "features": {
-        "isBitsEnabled": false,
-        "isChatEnabled": false,
-        "isSubscriptionStatusAvailable": false
-      },
-      "frameSize": {
-        "width": 1280,
-        "height": 720
-      },
-      "id": "5",
-      "isPopout": false,
-      "label": "reagan",
-      "linked": true,
-      "linkedUserId": "56624218",
-      "orientation": "Portrait",
-      "type": "panel",
-      "viewerType": "Logged-In Viewer"
-    }
-  ],
+  "extensionViews": [],
   "manifest": {
     "anchor": "panel",
     "assetUrls": [],

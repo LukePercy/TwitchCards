@@ -2,10 +2,10 @@ import React from 'react';
 import ComfyJS from 'comfy.js';
 import { slides } from '../cardList/CardList';
 
-const BASE_URL = 'http://localhost:3003/api/viewers';
-// const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
-// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
-const ORIGIN_URL = 'http://localhost:8080/';
+// const BASE_URL = 'http://localhost:3003/api/viewers';
+const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
+const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
+// const ORIGIN_URL = 'http://localhost:8080/';
 const UPDATEAMOUNT = 1;
 
 function ChannelRewards({ token }) {

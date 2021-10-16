@@ -56,7 +56,7 @@ const Slide = ({ viewerId, slide, offset }) => {
             className='slideContent'
             style={{ backgroundImage: `url('${slide.frontimage}')` }}
           >
-            <div className='slideContentInner'>
+            <div>
               <CardsCount cardId={slide.id} viewerId={viewerId} />
             </div>
             {/* <div className='slideContentInner'> */}

@@ -2,7 +2,7 @@ import React from 'react';
 import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
-import ChannelRewards from './ChannelRewards/ChannelRewards';
+// import ChannelRewards from './ChannelRewards/ChannelRewards'; This has been moved to backend
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 
 export default class App extends React.Component {
@@ -87,11 +87,8 @@ export default class App extends React.Component {
     if (this.state.finishedLoading && this.state.isVisible && viewerId) {
       return (
         <div className='App'>
-          <div
-            className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}
-          >
+          <div className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}>
             <MyCollection viewerId={viewerId} token={this.state.token} />
-            <ChannelRewards token={this.state.token} />
           </div>
         </div>
       );

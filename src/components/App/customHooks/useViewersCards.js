@@ -7,15 +7,13 @@ const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
 // useViewersCards hook. Get which cards are held by the viewer, passing in viewerId
-const useViewersCards = (viewerId, token) => {
+const useViewersCards = (viewerId) => {
   const [viewersCards, setViewersCards] = useState([]);
   useEffect(() => {
-    const getCardsViewer = async (viewerId, token) => {
-    
+    const getCardsViewer = async (viewerId) => {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', token);
     headers.append('Origin', ORIGIN_URL);
 
       const response = await fetch(`${BASE_URL}/${viewerId}`,{
@@ -33,8 +31,8 @@ const useViewersCards = (viewerId, token) => {
         setViewersCards([]);
       }
     };
-    getCardsViewer(viewerId, token);
-  }, [viewerId, token]);
+    getCardsViewer(viewerId);
+  });
   return viewersCards;
 };
 

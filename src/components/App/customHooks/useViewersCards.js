@@ -13,10 +13,10 @@ const useViewersCards = (viewerId, channelId, token) => {
 
   useEffect(() => {
     const getCardsViewer = async (viewerId) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Accept', 'application/json');
-      headers.append('Origin', ORIGIN_URL);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Origin', ORIGIN_URL);
 
       const response = await fetch(`${BASE_URL}/${viewerId}`, {
         mode: 'cors',

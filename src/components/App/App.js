@@ -2,7 +2,6 @@ import React from 'react';
 import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
-// import ChannelRewards from './ChannelRewards/ChannelRewards'; This has been moved to backend
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 
 export default class App extends React.Component {

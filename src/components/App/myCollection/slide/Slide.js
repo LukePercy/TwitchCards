@@ -14,19 +14,6 @@ const Slide = ({ viewerId, slide, offset }) => {
   const active = offset === 0 ? true : null;
   const ref = useTilt(active);
 
-  // Determine how different card rarities display between Worn, Mint and Foil
-  // Not used in v1
-  // function CardRarity() {
-  //   let rarity = slide.rarity;
-  //   if (rarity == 'Mint') {
-  //     return <h4 className='slideRarityMint'>{slide.rarity}</h4>;
-  //   } else if (rarity == 'Foil') {
-  //     return <h4 className='slideRarityFoil shine'>{slide.rarity}</h4>;
-  //   } else {
-  //     return <h4 className='slideRarityWorn'>{slide.rarity}</h4>;
-  //   }
-  // }
-
   // Return the display of the card and its Flipped state
   return (
     <div
@@ -54,18 +41,8 @@ const Slide = ({ viewerId, slide, offset }) => {
         <div key='front' onClick={handleClick}>
           <div
             className='slideContent'
-            style={{ backgroundImage: `url('${slide.frontimage}')` }}
-          >
-            <div>
+            style={{ backgroundImage: `url('${slide.frontimage}')`}}>
               <CardsCount cardId={slide.id} viewerId={viewerId} />
-            </div>
-            {/* <div className='slideContentInner'> */}
-              {/* Not used right now. But we can show other text properties on cards too
-              <h2 className='slideTitle'>{slide.title}</h2>
-              <h3 className='slideSubtitle'>{slide.subtitle}</h3>
-              <p className='slideDescription'>{slide.description}</p> */}
-              {/* <CardRarity/> */}
-            {/* </div> */}
           </div>
         </div>
         <div key='back' onClick={handleClick}>

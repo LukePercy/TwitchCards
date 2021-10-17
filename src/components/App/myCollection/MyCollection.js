@@ -91,8 +91,6 @@ export default function MyCollection({ viewerId, token }) {
   // use useEffect to fetch from DB check the viewer has existed in our DB
   useEffect(() => {
     const getCardsViewer = async () => {
-      
-      
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');

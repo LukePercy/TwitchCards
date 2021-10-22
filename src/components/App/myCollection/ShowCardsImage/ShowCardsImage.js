@@ -8,6 +8,8 @@ const ShowCardsImage = ({
   dispatch,
   cardsForDisplay,
   viewerId,
+  channelId,
+  twitchAuth,
 }) => {
   return (
     <>
@@ -23,6 +25,8 @@ const ShowCardsImage = ({
                   slide={slide}
                   offset={offset}
                   key={i}
+                  channelId={channelId}
+                  twitchAuth={twitchAuth}
                 />
               );
             }

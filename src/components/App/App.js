@@ -17,6 +17,7 @@ export default class App extends React.Component {
       theme: 'light',
       isVisible: true,
       token: '',
+      channelId: '',
     };
   }
 
@@ -48,6 +49,7 @@ export default class App extends React.Component {
             return {
               viewerId: this.Authentication.getUserId(),
               token: this.Authentication.getToken(),
+              channelId: auth.channelId,
               finishedLoading: true,
             };
           });
@@ -87,7 +89,7 @@ export default class App extends React.Component {
       return (
         <div className='App'>
           <div className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}>
-            <MyCollection viewerId={viewerId} token={this.state.token} />
+            <MyCollection viewerId={viewerId} channelId={this.state.channelId} />
           </div>
         </div>
       );

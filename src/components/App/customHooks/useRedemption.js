@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-const useRedemption = (channelId, password) => {
+const useRedemption = (channelId, twitchAuth) => {
   const [isRewardFulfilled, setRewardFulfilled] = useState(false);
   const heartbeatInterval = 1000 * 60; //ms between PING's
-  const reconnectInterval = 1000 * 3; //ms to wait before reconnect
+  const reconnectInterval = 1000 * 5; //ms to wait before reconnect
   let heartbeatHandle;
 
   // connect the twitch pubsub websocket
@@ -35,7 +35,7 @@ const useRedemption = (channelId, password) => {
         nonce: nonce(15),
         data: {
           topics: [`channel-points-channel-v1.${channelId}`],
-          auth_token: password,
+          auth_token: twitchAuth,
         },
       };
 
@@ -47,7 +47,7 @@ const useRedemption = (channelId, password) => {
     };
 
     ws.onmessage = (event) => {
-      message = JSON.parse(event.data);
+      const message = JSON.parse(event.data);
       console.log('message :>> ', message);
       let isRedeemed;
 
@@ -60,7 +60,7 @@ const useRedemption = (channelId, password) => {
 
         case 'RECONNECT':
           setTimeout(() => {
-            pubsubConnect(channel, password);
+            pubsubConnect(channelId, twitchAuth);
           }, reconnectInterval);
           break;
 
@@ -70,7 +70,7 @@ const useRedemption = (channelId, password) => {
             if (messageData.type === 'reward-redeemed') {
               let redemption = messageData.data.redemption;
               console.log(redemption);
-              isRedeemed = redemption.status;
+              isRedeemed = redemption.status === 'FULFILLED';
             }
           }
           break;
@@ -83,13 +83,13 @@ const useRedemption = (channelId, password) => {
       ws.onclose = () => {
         clearInterval(heartbeatHandle);
         setTimeout(() => {
-          pubsubConnect(channel, password);
+          pubsubConnect(channelId, twitchAuth);
         }, reconnectInterval);
       };
     };
   }, [isRewardFulfilled]);
 
-  return <div>{message}</div>;
+  return isRewardFulfilled;
 };
 
 export default useRedemption;

@@ -3,8 +3,11 @@ import { slides } from '../../cardList/CardList';
 import useViewersCards from '../../customHooks/useViewersCards';
 
 //  Get the holdingAmount from viewers card and display total count over the card
-const CardsCount = ({ cardId, viewerId }) => {
-  const viewersCards = useViewersCards(viewerId);
+const CardsCount = ({ cardId, viewerId, channelId, twitchAuth }) => {
+  let viewersCards 
+  if (!twitchAuth) {
+    viewersCards = useViewersCards(viewerId, channelId, twitchAuth);
+  };
   const countForDisplay = viewersCards.map((holdingCard) => {
     // use find() to compare two card IDs
     // then return the matched card object

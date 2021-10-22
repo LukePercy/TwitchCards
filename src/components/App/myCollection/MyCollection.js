@@ -15,8 +15,11 @@ const initialState = {
   slideIndex: 0,
 };
 
-const useCardsForDisplay = (viewerId) => {
-  const viewersCards = useViewersCards(viewerId);
+const useCardsForDisplay = (viewerId, channelId, twitchAuth) => {
+  let viewersCards;
+  if (!twitchAuth) {
+    viewersCards = useViewersCards(viewerId, channelId, twitchAuth);
+  };
   const cardsForDisplay = viewersCards.map((holdingCard) => {
     // use find() to compare two card IDs
     // then return the matched card object
@@ -79,13 +82,27 @@ const {type, cardsForDisplay} = event;
 };
 
 // Render cards in slide - see carousel.css
-export default function MyCollection({ viewerId }) {
+export default function MyCollection({ viewerId, channelId }) {
   
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const [hasViewerExisted, setViewerExisted] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const cardsForDisplay = useCardsForDisplay(viewerId)
+  const [twitchAuth, settwitchAuth] = useState(null);
+  const cardsForDisplay = useCardsForDisplay(viewerId, channelId, twitchAuth)
   
+  const getOAuth = async () => {
+   const response = await fetch(`${BASE_URL}/api/authinfo`)
+   const result = await response.json();
+   const { success, data } = result;
+   console.log(`data`, data)
+  if (success) {
+    settwitchAuth(data);
+  }
+  };
+
+  useEffect(()=> {
+    getOAuth();
+  }, [twitchAuth]);
 
   // use useEffect to fetch from DB check the viewer has existed in our DB
   useEffect(() => {
@@ -131,6 +148,8 @@ export default function MyCollection({ viewerId }) {
           dispatch={dispatch}
           cardsForDisplay={cardsForDisplay}
           viewerId={viewerId}
+          channelId={channelId}
+          twitchAuth={twitchAuth}
         />
       )}
     </div>

@@ -88,7 +88,7 @@ export default function MyCollection({ viewerId, channelId }) {
   const [hasViewerExisted, setViewerExisted] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const [twitchAuth, settwitchAuth] = useState(null);
-  const cardsForDisplay = useCardsForDisplay(viewerId, channelId, twitchAuth)
+  let cardsForDisplay = useCardsForDisplay(viewerId, channelId, twitchAuth)
   
   const getOAuth = async () => {
    const response = await fetch(`${BASE_URL}/api/authinfo`)

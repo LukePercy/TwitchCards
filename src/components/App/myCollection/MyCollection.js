@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 // Card info
 import { slides } from '../cardList/CardList';
 import useViewersCards from '../customHooks/useViewersCards';
-
 import ShowCardsImage from './ShowCardsImage/ShowCardsImage';
 import Loader from 'react-loader-spinner';
 
@@ -16,8 +15,8 @@ const initialState = {
   slideIndex: 0,
 };
 
-const useCardsForDisplay = (viewerId, token) => {
-  const viewersCards = useViewersCards(viewerId, token);
+const useCardsForDisplay = (viewerId) => {
+  const viewersCards = useViewersCards(viewerId);
   const cardsForDisplay = viewersCards.map((holdingCard) => {
     // use find() to compare two card IDs
     // then return the matched card object
@@ -80,12 +79,12 @@ const {type, cardsForDisplay} = event;
 };
 
 // Render cards in slide - see carousel.css
-export default function MyCollection({ viewerId, token }) {
+export default function MyCollection({ viewerId }) {
   
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const [hasViewerExisted, setViewerExisted] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const cardsForDisplay = useCardsForDisplay(viewerId, token)
+  const cardsForDisplay = useCardsForDisplay(viewerId)
   
 
   // use useEffect to fetch from DB check the viewer has existed in our DB
@@ -94,7 +93,6 @@ export default function MyCollection({ viewerId, token }) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', token);
     headers.append('Origin', ORIGIN_URL);
 
       const response = await fetch(`${BASE_URL}/${viewerId}`, {

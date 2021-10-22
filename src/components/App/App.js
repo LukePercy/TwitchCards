@@ -1,5 +1,5 @@
 import React from 'react';
-import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
+import Authentication from '../../util/Authentication/Authentication'; // Auth helper from twitch extension boilerplate
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';

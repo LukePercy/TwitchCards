@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React from 'react';
-import Authentication from '../../util/Authentication/Authentication'; // Auth helper from twitch extension boilerplate
-=======
 import React, { useState, useEffect } from 'react';
 import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
->>>>>>> 9727233 (refactored App.js to a functional component)
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';

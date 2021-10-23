@@ -1,63 +1,61 @@
+<<<<<<< HEAD
 import React from 'react';
 import Authentication from '../../util/Authentication/Authentication'; // Auth helper from twitch extension boilerplate
+=======
+import React, { useState, useEffect } from 'react';
+import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
+>>>>>>> 9727233 (refactored App.js to a functional component)
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.Authentication = new Authentication();
+export const authentication = new Authentication();
 
-    //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
-    this.twitch = window.Twitch ? window.Twitch.ext : null;
-    this.state = {
-      viewerId: '',
-      finishedLoading: false,
-      theme: 'light',
-      isVisible: true,
-      token: '',
-      channelId: '',
-    };
-  }
+const App = () => {
+  //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
+  const twitch = window.Twitch ? window.Twitch.ext : null;
+  const [appInitState, setAppInitState] = useState({
+    viewerId: '',
+    finishedLoading: false,
+    theme: 'light',
+    isVisible: true,
+    token: '',
+    channelId: '',
+  });
 
-  contextUpdate(context, delta) {
+  const contextUpdate = (context, delta) => {
     if (delta.includes('theme')) {
-      this.setState(() => {
-        return { theme: context.theme };
+      setAppInitState({
+        ...appInitState,
+        theme: context.theme,
       });
     }
-  }
+  };
 
-  visibilityChanged(isVisible) {
-    this.setState(() => {
-      return {
-        isVisible,
-      };
+  const visibilityChanged = (isVisible) => {
+    setAppInitState({
+      ...appInitState,
+      isVisible,
     });
-  }
+  };
 
-  componentDidMount() {
-    if (this.twitch) {
-      this.twitch.onAuthorized((auth) => {
-        this.Authentication.setToken(auth.token, auth.userId);
-        if (!this.state.finishedLoading) {
-          // if the component hasn't finished loading (as in we've not set up after getting a token), let's set it up now.
-
-          // now we've done the setup for the component, let's set the state to true to force a rerender with the correct data.
-          this.setState(() => {
-            return {
-              viewerId: this.Authentication.getUserId(),
-              token: this.Authentication.getToken(),
-              channelId: auth.channelId,
-              finishedLoading: true,
-            };
+  useEffect(() => {
+    if (twitch) {
+      twitch.onAuthorized((auth) => {
+        authentication.setToken(auth.token, auth.userId);
+        if (!appInitState.finishedLoading) {
+          setAppInitState({
+            ...appInitState,
+            viewerId: authentication.getUserId(),
+            token: authentication.getToken(),
+            channelId: auth.channelId,
+            finishedLoading: true,
           });
         }
       });
 
-      this.twitch.listen('broadcast', (target, contentType, body) => {
-        this.twitch.rig.log(
+      twitch.listen('broadcast', (target, contentType, body) => {
+        twitch.rig.log(
           `New PubSub message!\n${target}\n${contentType}\n${body}`
         );
         // now that you've got a listener, do something with the result...
@@ -65,40 +63,42 @@ export default class App extends React.Component {
         // do something...
       });
 
-      this.twitch.onVisibilityChanged((isVisible, _c) => {
-        this.visibilityChanged(isVisible);
+      twitch.onVisibilityChanged((isVisible, _c) => {
+        visibilityChanged(isVisible);
       });
 
-      this.twitch.onContext((context, delta) => {
-        this.contextUpdate(context, delta);
+      twitch.onContext((context, delta) => {
+        contextUpdate(context, delta);
       });
     }
-  }
 
-  componentWillUnmount() {
-    if (this.twitch) {
-      this.twitch.unlisten('broadcast', () =>
-      console.log('successfully unlistened')
-      );
-    }
-  }
-  render() {
-    const viewerId = this.state.viewerId;
+    return () => {
+      if (twitch) {
+        twitch.unlisten('broadcast', () =>
+          console.log('successfully unlistened')
+        );
+      }
+    };
+  }, []);
 
-    if (this.state.finishedLoading && this.state.isVisible && viewerId) {
-      return (
+  const { viewerId, finishedLoading, isVisible, theme, channelId } =
+    appInitState;
+
+  return (
+    <>
+      {finishedLoading && isVisible && viewerId ? (
         <div className='App'>
-          <div className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}>
-            <MyCollection viewerId={viewerId} channelId={this.state.channelId} />
+          <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
+            <MyCollection viewerId={viewerId} channelId={channelId} />
           </div>
         </div>
-      );
-    } else {
-      return (
+      ) : (
         <div className='App'>
-          <NotSharedIdScreen/>
+          <NotSharedIdScreen />
         </div>
-      );
-    }
-  }
-}
+      )}
+    </>
+  );
+};
+
+export default App;

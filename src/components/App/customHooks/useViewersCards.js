@@ -33,7 +33,7 @@ const useViewersCards = (viewerId, channelId, twitchAuth) => {
         setViewersCards([]);
       }
     };
-    getCardsViewer(viewerId, token);
+    getCardsViewer(viewerId);
   }, [viewerId, isRewardRedeemed]);
   return viewersCards;
 };

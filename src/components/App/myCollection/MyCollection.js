@@ -10,7 +10,6 @@ import Loader from 'react-loader-spinner';
 const BASE_URL = 'https://diceydeckbackend.herokuapp.com';
 const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
-
 const initialState = {
   slideIndex: 0,
 };
@@ -19,7 +18,7 @@ const useCardsForDisplay = (viewerId, channelId, twitchAuth) => {
   let viewersCards;
   if (!twitchAuth) {
     viewersCards = useViewersCards(viewerId, channelId, twitchAuth);
-  };
+  }
   const cardsForDisplay = viewersCards.map((holdingCard) => {
     // use find() to compare two card IDs
     // then return the matched card object
@@ -60,17 +59,19 @@ const useCardsForDisplay = (viewerId, channelId, twitchAuth) => {
     }
   });
   return cardsForDisplay;
-}
+};
 
 // Slide navigation to view collection of cards
 const slidesReducer = (state, event) => {
-const {type, cardsForDisplay} = event;
+  const { type, cardsForDisplay } = event;
 
   if (type === 'NEXT') {
     return {
       ...state,
       slideIndex:
-      state.slideIndex === 0 ? cardsForDisplay.length - 1 : state.slideIndex - 1,
+        state.slideIndex === 0
+          ? cardsForDisplay.length - 1
+          : state.slideIndex - 1,
     };
   }
   if (type === 'PREV') {
@@ -83,34 +84,33 @@ const {type, cardsForDisplay} = event;
 
 // Render cards in slide - see carousel.css
 export default function MyCollection({ viewerId, channelId }) {
-  
   const [state, dispatch] = React.useReducer(slidesReducer, initialState);
   const [hasViewerExisted, setViewerExisted] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const [twitchAuth, settwitchAuth] = useState(null);
-  let cardsForDisplay = useCardsForDisplay(viewerId, channelId, twitchAuth)
-  
+  let cardsForDisplay = useCardsForDisplay(viewerId, channelId, twitchAuth);
+
   const getOAuth = async () => {
-   const response = await fetch(`${BASE_URL}/api/authinfo`)
-   const result = await response.json();
-   const { success, data } = result;
-   console.log(`data`, data)
-  if (success) {
-    settwitchAuth(data);
-  }
+    const response = await fetch(`${BASE_URL}/api/authinfo`);
+    const result = await response.json();
+    const { success, data } = result;
+    console.log(`data`, data);
+    if (success) {
+      settwitchAuth(data);
+    }
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     getOAuth();
-  }, [twitchAuth]);
+  }, []);
 
   // use useEffect to fetch from DB check the viewer has existed in our DB
   useEffect(() => {
     const getCardsViewer = async () => {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
-    headers.append('Origin', ORIGIN_URL);
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/json');
+      headers.append('Origin', ORIGIN_URL);
 
       const response = await fetch(`${BASE_URL}/api/viewers/${viewerId}`, {
         mode: 'cors',
@@ -135,12 +135,7 @@ export default function MyCollection({ viewerId, channelId }) {
   return (
     <div className='slides'>
       {isLoading ? (
-        <Loader
-          type='ThreeDots'
-          color='#4d727d'
-          height={100}
-          width={100}
-        />
+        <Loader type='ThreeDots' color='#4d727d' height={100} width={100} />
       ) : (
         <ShowCardsImage
           hasViewerExisted={hasViewerExisted}
@@ -153,5 +148,5 @@ export default function MyCollection({ viewerId, channelId }) {
         />
       )}
     </div>
-    );
+  );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Slide from '../slide/Slide';
-import Backimage from '../../cards/Card_Back-s1_worn.jpg'
+import Backimage from '../../cards/Card_Back-s1_worn.jpg';
 
 const ShowCardsImage = ({
   hasViewerExisted,
@@ -9,13 +9,14 @@ const ShowCardsImage = ({
   cardsForDisplay,
   viewerId,
   channelId,
-  twitchAuth,
 }) => {
   return (
     <>
       {hasViewerExisted ? (
         <>
-          <button onClick={() => dispatch({ type: 'PREV', cardsForDisplay })}>‹</button>
+          <button onClick={() => dispatch({ type: 'PREV', cardsForDisplay })}>
+            ‹
+          </button>
           {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
             (slide, i) => {
               let offset = cardsForDisplay.length + (state.slideIndex - i);
@@ -26,12 +27,13 @@ const ShowCardsImage = ({
                   offset={offset}
                   key={i}
                   channelId={channelId}
-                  twitchAuth={twitchAuth}
                 />
               );
             }
           )}
-          <button onClick={() => dispatch({ type: 'NEXT', cardsForDisplay })}>›</button>
+          <button onClick={() => dispatch({ type: 'NEXT', cardsForDisplay })}>
+            ›
+          </button>
         </>
       ) : (
         <>

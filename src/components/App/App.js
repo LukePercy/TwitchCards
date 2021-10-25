@@ -3,12 +3,17 @@ import Authentication from '../../util/Authentication/Authentication'; //Auth he
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
+import { ChannelAuthContext } from './ChannelAuthContext';
+
+const LOCAL_OAUTH_URL = 'http://localhost:3003/api/authinfo';
+const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo';
 
 export const authentication = new Authentication();
 
 const App = () => {
   //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
   const twitch = window.Twitch ? window.Twitch.ext : null;
+  const [twitchAuth, setTwitchAuth] = useState('');
   const [appInitState, setAppInitState] = useState({
     viewerId: '',
     finishedLoading: false,
@@ -17,6 +22,20 @@ const App = () => {
     token: '',
     channelId: '',
   });
+
+  const getOAuth = async () => {
+    const response = await fetch(SERVER_OAUTH_URL);
+    const result = await response.json();
+    const { success, data } = result;
+
+    if (success) {
+      setTwitchAuth(data);
+    }
+  };
+
+  useEffect(() => {
+    getOAuth();
+  }, [twitchAuth]);
 
   const contextUpdate = (context, delta) => {
     if (delta.includes('theme')) {
@@ -81,12 +100,14 @@ const App = () => {
 
   return (
     <>
-      {finishedLoading && isVisible && viewerId ? (
-        <div className='App'>
-          <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
-            <MyCollection viewerId={viewerId} channelId={channelId} />
+      {finishedLoading && isVisible && viewerId && twitchAuth ? (
+        <ChannelAuthContext.Provider value={twitchAuth}>
+          <div className='App'>
+            <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
+              <MyCollection viewerId={viewerId} channelId={channelId} />
+            </div>
           </div>
-        </div>
+        </ChannelAuthContext.Provider>
       ) : (
         <div className='App'>
           <NotSharedIdScreen />

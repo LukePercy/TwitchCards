@@ -49,7 +49,7 @@ const useRedemption = (channelId, twitchAuth) => {
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
       console.log('message :>> ', message);
-      let isRedeemed;
+      let isRedeemed = false;
 
       switch (message.type) {
         case 'RESPONSE':
@@ -87,7 +87,7 @@ const useRedemption = (channelId, twitchAuth) => {
         }, reconnectInterval);
       };
     };
-  }, [isRewardFulfilled]);
+  }, []);
 
   return isRewardFulfilled;
 };

@@ -14,7 +14,7 @@ const initialState = {
   slideIndex: 0,
 };
 
-const useCardsForDisplay = (viewerId, channelId, twitchAuth) => {
+const useCardsForDisplay = (viewerId, channelId,twitchAuth) => {
   let viewersCards;
   if (!twitchAuth) {
     viewersCards = useViewersCards(viewerId, channelId, twitchAuth);

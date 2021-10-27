@@ -7,9 +7,9 @@ const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
 // useViewersCards hook. Get which cards are held by the viewer, passing in viewerId
-const useViewersCards = (viewerId) => {
+const useViewersCards = (viewerId, isRewardRedeemed) => {
   const [viewersCards, setViewersCards] = useState([]);
-
+console.log(`isRewardRedeemed in useViewerscards`, isRewardRedeemed)
   useEffect(() => {
     const getCardsViewer = async (viewerId) => {
       let headers = new Headers();
@@ -33,7 +33,7 @@ const useViewersCards = (viewerId) => {
       }
     };
     getCardsViewer(viewerId);
-  }, [viewerId]);
+  }, [viewerId, isRewardRedeemed]);
   return viewersCards;
 };
 

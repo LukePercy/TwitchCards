@@ -42,15 +42,15 @@ const MyCollection = ({ viewerId, channelId }) => {
   const [state, dispatch] = useReducer(slidesReducer, initialState);
   const [hasViewerExisted, setViewerExisted] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const cardsForDisplay = useCardsForDisplay(viewerId, channelId);
-
-  // check whether uses redeem points from a top level.
-  const isRewardRedeemed = useRedemption(channelId, twitchAuth);
+// check whether uses redeem points from a top level.
+  let isRewardRedeemed = useRedemption(channelId, twitchAuth);
   console.log('isRewardRedeemed :>> ', isRewardRedeemed);
+  const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); 
 
   // use useEffect to fetch from DB check the viewer has existed in our DB
   useEffect(() => {
     const getCardsViewer = async () => {
+      console.log(`isRewardRedeemed in useEffect`, isRewardRedeemed)
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append('Accept', 'application/json');
@@ -63,6 +63,7 @@ const MyCollection = ({ viewerId, channelId }) => {
       });
       const result = await response.json();
       const { success } = result;
+      console.log(`result in useEffect`, result)
       // Check the viewer has a card record in our DB first
       if (success) {
         // If the viewer has a card record, then set the flag to true
@@ -75,7 +76,7 @@ const MyCollection = ({ viewerId, channelId }) => {
     };
     getCardsViewer();
   }, [isRewardRedeemed]);
-
+  console.log(`hasViewerExisted before return`, hasViewerExisted)
   // Check the ternary expression
   return (
     <div className='slides'>
@@ -88,7 +89,7 @@ const MyCollection = ({ viewerId, channelId }) => {
           dispatch={dispatch}
           cardsForDisplay={cardsForDisplay}
           viewerId={viewerId}
-          channelId={channelId}
+          isRewardRedeemed={isRewardRedeemed}
         />
       )}
     </div>

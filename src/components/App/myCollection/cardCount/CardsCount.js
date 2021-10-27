@@ -4,8 +4,8 @@ import { slides } from '../../cardList/CardList';
 import useViewersCards from '../../customHooks/useViewersCards';
 
 //  Get the holdingAmount from viewers card and display total count over the card
-const CardsCount = ({ cardId, viewerId }) => {
-  const viewersCards = useViewersCards(viewerId);
+const CardsCount = ({ cardId, viewerId, isRewardRedeemed }) => {
+  const viewersCards = useViewersCards(viewerId, isRewardRedeemed);
 
   const countForDisplay = viewersCards.map((holdingCard) => {
     // use find() to compare two card IDs

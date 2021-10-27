@@ -2,10 +2,10 @@ import React from 'react';
 import { slides } from '../cardList/CardList';
 import useViewersCards from '../customHooks/useViewersCards';
 
-const useCardsForDisplay = (viewerId) => {
+const useCardsForDisplay = (viewerId, isRewardRedeemed) => {
   let cardsForDisplay;
 
-  const viewersCards = useViewersCards(viewerId);
+  const viewersCards = useViewersCards(viewerId, isRewardRedeemed);
   cardsForDisplay = viewersCards.map((holdingCard) => {
     // use find() to compare two card IDs
     // then return the matched card object

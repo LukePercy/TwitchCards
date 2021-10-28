@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { slides } from '../cardList/CardList';
 import useViewersCards from '../customHooks/useViewersCards';
 
-const useCardsForDisplay = (viewerId) => {
-  let cardsForDisplay;
+const useCardsForDisplay = (viewerId, isRewardRedeemed) => {
+  const [cardsForDisplay, setCardsForDisplay] = useState([]);
 
-  const viewersCards = useViewersCards(viewerId);
-  cardsForDisplay = viewersCards.map((holdingCard) => {
+  const viewersCards = useViewersCards(viewerId, isRewardRedeemed);
+  const matchedCards = viewersCards.map((holdingCard) => {
     // use find() to compare two card IDs
     // then return the matched card object
     const matchedCard = slides.find((card) => holdingCard.cardId === card.id);
@@ -46,7 +46,19 @@ const useCardsForDisplay = (viewerId) => {
     }
   });
 
-  return cardsForDisplay;
+  console.log('matchedCards in [useCardsForDisplay.js] :>> ', matchedCards);
+  console.log(
+    'isRewardRedeemed in [useCardsForDisplay.js] :>> ',
+    isRewardRedeemed
+  );
+
+  useEffect(() => {
+    if (isRewardRedeemed) {
+      setCardsForDisplay(matchedCards);
+    }
+  }, [viewerId, matchedCards, isRewardRedeemed]);
+
+  return cardsForDisplay.length ? cardsForDisplay : matchedCards;
 };
 
 export default useCardsForDisplay;

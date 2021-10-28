@@ -25,6 +25,7 @@ const App = () => {
 
   const getOAuth = async () => {
     const response = await fetch(SERVER_OAUTH_URL);
+    // const response = await fetch(LOCAL_OAUTH_URL);
     const result = await response.json();
     const { success, data } = result;
 

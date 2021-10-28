@@ -42,11 +42,12 @@ const MyCollection = ({ viewerId, channelId }) => {
   const [state, dispatch] = useReducer(slidesReducer, initialState);
   const [hasViewerExisted, setViewerExisted] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const cardsForDisplay = useCardsForDisplay(viewerId, channelId);
+  const isRewardRedeemed = useRedemption(channelId, twitchAuth);
+  const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed);
 
   // check whether uses redeem points from a top level.
-  const isRewardRedeemed = useRedemption(channelId, twitchAuth);
-  console.log('isRewardRedeemed :>> ', isRewardRedeemed);
+  console.log('cardsForDisplay in [MyCollection.js] :>> ', cardsForDisplay);
+  console.log('isRewardRedeemed in [MyCollection.js] :>> ', isRewardRedeemed);
 
   // use useEffect to fetch from DB check the viewer has existed in our DB
   useEffect(() => {
@@ -88,7 +89,6 @@ const MyCollection = ({ viewerId, channelId }) => {
           dispatch={dispatch}
           cardsForDisplay={cardsForDisplay}
           viewerId={viewerId}
-          channelId={channelId}
         />
       )}
     </div>

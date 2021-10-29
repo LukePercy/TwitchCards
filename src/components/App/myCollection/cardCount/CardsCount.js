@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { ChannelAuthContext } from '../../ChannelAuthContext';
+import React from 'react';
 import { slides } from '../../cardList/CardList';
 import useViewersCards from '../../customHooks/useViewersCards';
 

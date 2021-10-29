@@ -5,7 +5,7 @@ import useTilt from '../../customHooks/useTilt';
 import CardsCount from '../cardCount/CardsCount';
 
 // Slide content. Includes card image and flip behavior.
-const Slide = ({ viewerId, slide, offset }) => {
+const Slide = ({ viewerId, slide, offset, isRewardRedeemed }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const Slide = ({ viewerId, slide, offset }) => {
             className='slideContent'
             style={{ backgroundImage: `url('${slide.frontimage}')` }}
           >
-            <CardsCount cardId={slide.id} viewerId={viewerId} />
+            <CardsCount cardId={slide.id} viewerId={viewerId} isRewardRedeemed={isRewardRedeemed} />
           </div>
         </div>
         <div key='back' onClick={handleClick}>

@@ -4,6 +4,7 @@ import useViewersCards from '../customHooks/useViewersCards';
 
 const useCardsForDisplay = (viewerId, isRewardRedeemed) => {
   const [cardsForDisplay, setCardsForDisplay] = useState([]);
+  const [isReward,setRewarded] = useState(isRewardRedeemed);
 
   const viewersCards = useViewersCards(viewerId, isRewardRedeemed);
   const matchedCards = viewersCards.map((holdingCard) => {
@@ -53,10 +54,12 @@ const useCardsForDisplay = (viewerId, isRewardRedeemed) => {
   );
 
   useEffect(() => {
-    if (isRewardRedeemed) {
+    if (isReward) {
       setCardsForDisplay(matchedCards);
     }
-  }, [viewerId, matchedCards, isRewardRedeemed]);
+    setRewarded(false)
+  }, [viewerId,isReward]);
+  console.log('isReward in useCardsForDisplay.js', isReward)
 
   return cardsForDisplay.length ? cardsForDisplay : matchedCards;
 };

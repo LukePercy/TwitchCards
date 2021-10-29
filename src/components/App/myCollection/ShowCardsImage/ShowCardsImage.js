@@ -8,6 +8,7 @@ const ShowCardsImage = ({
   dispatch,
   cardsForDisplay,
   viewerId,
+  isRewardRedeemed,
 }) => {
   return (
     <>
@@ -25,6 +26,7 @@ const ShowCardsImage = ({
                   slide={slide}
                   offset={offset}
                   key={i}
+                  isRewardRedeemed={isRewardRedeemed}
                 />
               );
             }

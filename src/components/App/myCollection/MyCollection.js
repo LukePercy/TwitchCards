@@ -91,6 +91,7 @@ const MyCollection = ({ viewerId, channelId }) => {
           dispatch={dispatch}
           cardsForDisplay={cardsForDisplay}
           viewerId={viewerId}
+          isRewardRedeemed={isRewardRedeemed}
         />
       )}
     </div>

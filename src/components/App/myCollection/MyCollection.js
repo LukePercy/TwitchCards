@@ -45,7 +45,7 @@ const MyCollection = ({ viewerId, channelId }) => {
 // check whether uses redeem points from a top level.
   let isRewardRedeemed = useRedemption(channelId, twitchAuth);
   console.log('isRewardRedeemed :>> ', isRewardRedeemed);
-  const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); 
+  let cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); 
 
   // use useEffect to fetch from DB check the viewer has existed in our DB
   useEffect(() => {

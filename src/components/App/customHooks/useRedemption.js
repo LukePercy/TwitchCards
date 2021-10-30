@@ -85,7 +85,7 @@ const useRedemption = (channelId, twitchAuth) => {
         }, reconnectInterval);
       };
     };
-  }, []);
+  }, [isRewardFulfilled]);
 
   return isRewardFulfilled;
 };

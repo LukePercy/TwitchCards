@@ -22,16 +22,22 @@ const App = () => {
     token: '',
     channelId: '',
   });
-  console.log(`Token`, token)
+
+  const {token} = appInitState;
+
   const getOAuth = async () => {
     if (!token) return
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Origin', ORIGIN_URL);
-    headers.append('Authorization', token);
+    headers.append('Authorization',token);
 
-    const response = await fetch(SERVER_OAUTH_URL, headers);
+    const response = await fetch(SERVER_OAUTH_URL,{
+      mode: 'cors',
+      method: 'GET',
+      headers: headers,
+    });
     const result = await response.json();
     const { success, data } = result;
     if (success) {
@@ -41,7 +47,7 @@ const App = () => {
 
   useEffect(() => {
     getOAuth();
-  }, [twitchAuth]);
+  }, [twitchAuth,token]);
 
   const contextUpdate = (context, delta) => {
     if (delta.includes('theme')) {

@@ -5,7 +5,6 @@ import MyCollection from './myCollection/MyCollection'; // Carousel component to
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 import { ChannelAuthContext } from './ChannelAuthContext';
 
-const LOCAL_OAUTH_URL = 'http://localhost:3003/api/authinfo';
 const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo';
 
 export const authentication = new Authentication();
@@ -25,10 +24,8 @@ const App = () => {
 
   const getOAuth = async () => {
     const response = await fetch(SERVER_OAUTH_URL);
-    // const response = await fetch(LOCAL_OAUTH_URL);
     const result = await response.json();
     const { success, data } = result;
-
     if (success) {
       setTwitchAuth(data);
     }

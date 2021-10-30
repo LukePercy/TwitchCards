@@ -18,6 +18,7 @@ const useCardsForDisplay = (viewerId, isRewardRedeemed) => {
           ...matchedCard,
           rarity: 'Worn', // we dont use this yet. Its used to drive CardRarity() display component.
           frontimage: require(`../cards/${matchedCard.title}-s1_worn.jpg`),
+          holdingAmount: holdingCard.holdingAmount,
         };
         return newCard;
       } else if (
@@ -29,6 +30,7 @@ const useCardsForDisplay = (viewerId, isRewardRedeemed) => {
           rarity: 'Mint',
           frontimage: require(`../cards/${matchedCard.title}-s1_mint.jpg`), //Mint card image
           backimage: require(`../cards/Card_Back-s1_mint.jpg`),
+          holdingAmount: holdingCard.holdingAmount,
         };
         return newCard;
       } else if (holdingCard.holdingAmount > 15) {
@@ -37,6 +39,7 @@ const useCardsForDisplay = (viewerId, isRewardRedeemed) => {
           rarity: 'Foil',
           frontimage: require(`../cards/${matchedCard.title}-s1_foil.jpg`), //Foil card image
           backimage: require(`../cards/Card_Back-s1_foil.jpg`),
+          holdingAmount: holdingCard.holdingAmount,
         };
         return newCard;
       } else {
@@ -47,20 +50,12 @@ const useCardsForDisplay = (viewerId, isRewardRedeemed) => {
     }
   });
 
-  console.log('matchedCards in [useCardsForDisplay.js] :>> ', matchedCards);
-  console.log(
-    'isRewardRedeemed in [useCardsForDisplay.js] :>> ',
-    isRewardRedeemed
-  );
-
   useEffect(() => {
     if (isReward) {
       setCardsForDisplay(matchedCards);
     }
     setRewarded(false)
   }, [viewerId,isReward]);
-  console.log('isReward in useCardsForDisplay.js', isReward)
-
   return cardsForDisplay.length ? cardsForDisplay : matchedCards;
 };
 

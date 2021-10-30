@@ -7,8 +7,6 @@ const ShowCardsImage = ({
   state,
   dispatch,
   cardsForDisplay,
-  viewerId,
-  isRewardRedeemed,
 }) => {
   return (
     <>
@@ -22,11 +20,9 @@ const ShowCardsImage = ({
               let offset = cardsForDisplay.length + (state.slideIndex - i);
               return (
                 <Slide
-                  viewerId={viewerId}
                   slide={slide}
                   offset={offset}
                   key={i}
-                  isRewardRedeemed={isRewardRedeemed}
                 />
               );
             }

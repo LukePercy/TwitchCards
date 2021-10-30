@@ -6,6 +6,7 @@ import NotSharedIdScreen from './notSharedId/NotSharedId';
 import { ChannelAuthContext } from './ChannelAuthContext';
 
 const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo';
+const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
 export const authentication = new Authentication();
 
@@ -21,9 +22,16 @@ const App = () => {
     token: '',
     channelId: '',
   });
-
+  console.log(`Token`, token)
   const getOAuth = async () => {
-    const response = await fetch(SERVER_OAUTH_URL);
+    if (!token) return
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Origin', ORIGIN_URL);
+    headers.append('Authorization', token);
+
+    const response = await fetch(SERVER_OAUTH_URL, headers);
     const result = await response.json();
     const { success, data } = result;
     if (success) {

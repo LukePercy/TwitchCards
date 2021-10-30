@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const useRedemption = (channelId, twitchAuth) => {
   const [isRewardFulfilled, setRewardFulfilled] = useState(false);
   const heartbeatInterval = 1000 * 60; //ms between PING's
-  const reconnectInterval = 1000 * 5; //ms to wait before reconnect
+  const reconnectInterval = 1000 * 3; //ms to wait before reconnect
   let heartbeatHandle;
 
   // connect the twitch pubsub websocket
@@ -48,7 +48,6 @@ const useRedemption = (channelId, twitchAuth) => {
 
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      console.log('message :>> ', message);
       let isRedeemed = false;
 
       switch (message.type) {
@@ -69,7 +68,6 @@ const useRedemption = (channelId, twitchAuth) => {
             let messageData = JSON.parse(message.data.message);
             if (messageData.type === 'reward-redeemed') {
               let redemption = messageData.data.redemption;
-              console.log(redemption);
               isRedeemed = redemption.status === 'FULFILLED';
             }
           }
@@ -87,7 +85,7 @@ const useRedemption = (channelId, twitchAuth) => {
         }, reconnectInterval);
       };
     };
-  }, []);
+  }, [isRewardFulfilled]);
 
   return isRewardFulfilled;
 };

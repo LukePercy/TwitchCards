@@ -6,8 +6,6 @@ import Loader from 'react-loader-spinner';
 import { ChannelAuthContext } from '../ChannelAuthContext';
 import useRedemption from '../customHooks/useRedemption';
 
-// const BASE_URL = 'http://localhost:3003';
-// const ORIGIN_URL = 'http://localhost:8080/';
 const BASE_URL = 'https://diceydeckbackend.herokuapp.com';
 const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
@@ -42,15 +40,12 @@ const MyCollection = ({ viewerId, channelId }) => {
   const [state, dispatch] = useReducer(slidesReducer, initialState);
   const [hasViewerExisted, setViewerExisted] = useState(false);
   const [isLoading, setLoading] = useState(true);
-// check whether uses redeem points from a top level.
-  let isRewardRedeemed = useRedemption(channelId, twitchAuth);
-  console.log('isRewardRedeemed :>> ', isRewardRedeemed);
-  let cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); 
+  const isRewardRedeemed = useRedemption(channelId, twitchAuth);
+  const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed);
 
   // use useEffect to fetch from DB check the viewer has existed in our DB
   useEffect(() => {
     const getCardsViewer = async () => {
-      console.log(`isRewardRedeemed in useEffect`, isRewardRedeemed)
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append('Accept', 'application/json');
@@ -63,7 +58,6 @@ const MyCollection = ({ viewerId, channelId }) => {
       });
       const result = await response.json();
       const { success } = result;
-      console.log(`result in useEffect`, result)
       // Check the viewer has a card record in our DB first
       if (success) {
         // If the viewer has a card record, then set the flag to true
@@ -76,8 +70,7 @@ const MyCollection = ({ viewerId, channelId }) => {
     };
     getCardsViewer();
   }, [isRewardRedeemed]);
-  console.log(`hasViewerExisted before return`, hasViewerExisted)
-  // Check the ternary expression
+
   return (
     <div className='slides'>
       {isLoading ? (
@@ -88,8 +81,6 @@ const MyCollection = ({ viewerId, channelId }) => {
           state={state}
           dispatch={dispatch}
           cardsForDisplay={cardsForDisplay}
-          viewerId={viewerId}
-          isRewardRedeemed={isRewardRedeemed}
         />
       )}
     </div>

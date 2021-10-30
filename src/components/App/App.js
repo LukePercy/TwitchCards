@@ -5,8 +5,8 @@ import MyCollection from './myCollection/MyCollection'; // Carousel component to
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 import { ChannelAuthContext } from './ChannelAuthContext';
 
-const LOCAL_OAUTH_URL = 'http://localhost:3003/api/authinfo';
 const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo';
+const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
 export const authentication = new Authentication();
 
@@ -23,11 +23,23 @@ const App = () => {
     channelId: '',
   });
 
+  const {token} = appInitState;
+
   const getOAuth = async () => {
-    const response = await fetch(SERVER_OAUTH_URL);
+    if (!token) return
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Origin', ORIGIN_URL);
+    headers.append('Authorization',token);
+
+    const response = await fetch(SERVER_OAUTH_URL,{
+      mode: 'cors',
+      method: 'GET',
+      headers: headers,
+    });
     const result = await response.json();
     const { success, data } = result;
-
     if (success) {
       setTwitchAuth(data);
     }
@@ -35,7 +47,7 @@ const App = () => {
 
   useEffect(() => {
     getOAuth();
-  }, [twitchAuth]);
+  }, [twitchAuth,token]);
 
   const contextUpdate = (context, delta) => {
     if (delta.includes('theme')) {

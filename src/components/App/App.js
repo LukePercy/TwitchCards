@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
-import './App.css';
+// import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 import { ChannelAuthContext } from './ChannelAuthContext';
+import Deck from './myCollection/allCardView/AllCardsView';
 
 const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo';
 const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
@@ -121,8 +122,8 @@ const App = () => {
           </div>
         </ChannelAuthContext.Provider>
       ) : (
-        <div className='App'>
-          <NotSharedIdScreen />
+        <div id="root" className='App'>
+          <Deck />
         </div>
       )}
     </>

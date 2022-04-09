@@ -1,0 +1,39 @@
+html,
+body {
+  overscroll-behavior-y: contain;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#root {
+  background: lightblue;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  cursor: url("https://uploads.codesandbox.io/uploads/user/b3e56831-8b98-4fee-b941-0e27f39883ab/Ad1_-cursor.png")
+      39 39,
+    auto;
+}
+
+#root > div {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+#root > div > div {
+  touch-action: none;
+  background-size: auto 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 90vw;
+  height: 100vh;
+  will-change: transform;
+}

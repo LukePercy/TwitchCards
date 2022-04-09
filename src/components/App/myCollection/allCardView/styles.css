@@ -7,7 +7,7 @@ body {
   width: 100%;
   overflow: hidden;
 }
-
+/* view container */
 #root {
   background: lightblue;
   position: fixed;
@@ -17,7 +17,7 @@ body {
       39 39,
     auto;
 }
-
+/* card element */
 #root > div {
   position: absolute;
   width: 100vw;
@@ -28,6 +28,7 @@ body {
   padding-top: 20px;
 }
 
+/* Card Image element */
 #root > div > div {
   touch-action: none;
   background-size: auto 80%;

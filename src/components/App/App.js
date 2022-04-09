@@ -124,6 +124,7 @@ const App = () => {
       ) : (
         <div id="root" className='App'>
           <Deck />
+          {/* <NotSharedIdScreen /> Put this component back when finished testing Deck  */}
         </div>
       )}
     </>

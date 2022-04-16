@@ -1,6 +1,7 @@
 import React from 'react';
 import Slide from '../slide/Slide';
 import Backimage from '../../cards/Card_Back-s1_worn.jpg';
+import Deck from '../allCardView/AllCardsView';
 
 const ShowCardsImage = ({
   hasViewerExisted,
@@ -11,26 +12,9 @@ const ShowCardsImage = ({
   return (
     <>
       {hasViewerExisted ? (
-        <>
-          <button onClick={() => dispatch({ type: 'PREV', cardsForDisplay })}>
-            ‹
-          </button>
-          {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
-            (slide, i) => {
-              let offset = cardsForDisplay.length + (state.slideIndex - i);
-              return (
-                <Slide
-                  slide={slide}
-                  offset={offset}
-                  key={i}
-                />
-              );
-            }
-          )}
-          <button onClick={() => dispatch({ type: 'NEXT', cardsForDisplay })}>
-            ›
-          </button>
-        </>
+        <div id="root">
+        <Deck cards={cardsForDisplay}/>
+        </div>
       ) : (
         <>
           <div key='back'>

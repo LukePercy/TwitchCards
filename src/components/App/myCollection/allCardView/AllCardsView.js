@@ -2,28 +2,6 @@ import React, { useState } from 'react'
 import { useSprings, animated, to as interpolate } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
 import styles from './styles.css'
-import Card1 from '../../cards/Bill-s1_foil.jpg' //temp for testing. will replace later with actual cards hook
-
-// Need to map this const to use UseCardsForDisplayHook
-const cards = [
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1,
-  Card1
-]
 
 // These two are just helpers, they curate spring data, values that are later being interpolated into css
 const to = (i) => ({
@@ -38,9 +16,10 @@ const from = (_i) => ({ x: 0, rot: 0, scale: 1.5, y: -1000 })
 const trans = (r, s) =>
   `perspective(1500px) rotateX(30deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
-function Deck() {
+function Deck({cards}) {
+  const deckImages = cards.map(cards => cards.frontimage)
   const [gone] = useState(() => new Set()) // The set flags all the cards that are flicked out
-  const [props, api] = useSprings(cards.length, i => ({
+  const [props, api] = useSprings(deckImages.length, i => ({
     ...to(i),
     from: from(i),
   })) // Create a bunch of springs using the helpers above
@@ -62,7 +41,7 @@ function Deck() {
         config: { friction: 50, tension: active ? 800 : isGone ? 200 : 500 },
       }
     })
-    if (!active && gone.size === cards.length)
+    if (!active && gone.size === deckImages.length)
       setTimeout(() => {
         gone.clear()
         api.start(i => to(i))
@@ -78,7 +57,7 @@ function Deck() {
             {...bind(i)}
             style={{
               transform: interpolate([rot, scale], trans),
-              backgroundImage: `url(${cards[i]})`,
+              backgroundImage: `url(${deckImages[i]})`,
             }}
           />
         </animated.div>

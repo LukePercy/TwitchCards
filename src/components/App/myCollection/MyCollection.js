@@ -6,8 +6,8 @@ import Loader from 'react-loader-spinner';
 import { ChannelAuthContext } from '../ChannelAuthContext';
 import useRedemption from '../customHooks/useRedemption';
 
-const BASE_URL = 'https://diceydeckbackend.herokuapp.com';
-const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
+const BASE_URL = 'http://localhost:3003';
+const ORIGIN_URL = 'https://localhost:8080';
 
 const initialState = {
   slideIndex: 0,
@@ -76,12 +76,18 @@ const MyCollection = ({ viewerId, channelId }) => {
       {isLoading ? (
         <Loader type='ThreeDots' color='#4d727d' height={100} width={100} />
       ) : (
+        <>
         <ShowCardsImage
           hasViewerExisted={hasViewerExisted}
           state={state}
           dispatch={dispatch}
           cardsForDisplay={cardsForDisplay}
         />
+        <div className='iconsArea'>
+          <a href="./public/config.html" target="_blank"><i className="settings-icon"></i></a>
+          <a href="#" ><i className="toggle-view-icon"></i></a>
+        </div>
+        </>
       )}
     </div>
   );

@@ -4,10 +4,9 @@ import Authentication from '../../util/Authentication/Authentication'; //Auth he
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 import { ChannelAuthContext } from './ChannelAuthContext';
-import Deck from './myCollection/allCardView/AllCardsView';
 
-const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo';
-const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
+const SERVER_OAUTH_URL = 'http://localhost:3003/api/authinfo';
+const ORIGIN_URL = 'https://localhost:8080';
 
 export const authentication = new Authentication();
 
@@ -115,16 +114,15 @@ const App = () => {
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (
         <ChannelAuthContext.Provider value={twitchAuth}>
-          <div className='App'>
+          <div className='App'> 
             <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
               <MyCollection viewerId={viewerId} channelId={channelId} />
             </div>
           </div>
         </ChannelAuthContext.Provider>
       ) : (
-        <div id="root" className='App'>
-          <Deck />
-          {/* <NotSharedIdScreen /> Put this component back when finished testing Deck  */}
+        <div className='App'>
+         <NotSharedIdScreen />
         </div>
       )}
     </>

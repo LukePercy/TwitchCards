@@ -1,4 +1,4 @@
-html,
+#webkit-filter > html,
 body {
   overscroll-behavior-y: contain;
   margin: 0;
@@ -7,16 +7,15 @@ body {
   width: 100%;
   overflow: hidden;
 }
+
 /* view container */
 #root {
-  background: lightblue;
+  background-image: url("../../assets/TableBack.png");
   position: fixed;
   width: 100vw;
   height: 100vh;
-  cursor: url("https://uploads.codesandbox.io/uploads/user/b3e56831-8b98-4fee-b941-0e27f39883ab/Ad1_-cursor.png")
-      39 39,
-    auto;
 }
+
 /* card element */
 #root > div {
   position: absolute;
@@ -25,16 +24,65 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 20px;
+  padding-top: 0px;
 }
 
 /* Card Image element */
 #root > div > div {
+  display: fit-content;
   touch-action: none;
   background-size: auto 80%;
   background-repeat: no-repeat;
   background-position: center;
-  width: 90vw;
+  width: 100vw;
   height: 100vh;
   will-change: transform;
+  -webkit-filter: drop-shadow(-5px -5px 5px #000);
+  filter: drop-shadow(-5px -5px 5px #000);
+  cursor: grab;
+}
+
+/* Style the navigation bar */
+.iconsArea {
+  position: relative;
+  display: flex;
+  top: 85vh;
+  left: 68vw;
+}
+
+.settings-icon {
+  background-image: url("../../assets/SettingsIcon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+  width: 31px;
+  height: 30px;
+  padding-top: 20px;
+  display: block;
+  opacity: 0.2;
+  /* Other styles here */
+}
+
+.toggle-view-icon {
+  background-image: url("../../assets/SlideViewIcon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+  width: 51px;
+  height: 50px;
+  display: block;
+  opacity: 0.3;
+  padding-left: 15px;
+  /* Other styles here */
+}
+
+.settings-icon:hover,
+a:hover {
+  opacity: 0.8;
+}
+
+.toggle-view-icon:hover,
+a:hover {
+  transform: scale(1.09);
+  opacity: 0.9;
 }

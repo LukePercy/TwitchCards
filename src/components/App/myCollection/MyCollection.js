@@ -83,10 +83,6 @@ const MyCollection = ({ viewerId, channelId }) => {
           dispatch={dispatch}
           cardsForDisplay={cardsForDisplay}
         />
-        <div className='iconsArea'>
-          <a href="./public/config.html" target="_blank"><i className="settings-icon"></i></a>
-          <a href="#" ><i className="toggle-view-icon"></i></a>
-        </div>
         </>
       )}
     </div>

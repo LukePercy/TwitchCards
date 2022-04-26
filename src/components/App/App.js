@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
-// import './App.css';
+import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
-import { ChannelAuthContext } from './ChannelAuthContext';
 
 const SERVER_OAUTH_URL = 'http://localhost:3003/api/authinfo';
 const ORIGIN_URL = 'https://localhost:8080';
@@ -113,13 +112,11 @@ const App = () => {
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (
-        <ChannelAuthContext.Provider value={twitchAuth}>
           <div className='App'> 
             <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
               <MyCollection viewerId={viewerId} channelId={channelId} />
             </div>
           </div>
-        </ChannelAuthContext.Provider>
       ) : (
         <div className='App'>
          <NotSharedIdScreen />

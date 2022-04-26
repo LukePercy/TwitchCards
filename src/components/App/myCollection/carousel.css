@@ -9,6 +9,7 @@
 .slides > button {
   -webkit-appearance: none;
   -moz-appearance: none;
+  align-content: center center;
   appearance: none;
   background: transparent;
   border: none;

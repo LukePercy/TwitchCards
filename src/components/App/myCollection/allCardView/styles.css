@@ -1,5 +1,6 @@
+/* view container */
 #webkit-filter > html,
-body {
+.deckView {
   overscroll-behavior-y: contain;
   margin: 0;
   padding: 0;
@@ -8,16 +9,14 @@ body {
   overflow: hidden;
 }
 
-/* view container */
-#root {
+.deckView {
   background-image: url("../../assets/TableBack.png");
-  position: fixed;
   width: 100vw;
   height: 100vh;
 }
 
 /* card element */
-#root > div {
+.deckView > div {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -28,7 +27,7 @@ body {
 }
 
 /* Card Image element */
-#root > div > div {
+.deckView > div > div {
   display: fit-content;
   touch-action: none;
   background-size: auto 80%;
@@ -43,14 +42,14 @@ body {
 }
 
 /* Style the navigation bar */
-.iconsArea {
+/* .iconsArea {
   position: relative;
   display: flex;
   top: 85vh;
   left: 68vw;
-}
+} */
 
-.settings-icon {
+/* .settings-icon {
   background-image: url("../../assets/SettingsIcon.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -60,10 +59,9 @@ body {
   padding-top: 20px;
   display: block;
   opacity: 0.2;
-  /* Other styles here */
-}
+} */
 
-.toggle-view-icon {
+/* .toggle-view-icon {
   background-image: url("../../assets/SlideViewIcon.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -73,16 +71,15 @@ body {
   display: block;
   opacity: 0.3;
   padding-left: 15px;
-  /* Other styles here */
-}
+} */
 
-.settings-icon:hover,
+/* .settings-icon:hover,
 a:hover {
   opacity: 0.8;
-}
+} */
 
-.toggle-view-icon:hover,
+/* .toggle-view-icon:hover,
 a:hover {
   transform: scale(1.09);
   opacity: 0.9;
-}
+} */

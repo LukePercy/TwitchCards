@@ -1,5 +1,5 @@
-@import "w3.css"; /* w3.css bootstrap */
 @import "./myCollection/carousel.css"; /* Carousel.css by @keyframes*/
+@import "w3.css";
 
 @font-face {
   font-family: "Formata-Regular";
@@ -7,6 +7,7 @@
     url("./fonts/Formata-Regular.otf") format("opentype");
 }
 #root {
+  backgroud-color: #36013f;
   margin: auto;
 }
 
@@ -22,4 +23,48 @@
 /* if dark mode show white text */
 .App-dark {
   color: #e5e3e8;
+}
+
+.toggle-view-icon {
+  background-image: url("./assets/SlideViewIcon.png");
+  background-repeat: no-repeat;
+  background-position: auto;
+  background-size: contain;
+  bottom: 0px;
+  right: 0px;
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  opacity: 0.3;
+}
+
+.toggle-view-icon:hover,
+a:hover {
+  transform: scale(1.09);
+  opacity: 0.9;
+}
+
+.iconsArea {
+  z-index: 1000;
+  position: relative;
+  display: flex;
+  top: 85vh;
+  left: 68vw;
+}
+
+.settings-icon {
+  background-image: url("./assets/SettingsIcon2.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+  width: 31px;
+  height: 30px;
+  padding-top: 20px;
+  display: block;
+  opacity: 0.2;
+}
+
+.settings-icon:hover,
+a:hover {
+  opacity: 0.8;
 }

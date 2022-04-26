@@ -5,8 +5,10 @@ import MyCollection from './myCollection/MyCollection'; // Carousel component to
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 import { ChannelAuthContext } from './ChannelAuthContext';
 
-const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo';
-const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
+const SERVER_OAUTH_URL = 'http://localhost:3003/api/authinfo/';
+const ORIGIN_URL = 'https://localhost:8080/';
+// const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo';
+// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
 export const authentication = new Authentication();
 
@@ -23,17 +25,17 @@ const App = () => {
     channelId: '',
   });
 
-  const {token} = appInitState;
+  const { token } = appInitState;
 
   const getOAuth = async () => {
-    if (!token) return
+    if (!token) return;
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Origin', ORIGIN_URL);
-    headers.append('Authorization',token);
+    headers.append('Authorization', `Bearer ${token}`);
 
-    const response = await fetch(SERVER_OAUTH_URL,{
+    const response = await fetch(SERVER_OAUTH_URL, {
       mode: 'cors',
       method: 'GET',
       headers: headers,
@@ -47,7 +49,7 @@ const App = () => {
 
   useEffect(() => {
     getOAuth();
-  }, [twitchAuth,token]);
+  }, [twitchAuth, token]);
 
   const contextUpdate = (context, delta) => {
     if (delta.includes('theme')) {
@@ -69,6 +71,7 @@ const App = () => {
     if (twitch) {
       twitch.onAuthorized((auth) => {
         authentication.setToken(auth.token, auth.userId);
+        console.log('auth.token :>> ', auth.token);
         if (!appInitState.finishedLoading) {
           setAppInitState({
             ...appInitState,

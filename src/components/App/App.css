@@ -1,10 +1,10 @@
-@import "./myCollection/carousel.css"; /* Carousel.css by @keyframes*/
-@import "w3.css";
+@import './myCollection/carousel.css'; /* Carousel.css by @keyframes*/
+@import 'w3.css';
 
 @font-face {
-  font-family: "Formata-Regular";
-  src: url("./fonts/Formata-Regular.woff") format("woff")
-    url("./fonts/Formata-Regular.otf") format("opentype");
+  font-family: 'Formata-Regular';
+  src: url('./fonts/Formata-Regular.woff') format('woff')
+    url('./fonts/Formata-Regular.otf') format('opentype');
 }
 #root {
   backgroud-color: #36013f;
@@ -12,7 +12,7 @@
 }
 
 .App {
-  font-family: "Formata-Regular";
+  font-family: 'Formata-Regular';
 }
 
 /* if light mode show dark text */
@@ -26,7 +26,7 @@
 }
 
 .toggle-view-icon {
-  background-image: url("./assets/SlideViewIcon.png");
+  background-image: url('./assets/SlideViewIcon.png');
   background-repeat: no-repeat;
   background-position: auto;
   background-size: contain;
@@ -36,6 +36,11 @@
   width: 50px;
   height: 50px;
   opacity: 0.3;
+  z-index: 999;
+}
+
+.toggle-view-icon.deck {
+  background-image: url('./assets/DeckViewIcon.png');
 }
 
 .toggle-view-icon:hover,
@@ -44,24 +49,24 @@ a:hover {
   opacity: 0.9;
 }
 
-.iconsArea {
-  z-index: 1000;
-  position: relative;
-  display: flex;
+.icons-area {
+  position: absolute;
   top: 85vh;
   left: 68vw;
 }
 
 .settings-icon {
-  background-image: url("./assets/SettingsIcon2.png");
+  background-image: url('./assets/SettingsIcon2.png');
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto;
-  width: 31px;
-  height: 30px;
-  padding-top: 20px;
-  display: block;
-  opacity: 0.2;
+  background-position: auto;
+  background-size: contain;
+  bottom: 0px;
+  right: 50px;
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  opacity: 0.3;
+  z-index: 999;
 }
 
 .settings-icon:hover,

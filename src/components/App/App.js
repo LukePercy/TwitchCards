@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
+import clsx from 'clsx';
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
@@ -21,18 +22,25 @@ const App = () => {
     token: '',
     channelId: '',
   });
+  const [isViewToggle, setViewToggle] = useState(false);
+  const handleClick = (e) => {
+    e.preventDefault();
+    setViewToggle(!isViewToggle);
+  };
 
-  const {token} = appInitState;
+  let toggle = !isViewToggle;
+
+  const { token } = appInitState;
 
   const getOAuth = async () => {
-    if (!token) return
+    if (!token) return;
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     headers.append('Origin', ORIGIN_URL);
-    headers.append('Authorization',token);
+    headers.append('Authorization', `Bearer ${token}`);
 
-    const response = await fetch(SERVER_OAUTH_URL,{
+    const response = await fetch(SERVER_OAUTH_URL, {
       mode: 'cors',
       method: 'GET',
       headers: headers,
@@ -46,7 +54,7 @@ const App = () => {
 
   useEffect(() => {
     getOAuth();
-  }, [twitchAuth,token]);
+  }, [twitchAuth, token]);
 
   const contextUpdate = (context, delta) => {
     if (delta.includes('theme')) {
@@ -67,6 +75,7 @@ const App = () => {
   useEffect(() => {
     if (twitch) {
       twitch.onAuthorized((auth) => {
+        console.log('auth :>> ', auth);
         authentication.setToken(auth.token, auth.userId);
         if (!appInitState.finishedLoading) {
           setAppInitState({
@@ -108,18 +117,41 @@ const App = () => {
 
   const { viewerId, finishedLoading, isVisible, theme, channelId } =
     appInitState;
-
+  console.log('authentication.isModerator :>> ', authentication.isModerator());
+  const isMod = authentication.isModerator();
+  const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck');
+  // when toggle is false
+  // toggleBtnClassName = 'toggle-view-icon'
+  // when toggle is true
+  // toggleBtnClassName = 'toggle-view-icon deck'
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (
-          <div className='App'> 
-            <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
-              <MyCollection viewerId={viewerId} channelId={channelId} />
+        <div className='App'>
+          <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
+            <div className='icons-area'>
+              <span className={toggleBtnClassName} onClick={handleClick}></span>
+              {isMod ? (
+                <span class='settings-icon'>
+                  <a
+                    href='https://localhost:8080/config.html'
+                    target='_blank'
+                  ></a>
+                </span>
+              ) : (
+                <></>
+              )}
             </div>
+            <MyCollection
+              toggle={toggle}
+              viewerId={viewerId}
+              channelId={channelId}
+            />
           </div>
+        </div>
       ) : (
         <div className='App'>
-         <NotSharedIdScreen />
+          <NotSharedIdScreen />
         </div>
       )}
     </>

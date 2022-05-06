@@ -46,6 +46,7 @@
     "@react-spring/web": "^9.4.4",
     "@use-gesture/react": "^10.2.11",
     "bcryptjs": "^2.4.3",
+    "clsx": "^1.1.1",
     "comfy.js": "^1.1.12",
     "core-js": "^3.5.0",
     "jsonwebtoken": "^8.5.1",

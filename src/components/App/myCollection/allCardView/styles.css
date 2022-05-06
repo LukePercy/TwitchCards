@@ -10,7 +10,7 @@
 }
 
 .deckView {
-  background-image: url("../../assets/TableBack.png");
+  background-image: url('../../assets/TableBack.png');
   width: 100vw;
   height: 100vh;
 }

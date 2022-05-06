@@ -35,11 +35,11 @@ module.exports = (_env, argv) => {
       outputHtml: 'panel.html',
       build: true,
     },
-    // Config:{
-    //   path:"./src/Config.js",
-    //   outputHtml:"config.html",
-    //   build:true
-    // },
+    Config: {
+      path: './src/Config.js',
+      outputHtml: 'config.html',
+      build: true,
+    },
     // LiveConfig:{
     //   path:"./src/LiveConfig.js",
     //   outputHtml:"live_config.html",
@@ -94,9 +94,9 @@ module.exports = (_env, argv) => {
           test: /\.css$/,
           use: ['style-loader', 'css-loader'],
         },
-        {    
+        {
           test: /\.(woff|woff2|eot|ttf|otf)$/,
-          loader: "file-loader",
+          loader: 'file-loader',
           options: {
             name: 'fonts/[name].[ext]',
           },
@@ -139,7 +139,8 @@ module.exports = (_env, argv) => {
       contentBase: path.join(__dirname, 'public'),
       host: argv.devrig ? 'localhost.rig.twitch.tv' : 'localhost',
       headers: {
-        'Access-Control-Allow-Origin': 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/',
+        'Access-Control-Allow-Origin':
+          'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv/',
       },
       port: 8080,
     };

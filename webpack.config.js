@@ -20,11 +20,11 @@ module.exports = (_env, argv) => {
   }, {});
 
   let entryPoints = {
-    // VideoComponent:{
-    //   path:"./src/VideoComponent.js",
-    //   outputHtml:"video_component.html",
-    //   build:true
-    // },
+    VideoComponent:{
+      path:"./src/VideoComponent.js",
+      outputHtml:"video_component.html",
+      build:true
+    },
     // VideoOverlay:{
     //   path:"./src/VideoOverlay.js",
     //   outputHtml:"video_overlay.html",

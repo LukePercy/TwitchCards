@@ -8,7 +8,8 @@ export const slides = [
      description: "It's Get...Getting Dicey!",
      rarity: '',
      frontimage: '',
-     backimage: CardBack
+     backimage: CardBack,
+     artist: 'Shanon Stevens'
     },
     {
      id: 2,
@@ -17,7 +18,8 @@ export const slides = [
      description: "...and my Lute!",
      rarity: '',
      frontimage: '',
-     backimage: CardBack
+     backimage: CardBack,
+     artist: 'Shanon Stevens'
     },
     {
      id: 3,
@@ -26,7 +28,8 @@ export const slides = [
      description: "Leave no body behind",
      rarity: '',
      frontimage: '',
-     backimage: CardBack
+     backimage: CardBack,
+     artist: 'Shanon Stevens'
 
     },
     {
@@ -36,7 +39,8 @@ export const slides = [
      description: "Adventure is never far away",
      rarity: '',
      frontimage: '',
-     backimage: CardBack
+     backimage: CardBack,
+     artist: 'Shanon Stevens'
     },
     {
      id: 5,
@@ -45,6 +49,7 @@ export const slides = [
      description: "Run away!",
      rarity: '',
      frontimage: '',
-     backimage: CardBack
+     backimage: CardBack,
+     artist: 'Shanon Stevens'
     }
 ]

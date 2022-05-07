@@ -12,7 +12,7 @@ const to = (i) => ({
   delay: i * 100,
 })
 const from = (_i) => ({ x: 0, rot: 0, scale: 1.5, y: -1000 })
-// This is being used down there in the view, it interpolates rotation and scale into a css transform
+// This is being used down there in the view, it interpolates rotation and scale into a css transform r (rot passed in) and s (scale passed in) being based into the styles
 const trans = (r, s) =>
   `perspective(1500px) rotateX(30deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
   
@@ -76,7 +76,7 @@ function Deck({cards}) {
       const isGone = gone.has(index)
       const x = isGone ? (350 + window.innerWidth) * xDir : active ? mx : 0 // When a card is gone it flys out left or right, otherwise goes back to zero
       const rot = mx / 100 + (isGone ? xDir * 10 * vx : 0) // How much the card rotates when flicked to gone, flicking it harder makes it rotate faster
-      const scale = active ? 1.25 : 1.1 // Active cards lift up a bit like you are picking it up to flick
+      const scale = active ? 1.25 : 1.1 // Active cards lift up a bit like you are picking it up
       return {
         x,
         rot,

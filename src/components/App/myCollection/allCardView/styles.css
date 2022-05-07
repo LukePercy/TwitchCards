@@ -9,13 +9,14 @@
   overflow: hidden;
 }
 
+/* background element */
 .deckView {
-  background-image: url('../../assets/TableBack.png');
+  background-image: url("../../assets/TableBack.png");
   width: 100vw;
   height: 100vh;
 }
 
-/* card element */
+/* card container element */
 .deckView > div {
   position: absolute;
   width: 100vw;
@@ -40,46 +41,3 @@
   filter: drop-shadow(-5px -5px 5px #000);
   cursor: grab;
 }
-
-/* Style the navigation bar */
-/* .iconsArea {
-  position: relative;
-  display: flex;
-  top: 85vh;
-  left: 68vw;
-} */
-
-/* .settings-icon {
-  background-image: url("../../assets/SettingsIcon.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto;
-  width: 31px;
-  height: 30px;
-  padding-top: 20px;
-  display: block;
-  opacity: 0.2;
-} */
-
-/* .toggle-view-icon {
-  background-image: url("../../assets/SlideViewIcon.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto;
-  width: 51px;
-  height: 50px;
-  display: block;
-  opacity: 0.3;
-  padding-left: 15px;
-} */
-
-/* .settings-icon:hover,
-a:hover {
-  opacity: 0.8;
-} */
-
-/* .toggle-view-icon:hover,
-a:hover {
-  transform: scale(1.09);
-  opacity: 0.9;
-} */

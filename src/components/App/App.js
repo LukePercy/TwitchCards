@@ -134,7 +134,7 @@ const App = () => {
               {isMod ? (
                 <span class='settings-icon'>
                   <a
-                    href='https://localhost:8080/config.html'
+                    href='/config.html'
                     target='_blank'
                   ></a>
                 </span>

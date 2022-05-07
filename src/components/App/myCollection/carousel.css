@@ -62,15 +62,14 @@
 /* Shine */
 .shine::before {
   content: "";
-  top: 0;
+  top: 0px;
+  position: absolute;
   transform: translateX(200%);
   transform-style: preserve-3d;
   width: 100vw;
-  position: absolute;
   height: 100%;
-  z-index: 6;
-  animation: shine 0.5s 2 ease-in;
-  animation-delay: 0.8s;
+  z-index: 1000;
+  animation: shine 0.5s 2 ease-in-out;
   /* 
   CSS Gradient - complete browser support from http://www.colorzilla.com/gradient-editor/ 
   */
@@ -167,8 +166,8 @@
 }
 
 .slideContentInner {
-  padding-top: 90%;
-  text-decoration-style: solid;
+  user-select: none;
+  padding-top: 99%;
   color: white;
   transform-style: preserve-3d;
   transform: translateZ(2rem);
@@ -179,22 +178,35 @@
 
 .slideContentInner .slideSubtitle,
 .slideContentInner .slideTitle {
-  background-color: rgba(0, 0, 0, 0.2);
-  font-size: 1rem;
-  font-weight: normal;
+  font-size: 0.6rem;
+  font-weight: bold;
   letter-spacing: 0.2ch;
   text-transform: uppercase;
   margin: 0;
 }
 
-.slideContentInner .slideSubtitle::before {
+/* .slideContentInner .slideSubtitle::before {
   content: "— ";
-}
+} */
 .slideContentInner .slideDescription {
-  background-color: rgba(0, 0, 0, 0.5);
+  animation: pulsate 1.2s infinite alternate;
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   letter-spacing: 0.2ch;
+}
+
+@keyframes pulsate {
+  100% {
+    /* Larger blur radius */
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #008080,
+      0 0 80px #008080, 0 0 90px #008080, 0 0 100px #008080, 0 0 150px #008080;
+  }
+  0% {
+    /* Smaller blur radius */
+    text-shadow: 0 0 2px #fff, 0 0 4px #008080, 0 0 6px #008080,
+      0 0 10px #008080, 0 0 45px #008080, 0 0 55px #008080, 0 0 70px #008080,
+      0 0 80px #008080;
+  }
 }
 
 .slideBackground {

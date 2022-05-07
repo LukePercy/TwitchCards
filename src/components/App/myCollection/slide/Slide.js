@@ -41,11 +41,14 @@ const Slide = ({ slide, offset}) => {
         <div key='front' onClick={handleClick}>
           <div
             className='slideContent'
-            style={{ backgroundImage: `url('${slide.frontimage}')` }}
+            style={{backgroundImage: `url('${slide.frontimage}')`}}
           >
-          <div key={slide.id} className='cardCount'>
-            {holdingAmount}
-          </div>
+            <div key={slide.id} className='cardCount'>
+              {holdingAmount}
+            </div>
+              <div className='slideContentInner'>
+                <span className='slideSubtitle'>Art by <p className='slideDescription'>{slide.artist}</p></span>
+              </div>
           </div>
         </div>
         <div key='back' onClick={handleClick}>

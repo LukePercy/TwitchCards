@@ -5,8 +5,10 @@ import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 
-const SERVER_OAUTH_URL = 'http://localhost:3003/api/authinfo';
-const ORIGIN_URL = 'https://localhost:8080';
+const SERVER_OAUTH_URL = 'http://localhost:3003/api/authinfo/';
+const ORIGIN_URL = 'https://localhost:8080/';
+// const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo';
+// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
 export const authentication = new Authentication();
 
@@ -27,8 +29,6 @@ const App = () => {
     e.preventDefault();
     setViewToggle(!isViewToggle);
   };
-
-  let toggle = !isViewToggle;
 
   const { token } = appInitState;
 
@@ -77,6 +77,7 @@ const App = () => {
       twitch.onAuthorized((auth) => {
         console.log('auth :>> ', auth);
         authentication.setToken(auth.token, auth.userId);
+        console.log('auth.token :>> ', auth.token);
         if (!appInitState.finishedLoading) {
           setAppInitState({
             ...appInitState,

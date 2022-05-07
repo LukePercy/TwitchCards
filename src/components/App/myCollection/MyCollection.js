@@ -6,8 +6,10 @@ import Loader from 'react-loader-spinner';
 import { ChannelAuthContext } from '../ChannelAuthContext';
 import useRedemption from '../customHooks/useRedemption';
 
-const BASE_URL = 'http://localhost:3003';
-const ORIGIN_URL = 'https://localhost:8080';
+const BASE_URL = 'http://localhost:3003/';
+const ORIGIN_URL = 'https://localhost:8080/';
+// const BASE_URL = 'https://diceydeckbackend.herokuapp.com';
+// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
 const initialState = {
   slideIndex: 0,

@@ -239,6 +239,8 @@ a:hover {
   letter-spacing: 0.2ch;
 }
 
+/* Pusle the text - A more performant way, but not as nice as text-shadow. Figure it out later*/
+
 /* .pulse {
   animation: pulsate 1.5s infinite alternate;
 }

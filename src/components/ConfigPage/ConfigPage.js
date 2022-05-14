@@ -1,9 +1,8 @@
 import React from 'react';
 import Authentication from '../../util/Authentication/Authentication';
-import clsx from 'clsx';
-
 import './Config.css';
 
+const BASE_URL = 'http://localhost:3003/'; // need to change the EBS address for live test and prod. not currently passed into URL
 export default class ConfigPage extends React.Component {
   constructor(props) {
     super(props);
@@ -48,7 +47,6 @@ export default class ConfigPage extends React.Component {
   }
 
   render() {
-    const btnDisabled = clsx(this.state.clickCounter && 'disabled'); // change to CSS Style only
     if (this.state.finishedLoading && this.Authentication.isModerator()) {
       return (
         <div className={this.state.theme === 'light' ? 'Config-light' : 'Config-dark'}>
@@ -57,17 +55,12 @@ export default class ConfigPage extends React.Component {
             <h2>Channel Point Trading Cards Configuration</h2>
             <section>
               <p>Click the below button to allow Channel Points Trading Cards to interact with your channel.</p>
-              {/* Need to figure out clicking the button to send request */}
-            <button  disabled={btnDisabled} type="button" onClick={() => {
-              this.setState({
-              ...this.state,
-              clickCounter: this.state.clickCounter + 1
-              })
-            }}>Authenticate with Twitch
+              {/* I gave up on disbaled styles its not the end of the world anyway */}
+              <a className='authbutton' href="http://localhost:3003/api/auth/twitch" target="_blank">Authenticate with Twitch
             <div className="arrow-wrapper">
-                <div className="arrow"></div>
+              <div className="arrow"/>
             </div>
-            </button>
+            </a>
             </section>
             <section>
             <div className='container'>

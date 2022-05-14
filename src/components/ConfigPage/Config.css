@@ -28,6 +28,8 @@
   color: #d3d3d3;
 }
 
+/* Config Screen Auth button */
+
 .authbutton {
   --primary-color: #645bff;
   --secondary-color: #fff;
@@ -139,7 +141,8 @@
   transform: translate(0.2rem);
 }
 
-.authbutton .disabled a {
+/* Disable button - doesn't work for some reason, leave till later */
+/* .authbutton .disabled a {
   pointer-events: none;
   background-color: #cfcfc4;
-}
+} */

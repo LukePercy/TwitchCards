@@ -1,11 +1,10 @@
-@import "./myCollection/carousel.css"; /* Carousel.css by @keyframes*/
-@import "w3.css";
-
+@charset "UTF-8";
 @font-face {
   font-family: "Formata-Regular";
   src: url("./fonts/Formata-Regular.woff") format("woff")
     url("./fonts/Formata-Regular.otf") format("opentype");
 }
+
 #root {
   backgroud-color: #36013f;
   margin: auto;
@@ -24,6 +23,74 @@
 .App-dark {
   color: #e5e3e8;
 }
+
+/* Globals */
+
+*,
+*:before,
+*:after {
+  position: sticky;
+}
+
+html {
+  background-color: #151515;
+  overflow: hidden;
+}
+
+html,
+body {
+  font-size: 15px;
+  line-height: 1.5;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* splash screen - not logged in */
+
+.splash {
+  background-image: url(./assets/GD_interface_square_blue_grad_v1.0.png);
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* .title {
+  display: flex;
+  font-family: "Formata-Regular";
+  justify-content: center;
+  padding-top: 20%;
+  text-decoration-line: underline;
+}
+
+.subtitle {
+  font-family: "Formata-Regular";
+  font-size: 1.3rem;
+  overflow: hidden;
+  display: block;
+  padding-left: 135px;
+}
+
+.allowtext {
+  display: block;
+  font-weight: normal;
+  font-size: 1rem;
+  padding-top: 90px;
+  text-align: center;
+} */
+
+body {
+  margin: 0;
+}
+
+section {
+  display: block;
+}
+
+/* Navigation buttons */
 
 .toggle-view-icon {
   background-image: url("./assets/SlideViewIcon.png");
@@ -72,4 +139,203 @@ a:hover {
 .settings-icon:hover,
 a:hover {
   opacity: 0.8;
+}
+
+/* slide veiw */
+
+.slides {
+  display: grid;
+}
+.slides > .slide {
+  grid-area: 1/-1;
+}
+.slides > button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  align-content: center center;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: white;
+  position: absolute;
+  font-size: 3rem;
+  width: 5rem;
+  height: 5rem;
+  top: 30%;
+  transition: opacity 0.3s;
+  opacity: 0.8;
+  z-index: 5;
+}
+.slides > button:hover {
+  opacity: 1;
+}
+.slides > button:focus {
+  outline: none;
+}
+.slides > button:first-child {
+  left: -20%;
+}
+.slides > button:last-child {
+  right: -20%;
+}
+
+.slideContent {
+  width: 70vw;
+  height: 100vh;
+  background-size: 93%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: transform 0.5s ease-in-out;
+  opacity: 0.4;
+  align-content: center;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) translateX(calc(100% * var(--offset)))
+    rotateY(calc(-45deg * var(--dir)));
+}
+
+.cardCount {
+  transform: translateY(40px) translateZ(2rem);
+  font-family: "Formata-Regular";
+  font-weight: bolder;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  padding: 6px;
+  background: #fff;
+  border: 3px solid #000;
+  color: #000;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.slideContentInner {
+  user-select: none;
+  padding-top: 99%;
+  color: white;
+  transform-style: preserve-3d;
+  transform: translateZ(2rem);
+  transition: opacity 0.3s linear;
+  text-shadow: 0 0.1rem 1rem #000;
+  opacity: 0;
+}
+
+.slideContentInner .slideSubtitle,
+.slideContentInner .slideTitle {
+  font-size: 0.6rem;
+  font-weight: bold;
+  letter-spacing: 0.2ch;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* .slideContentInner .slideSubtitle::before {
+  content: "— ";
+} */
+
+.slideContentInner .slideDescription {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.2ch;
+}
+
+/* .pulse {
+  animation: pulsate 1.5s infinite alternate;
+}
+
+@keyframes pulsate {
+  0% {
+    color: #fff;
+  }
+  50% {
+    color: #7fffd4;
+  }
+  100% {
+    color: #efcc90;
+  }
+} */
+
+.slideBackground {
+  position: fixed;
+  top: 0;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  background-size: cover;
+  background-position: center center;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s linear, transform 0.3s ease-in-out;
+  pointer-events: none;
+  transform: translateX(calc(10% * var(--dir)));
+}
+
+.slide[data-active] {
+  z-index: 2;
+  pointer-events: auto;
+}
+.slide[data-active] .slideBackground {
+  opacity: 0.2;
+  transform: none;
+}
+
+.slide[data-active] .slideContentInner {
+  opacity: 1;
+}
+.slide[data-active] .slideContent {
+  --x: calc(var(--px) - 0.5);
+  --y: calc(var(--py) - 0.5);
+  opacity: 1;
+  transform: perspective(1000px);
+}
+.slide[data-active] .slideContent:hover {
+  transition: none;
+  transform: perspective(1000px) rotateY(calc(var(--x) * 45deg))
+    rotateX(calc(var(--y) * -45deg));
+}
+
+/* Deck View */
+
+/* view container */
+#webkit-filter > html,
+.deckView {
+  overscroll-behavior-y: contain;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* background element */
+.deckView {
+  background-image: url("./assets/TableBack.png");
+  width: 100vw;
+  height: 100vh;
+}
+
+/* card container element */
+.deckView > div {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0px;
+}
+
+/* Card Image element */
+.deckView > div > div {
+  display: fit-content;
+  touch-action: none;
+  background-size: auto 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  will-change: transform;
+  -webkit-filter: drop-shadow(-5px -5px 5px #000);
+  filter: drop-shadow(-5px -5px 5px #000);
+  cursor: grab;
 }

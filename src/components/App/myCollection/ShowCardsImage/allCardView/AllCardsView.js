@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSprings, animated, to as interpolate } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
-import styles from './styles.css'
+import styles from './../../../../App/App.css'
 
 // These two are just helpers, they curate spring data, values that are later being interpolated into css
 const to = (i) => ({
@@ -38,9 +38,9 @@ function Deck({cards}) {
       wornCardsNumber = cards.holdingAmount
     }
     
-    const foilCardImage = require(`../../cards/${cards.title}-s1_foil.jpg`)
-    const mintCardImage = require(`../../cards/${cards.title}-s1_mint.jpg`)
-    const wornCardImage = require(`../../cards/${cards.title}-s1_worn.jpg`)
+    const foilCardImage = require(`../../../cards/${cards.title}-s1_foil.jpg`)
+    const mintCardImage = require(`../../../cards/${cards.title}-s1_mint.jpg`)
+    const wornCardImage = require(`../../../cards/${cards.title}-s1_worn.jpg`)
     
     const foilCardArray = []
     const mintCardArray = []

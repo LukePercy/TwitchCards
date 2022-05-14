@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // Flip card over to see back images
 import ReactCardFlip from 'react-card-flip';
-import useTilt from '../../customHooks/useTilt';
+import useTilt from '../../../customHooks/useTilt';
 
 // Slide content. Includes card image and flip behavior.
 const Slide = ({ slide, offset}) => {

@@ -59,7 +59,6 @@ export default class ConfigPage extends React.Component {
               <p>Click the below button to allow Channel Points Trading Cards to interact with your channel.</p>
               {/* Need to figure out clicking the button to send request */}
             <button  disabled={btnDisabled} type="button" onClick={() => {
-              console.log('handleClick')
               this.setState({
               ...this.state,
               clickCounter: this.state.clickCounter + 1

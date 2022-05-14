@@ -75,7 +75,6 @@ const App = () => {
   useEffect(() => {
     if (twitch) {
       twitch.onAuthorized((auth) => {
-        console.log('auth :>> ', auth);
         authentication.setToken(auth.token, auth.userId);
         if (!appInitState.finishedLoading) {
           setAppInitState({
@@ -115,9 +114,7 @@ const App = () => {
     };
   }, []);
 
-  const { viewerId, finishedLoading, isVisible, theme, channelId } =
-    appInitState;
-  console.log('authentication.isModerator :>> ', authentication.isModerator());
+  const { viewerId, finishedLoading, isVisible, theme, channelId } = appInitState;
   const isMod = authentication.isModerator();
   const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck');
   // when toggle is false
@@ -132,7 +129,7 @@ const App = () => {
             <div className='icons-area'>
               <span className={toggleBtnClassName} onClick={handleClick}></span>
               {isMod ? (
-                <span class='settings-icon'>
+                <span className='settings-icon'>
                   <a
                     href='https://localhost:8080/config.html'
                     target='_blank'

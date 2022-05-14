@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import Slide from '../slide/Slide';
+import React from 'react';
+import Slide from './slide/Slide';
 import Backimage from '../../cards/Card_Back-s1_worn.jpg';
-import Deck from '../allCardView/AllCardsView';
+import Deck from './allCardView/AllCardsView';
 import '../../App.css';
 
 const ShowCardsImage = ({

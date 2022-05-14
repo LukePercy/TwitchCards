@@ -38,8 +38,7 @@
   --arrow-stroke: 2px;
   --plus-width: 25px;
   --plus-stroke: 25px;
-  max-width: 20vw;
-  min-width: 17px;
+  max-width: 300px;
   box-sizing: border-box;
   border: 0;
   border-radius: 20px;

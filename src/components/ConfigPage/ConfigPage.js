@@ -48,26 +48,43 @@ export default class ConfigPage extends React.Component {
   render() {
     if (this.state.finishedLoading && this.Authentication.isModerator()) {
       return (
+        <div className={this.state.theme === 'light' ? 'Config-light' : 'Config-dark'}>
         <div className='Config'>
-          <div
-            className={
-              this.state.theme === 'light' ? 'Config-light' : 'Config-dark'
-            }
-          >
-            <a href='http://localhost:3003/api/auth/twitch' target='_blank'>
-              Generate Twitch API Access Token
-            </a>
+          <div className='container'>
+            <h2>Channel Point Trading Cards Configuration</h2>
+            <section>
+              <p>Click the below button to allow Channel Points Trading Cards to interact with your channel.</p>
+              {/* Need to figure out clicking the button to send request */}
+            <button type='button' onClick="parent.open(`http://localhost:3003/api/auth/twitch`); this.disabled=true; this.value='Authenticating…'">Authenticate with Twitch
+            <div class="arrow-wrapper">
+                <div class="arrow"></div>
+            </div>
+            </button>
+            </section>
+            <section>
+            <div className='container'>
+              <h3>Manage Rewards</h3>
+              <span className='coming-soon-text'>coming soon</span>
+            {/* <button type='button'>Create Reward
+            <div class="plus-wrapper">
+                <div class="plus"></div>
+            </div>
+            </button> */}
+            </div>
+            </section>
+            <section>
+              <div className='container'>
+                <h3>Manage Your Trading Cards</h3><span className='coming-soon-text'>coming soon</span>
+              </div>
+            </section>
+            </div>
           </div>
         </div>
       );
     } else {
       return (
         <div className='Config'>
-          <div
-            className={
-              this.state.theme === 'light' ? 'Config-light' : 'Config-dark'
-            }
-          >
+          <div className={this.state.theme === 'light' ? 'Config-light' : 'Config-dark'}>
             Loading...
           </div>
         </div>

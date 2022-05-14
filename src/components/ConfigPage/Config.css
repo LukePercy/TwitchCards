@@ -1,11 +1,138 @@
-.Config{
-    font-family: Arial, Helvetica, sans-serif;
+/* config page / global variables */
+* {
+  box-sizing: border-box;
 }
 
-.Config-light{
-    color:#232127;
+.Config {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: auto;
+  width: 80vw;
+  height: 75vh;
 }
 
-.Config-dark{
-    color:#e5e3e8;
+.Config-light {
+  color: #232127;
+}
+
+.Config-dark {
+  color: #e5e3e8;
+}
+
+.container {
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.coming-soon-text {
+  color: #d3d3d3;
+}
+
+button {
+  --primary-color: #645bff;
+  --secondary-color: #fff;
+  --hover-color: #00bfa6;
+  --arrow-width: 10px;
+  --arrow-stroke: 2px;
+  --plus-width: 25px;
+  --plus-stroke: 25px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 20px;
+  color: var(--secondary-color);
+  padding: 1em 1.8em;
+  background-color: var(--primary-color);
+  display: flex;
+  transition: 0.2s background-color;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+}
+
+button .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button .arrow {
+  margin-top: 1px;
+  width: var(--arrow-width);
+  background: var(--primary-color);
+  height: var(--arrow-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+button .arrow::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: solid var(--secondary-color);
+  border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+button .plus-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+}
+
+button .plus {
+  margin-top: 1px;
+  background-color: var(--primary-color);
+  width: var(--plus-width);
+  height: var(--plus-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+button .plus::after {
+  content: "";
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 4px;
+  width: 50%;
+  background-color: #fff;
+  top: 50%;
+  left: 50%;
+  transition: 0.2s;
+}
+
+button .plus::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  height: 50%;
+  width: 4px;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: var(--hover-color);
+}
+
+button:hover .arrow {
+  background-color: var(--secondary-color);
+}
+
+button:hover .arrow:before {
+  right: 0;
+}
+
+button:hover .plus {
+  background-color: var(--hover-color);
+  transform: translate(0.2rem);
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Authentication from '../../util/Authentication/Authentication';
+import clsx from 'clsx';
 
 import './Config.css';
 
@@ -7,12 +8,13 @@ export default class ConfigPage extends React.Component {
   constructor(props) {
     super(props);
     this.Authentication = new Authentication();
-
+    
     //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
     this.twitch = window.Twitch ? window.Twitch.ext : null;
     this.state = {
       finishedLoading: false,
       theme: 'light',
+      clickCounter: 0,
     };
   }
 
@@ -46,6 +48,7 @@ export default class ConfigPage extends React.Component {
   }
 
   render() {
+    const btnDisabled = clsx(this.state.clickCounter && 'disabled'); // change to CSS Style only
     if (this.state.finishedLoading && this.Authentication.isModerator()) {
       return (
         <div className={this.state.theme === 'light' ? 'Config-light' : 'Config-dark'}>
@@ -55,9 +58,15 @@ export default class ConfigPage extends React.Component {
             <section>
               <p>Click the below button to allow Channel Points Trading Cards to interact with your channel.</p>
               {/* Need to figure out clicking the button to send request */}
-            <button type='button' onClick="parent.open(`http://localhost:3003/api/auth/twitch`); this.disabled=true; this.value='Authenticating…'">Authenticate with Twitch
-            <div class="arrow-wrapper">
-                <div class="arrow"></div>
+            <button  disabled={btnDisabled} type="button" onClick={() => {
+              console.log('handleClick')
+              this.setState({
+              ...this.state,
+              clickCounter: this.state.clickCounter + 1
+              })
+            }}>Authenticate with Twitch
+            <div className="arrow-wrapper">
+                <div className="arrow"></div>
             </div>
             </button>
             </section>

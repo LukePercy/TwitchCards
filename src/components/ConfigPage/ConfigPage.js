@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import Authentication from '../../util/Authentication/Authentication';
 import './Config.css';
 
@@ -7,7 +8,7 @@ export default class ConfigPage extends React.Component {
   constructor(props) {
     super(props);
     this.Authentication = new Authentication();
-    
+
     //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
     this.twitch = window.Twitch ? window.Twitch.ext : null;
     this.state = {
@@ -47,37 +48,63 @@ export default class ConfigPage extends React.Component {
   }
 
   render() {
+    console.log('this.state.clickCounter :>> ', this.state.clickCounter);
     if (this.state.finishedLoading && this.Authentication.isModerator()) {
       return (
-        <div className={this.state.theme === 'light' ? 'Config-light' : 'Config-dark'}>
-        <div className='Config'>
-          <div className='container'>
-            <h2>Channel Point Trading Cards Configuration</h2>
-            <section>
-              <p>Click the below button to allow Channel Points Trading Cards to interact with your channel.</p>
-              {/* I gave up on disbaled styles its not the end of the world anyway */}
-              <a className='authbutton' href="http://localhost:3003/api/auth/twitch" target="_blank">Authenticate with Twitch
-            <div className="arrow-wrapper">
-              <div className="arrow"/>
-            </div>
-            </a>
-            </section>
-            <section>
+        <div
+          className={
+            this.state.theme === 'light' ? 'Config-light' : 'Config-dark'
+          }
+        >
+          <div className='Config'>
             <div className='container'>
-              <h3>Manage Rewards</h3>
-              <span className='coming-soon-text'>coming soon</span>
-            {/* <button type='button'>Create Reward
+              <h2>Channel Point Trading Cards Configuration</h2>
+              <section>
+                <p>
+                  Click the below button to allow Channel Points Trading Cards
+                  to interact with your channel.
+                </p>
+                <button
+                  type='button'
+                  className={clsx(
+                    'authbutton',
+                    this.state.clickCounter && 'disabled'
+                  )}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.open(
+                      'http://localhost:3003/api/auth/twitch',
+                      '_blank'
+                    );
+                    this.setState({
+                      ...this.state,
+                      clickCounter: this.state.clickCounter + 1,
+                    });
+                  }}
+                >
+                  Authenticate with Twitch
+                  <div className='arrow-wrapper'>
+                    <div className='arrow' />
+                  </div>
+                </button>
+              </section>
+              <section>
+                <div className='container'>
+                  <h3>Manage Rewards</h3>
+                  <span className='coming-soon-text'>coming soon</span>
+                  {/* <button type='button'>Create Reward
             <div class="plus-wrapper">
                 <div class="plus"></div>
             </div>
             </button> */}
-            </div>
-            </section>
-            <section>
-              <div className='container'>
-                <h3>Manage Your Trading Cards</h3><span className='coming-soon-text'>coming soon</span>
-              </div>
-            </section>
+                </div>
+              </section>
+              <section>
+                <div className='container'>
+                  <h3>Manage Your Trading Cards</h3>
+                  <span className='coming-soon-text'>coming soon</span>
+                </div>
+              </section>
             </div>
           </div>
         </div>
@@ -85,7 +112,11 @@ export default class ConfigPage extends React.Component {
     } else {
       return (
         <div className='Config'>
-          <div className={this.state.theme === 'light' ? 'Config-light' : 'Config-dark'}>
+          <div
+            className={
+              this.state.theme === 'light' ? 'Config-light' : 'Config-dark'
+            }
+          >
             Loading...
           </div>
         </div>

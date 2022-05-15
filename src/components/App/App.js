@@ -5,8 +5,10 @@ import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
 
-const SERVER_OAUTH_URL = 'http://localhost:3003/api/authinfo';
-const ORIGIN_URL = 'https://localhost:8080';
+const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
+// const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo'; // PRODUCTION
+// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
 
 export const authentication = new Authentication();
 
@@ -40,7 +42,7 @@ const App = () => {
     headers.append('Origin', ORIGIN_URL);
     headers.append('Authorization', `Bearer ${token}`);
 
-    const response = await fetch(SERVER_OAUTH_URL, {
+    const response = await fetch(`${BASE_API_URL}/api/authinfo`, {
       mode: 'cors',
       method: 'GET',
       headers: headers,

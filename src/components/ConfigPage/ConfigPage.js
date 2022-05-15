@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import Authentication from '../../util/Authentication/Authentication';
 import './Config.css';
 
-const BASE_URL = 'http://localhost:3003/'; // need to change the EBS address for live test and prod. not currently passed into URL
+const BASE_API_URL = process.env.REACT_APP_BASE_API_URL;
 export default class ConfigPage extends React.Component {
   constructor(props) {
     super(props);
@@ -48,7 +48,6 @@ export default class ConfigPage extends React.Component {
   }
 
   render() {
-    console.log('this.state.clickCounter :>> ', this.state.clickCounter);
     if (this.state.finishedLoading && this.Authentication.isModerator()) {
       return (
         <div
@@ -72,10 +71,7 @@ export default class ConfigPage extends React.Component {
                   )}
                   onClick={(e) => {
                     e.preventDefault();
-                    window.open(
-                      'http://localhost:3003/api/auth/twitch',
-                      '_blank'
-                    );
+                    window.open(`${BASE_API_URL}/auth/twitch`, '_blank');
                     this.setState({
                       ...this.state,
                       clickCounter: this.state.clickCounter + 1,

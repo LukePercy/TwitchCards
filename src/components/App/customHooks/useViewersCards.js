@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // Database API. Stores twitch userID and their card collection data
-const BASE_URL = 'http://localhost:3003/api/viewers';
-const ORIGIN_URL = 'https://localhost:8080/';
+const BASE_API_URL = process.env.REACT_APP_BASE_API_URL;
+const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL;
 // const BASE_URL = 'https://diceydeckbackend.herokuapp.com/api/viewers';
 // const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
@@ -16,7 +16,7 @@ const useViewersCards = (viewerId, isRewardRedeemed) => {
       headers.append('Accept', 'application/json');
       headers.append('Origin', ORIGIN_URL);
 
-      const response = await fetch(`${BASE_URL}/${viewerId}`, {
+      const response = await fetch(`${BASE_API_URL}/viewers/${viewerId}`, {
         mode: 'cors',
         method: 'GET',
         headers: headers,

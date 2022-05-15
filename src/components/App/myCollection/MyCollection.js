@@ -6,8 +6,8 @@ import Loader from 'react-loader-spinner';
 import { ChannelAuthContext } from '../ChannelAuthContext';
 import useRedemption from '../customHooks/useRedemption';
 
-const BASE_URL = 'http://localhost:3003';
-const ORIGIN_URL = 'https://localhost:8080/';
+const BASE_API_URL = process.env.REACT_APP_BASE_API_URL;
+const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL;
 // const BASE_URL = 'https://diceydeckbackend.herokuapp.com';
 // const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv';
 
@@ -53,7 +53,7 @@ const MyCollection = ({ viewerId, channelId, toggle }) => {
       headers.append('Accept', 'application/json');
       headers.append('Origin', ORIGIN_URL);
 
-      const response = await fetch(`${BASE_URL}/api/viewers/${viewerId}`, {
+      const response = await fetch(`${BASE_API_URL}/viewers/${viewerId}`, {
         mode: 'cors',
         method: 'GET',
         headers: headers,

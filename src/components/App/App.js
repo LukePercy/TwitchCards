@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
+import useRedemption from './customHooks/useRedemption';
+import useCardsForDisplay from './customHooks/useCardsForDisplay';
 
 const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
 const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
@@ -119,6 +121,9 @@ const App = () => {
   const { viewerId, finishedLoading, isVisible, theme, channelId } = appInitState;
   const isMod = authentication.isModerator();
   const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck');
+  const isRewardRedeemed = useRedemption(channelId, twitchAuth);
+  const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed);
+  console.log('cardsForDisplay', cardsForDisplay)
   // when toggle is false
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true
@@ -129,7 +134,11 @@ const App = () => {
         <div className='App'>
           <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
             <div className='icons-area'>
+              {cardsForDisplay.length > 1 ? (
               <span className={toggleBtnClassName} onClick={handleClick}></span>
+              ): (
+                <></>
+              )}
               {isMod ? (
                   <a
                     href='/config.html'

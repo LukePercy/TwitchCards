@@ -7,7 +7,7 @@ import NotSharedIdScreen from './notSharedId/NotSharedId';
 
 const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
 const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-// const SERVER_OAUTH_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo'; // PRODUCTION
+// const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo'; // PRODUCTION
 // const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
 
 export const authentication = new Authentication();
@@ -131,12 +131,10 @@ const App = () => {
             <div className='icons-area'>
               <span className={toggleBtnClassName} onClick={handleClick}></span>
               {isMod ? (
-                <span className='settings-icon'>
                   <a
-                    href='https://localhost:8080/config.html'
+                    href='/config.html'
                     target='_blank'
-                  ></a>
-                </span>
+                  ><span className='settings-icon'/></a>
               ) : (
                 <></>
               )}

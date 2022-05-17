@@ -103,7 +103,6 @@ section {
   width: 50px;
   height: 50px;
   opacity: 0.3;
-  z-index: 999;
 }
 
 .toggle-view-icon.deck {
@@ -120,6 +119,7 @@ a:hover {
   position: absolute;
   top: 85vh;
   left: 68vw;
+  z-index: 10;
 }
 
 .settings-icon {
@@ -133,7 +133,6 @@ a:hover {
   width: 50px;
   height: 50px;
   opacity: 0.3;
-  z-index: 999;
 }
 
 .settings-icon:hover,
@@ -177,6 +176,15 @@ a:hover {
 }
 .slides > button:last-child {
   right: -20%;
+}
+
+.nocardsContainer {
+  width: 80vw;
+  height: 100vh;
+  background-size: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: -1;
 }
 
 .slideContent {

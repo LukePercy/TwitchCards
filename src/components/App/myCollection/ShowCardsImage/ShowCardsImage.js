@@ -44,11 +44,9 @@ const ShowCardsImage = ({
         <>
           <div key='back'>
             <div
-              className='slideContent'
+              className='nocardsContainer'
               style={{
                 backgroundImage: `url(${Backimage})`,
-                margin: 0,
-                padding: 25,
               }}
             ></div>
           </div>

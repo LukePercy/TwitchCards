@@ -71,7 +71,7 @@ export default class ConfigPage extends React.Component {
                   )}
                   onClick={(e) => {
                     e.preventDefault();
-                    window.open(`${BASE_API_URL}/auth/twitch`, '_blank');
+                    window.open(`${BASE_API_URL}/api/auth/twitch`, '_blank');
                     this.setState({
                       ...this.state,
                       clickCounter: this.state.clickCounter + 1,

@@ -119,11 +119,11 @@ const App = () => {
   }, []);
 
   const { viewerId, finishedLoading, isVisible, theme, channelId } = appInitState;
-  const isMod = authentication.isModerator();
-  const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck');
-  const isRewardRedeemed = useRedemption(channelId, twitchAuth);
-  const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed);
-  console.log('cardsForDisplay', cardsForDisplay)
+  const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
+  const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck'); // conditional styles
+  const isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
+  const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
+  const hasViewerCards = (cardsForDisplay.length > 1); // check if viewer has cards before showing view toggle
   // when toggle is false
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true
@@ -134,7 +134,7 @@ const App = () => {
         <div className='App'>
           <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
             <div className='icons-area'>
-              {cardsForDisplay.length > 1 ? (
+              {hasViewerCards ? (
               <span className={toggleBtnClassName} onClick={handleClick}></span>
               ): (
                 <></>

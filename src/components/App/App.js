@@ -7,10 +7,10 @@ import NotSharedIdScreen from './notSharedId/NotSharedId';
 import useRedemption from './customHooks/useRedemption';
 import useCardsForDisplay from './customHooks/useCardsForDisplay';
 
-const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
-const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-// const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo'; // PRODUCTION
-// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
+// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+// const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
+const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo'; // PRODUCTION
+const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
 
 export const authentication = new Authentication();
 

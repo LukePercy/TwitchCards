@@ -3,7 +3,8 @@ import clsx from 'clsx';
 import Authentication from '../../util/Authentication/Authentication';
 import './Config.css';
 
-const BASE_API_URL = process.env.REACT_APP_BASE_API_URL;
+// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com'; // PRODUCTON
 export default class ConfigPage extends React.Component {
   constructor(props) {
     super(props);

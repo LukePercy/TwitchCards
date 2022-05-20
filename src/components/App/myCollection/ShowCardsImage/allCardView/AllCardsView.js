@@ -93,6 +93,7 @@ function Deck({cards}) {
   })
   // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
   return (
+    <div className='deckViewcontainer'>
     <div className='deckView'>
       {props.map(({ x, y, rot, scale }, i) => (
         <animated.div className={styles.deck} key={i} style={{ x, y }}>
@@ -106,6 +107,7 @@ function Deck({cards}) {
           />
         </animated.div>
       ))}
+    </div>
     </div>
   )
 }

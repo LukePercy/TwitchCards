@@ -10,17 +10,18 @@
   height: 75vh;
 }
 
-.Config-light {
+.Config-light .container {
+  background-color: #f2f2f2;
   color: #232127;
 }
 
-.Config-dark {
-  color: #e5e3e8;
+.Config-dark .container {
+  color: #232127;
 }
 
 .container {
-  border-radius: 10px;
   background-color: #f2f2f2;
+  border-radius: 10px;
   padding: 20px;
 }
 
@@ -69,7 +70,7 @@
 }
 
 .authbutton .arrow::before {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   border: solid var(--secondary-color);
@@ -99,7 +100,7 @@
 }
 
 .authbutton .plus::after {
-  content: '';
+  content: "";
   position: absolute;
   transform: translate(-50%, -50%);
   height: 4px;
@@ -111,7 +112,7 @@
 }
 
 .authbutton .plus::before {
-  content: '';
+  content: "";
   box-sizing: border-box;
   position: absolute;
   display: inline-block;

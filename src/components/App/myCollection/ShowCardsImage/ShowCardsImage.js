@@ -1,8 +1,8 @@
-import React from 'react';
-import Slide from './slide/Slide';
-import Backimage from '../../cards/Card_Back-s1_worn.jpg';
-import Deck from './allCardView/AllCardsView';
-import '../../App.css';
+import React from "react";
+import Slide from "./slide/Slide";
+import Backimage from "../../cards/Card_Back-s1_worn.jpg";
+import Deck from "./allCardView/AllCardsView";
+import "../../App.css";
 
 const ShowCardsImage = ({
   hasViewerExisted,
@@ -18,7 +18,7 @@ const ShowCardsImage = ({
           {toggle ? (
             <>
               <button
-                onClick={() => dispatch({ type: 'PREV', cardsForDisplay })}
+                onClick={() => dispatch({ type: "PREV", cardsForDisplay })}
               >
                 ‹
               </button>
@@ -29,7 +29,7 @@ const ShowCardsImage = ({
                 }
               )}
               <button
-                onClick={() => dispatch({ type: 'NEXT', cardsForDisplay })}
+                onClick={() => dispatch({ type: "NEXT", cardsForDisplay })}
               >
                 ›
               </button>
@@ -42,9 +42,9 @@ const ShowCardsImage = ({
         </>
       ) : (
         <>
-          <div key='back'>
+          <div key="back">
             <div
-              className='nocardsContainer'
+              className="nocardsContainer"
               style={{
                 backgroundImage: `url(${Backimage})`,
               }}

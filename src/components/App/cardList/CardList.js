@@ -1,55 +1,54 @@
-import CardBack from '../cards/Card_Back-s1_worn.jpg';
+import CardBack from "../cards/Card_Back-s1_worn.jpg";
 
 export const slides = [
-    {
-     id: 1,
-     title: 'DM',
-     subtitle: "The DM",
-     description: "It's Get...Getting Dicey!",
-     rarity: '',
-     frontimage: '',
-     backimage: CardBack,
-     artist: 'Shanon Stevens'
-    },
-    {
-     id: 2,
-     title: 'Bill',
-     subtitle: "Bard",
-     description: "...and my Lute!",
-     rarity: '',
-     frontimage: '',
-     backimage: CardBack,
-     artist: 'Shanon Stevens'
-    },
-    {
-     id: 3,
-     title: 'Byrem',
-     subtitle: "Wizard Necromancer",
-     description: "Leave no body behind",
-     rarity: '',
-     frontimage: '',
-     backimage: CardBack,
-     artist: 'Shanon Stevens'
-
-    },
-    {
-     id: 4, 
-     title: 'Miraqen',
-     subtitle: "The Druid",
-     description: "Adventure is never far away",
-     rarity: '',
-     frontimage: '',
-     backimage: CardBack,
-     artist: 'Shanon Stevens'
-    },
-    {
-     id: 5,
-     title: 'Morely',
-     subtitle: "Rogue",
-     description: "Run away!",
-     rarity: '',
-     frontimage: '',
-     backimage: CardBack,
-     artist: 'Shanon Stevens'
-    }
-]
+  {
+    id: 1,
+    title: "DM",
+    subtitle: "The DM",
+    description: "It's Get...Getting Dicey!",
+    rarity: "",
+    frontimage: "",
+    backimage: CardBack,
+    artist: "Shanon Stevens",
+  },
+  {
+    id: 2,
+    title: "Bill",
+    subtitle: "Bard",
+    description: "...and my Lute!",
+    rarity: "",
+    frontimage: "",
+    backimage: CardBack,
+    artist: "Shanon Stevens",
+  },
+  {
+    id: 3,
+    title: "Byrem",
+    subtitle: "Wizard Necromancer",
+    description: "Leave no body behind",
+    rarity: "",
+    frontimage: "",
+    backimage: CardBack,
+    artist: "Shanon Stevens",
+  },
+  {
+    id: 4,
+    title: "Miraqen",
+    subtitle: "The Druid",
+    description: "Adventure is never far away",
+    rarity: "",
+    frontimage: "",
+    backimage: CardBack,
+    artist: "Shanon Stevens",
+  },
+  {
+    id: 5,
+    title: "Morely",
+    subtitle: "Rogue",
+    description: "Run away!",
+    rarity: "",
+    frontimage: "",
+    backimage: CardBack,
+    artist: "Shanon Stevens",
+  },
+];

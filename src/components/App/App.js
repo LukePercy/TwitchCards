@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
-import clsx from 'clsx';
-import './App.css';
-import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
-import NotSharedIdScreen from './notSharedId/NotSharedId';
-import useRedemption from './customHooks/useRedemption';
-import useCardsForDisplay from './customHooks/useCardsForDisplay';
+import React, { useState, useEffect } from "react";
+import Authentication from "../../util/Authentication/Authentication"; //Auth helper from twitch extension boilerplate
+import clsx from "clsx";
+import "./App.css";
+import MyCollection from "./myCollection/MyCollection"; // Carousel component to display users collection of cards
+import NotSharedIdScreen from "./notSharedId/NotSharedId";
+import useRedemption from "./customHooks/useRedemption";
+import useCardsForDisplay from "./customHooks/useCardsForDisplay";
 
 // const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
 // const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo'; // PRODUCTION
-const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
+const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTION
+const ORIGIN_URL = "https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv"; // PRODUCTION
 
 export const authentication = new Authentication();
 
 const App = () => {
   //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
   const twitch = window.Twitch ? window.Twitch.ext : null;
-  const [twitchAuth, setTwitchAuth] = useState('');
+  const [twitchAuth, setTwitchAuth] = useState("");
   const [appInitState, setAppInitState] = useState({
-    viewerId: '',
+    viewerId: "",
     finishedLoading: false,
-    theme: 'light',
+    theme: "light",
     isVisible: true,
-    token: '',
-    channelId: '',
+    token: "",
+    channelId: "",
   });
   const [isViewToggle, setViewToggle] = useState(false);
   const handleClick = (e) => {
@@ -39,14 +39,14 @@ const App = () => {
   const getOAuth = async () => {
     if (!token) return;
     let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
-    headers.append('Origin', ORIGIN_URL);
-    headers.append('Authorization', `Bearer ${token}`);
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+    headers.append("Origin", ORIGIN_URL);
+    headers.append("Authorization", `Bearer ${token}`);
 
     const response = await fetch(`${BASE_API_URL}/api/authinfo`, {
-      mode: 'cors',
-      method: 'GET',
+      mode: "cors",
+      method: "GET",
       headers: headers,
     });
     const result = await response.json();
@@ -61,7 +61,7 @@ const App = () => {
   }, [twitchAuth, token]);
 
   const contextUpdate = (context, delta) => {
-    if (delta.includes('theme')) {
+    if (delta.includes("theme")) {
       setAppInitState({
         ...appInitState,
         theme: context.theme,
@@ -91,7 +91,7 @@ const App = () => {
         }
       });
 
-      twitch.listen('broadcast', (target, contentType, body) => {
+      twitch.listen("broadcast", (target, contentType, body) => {
         twitch.rig.log(
           `New PubSub message!\n${target}\n${contentType}\n${body}`
         );
@@ -111,19 +111,20 @@ const App = () => {
 
     return () => {
       if (twitch) {
-        twitch.unlisten('broadcast', () =>
-          console.log('successfully unlistened')
+        twitch.unlisten("broadcast", () =>
+          console.log("successfully unlistened")
         );
       }
     };
   }, []);
 
-  const { viewerId, finishedLoading, isVisible, theme, channelId } = appInitState;
+  const { viewerId, finishedLoading, isVisible, theme, channelId } =
+    appInitState;
   const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
-  const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck'); // conditional styles
+  const toggleBtnClassName = clsx("toggle-view-icon", toggle && "deck"); // conditional styles
   const isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
   const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
-  const hasViewerCards = (cardsForDisplay.length > 1); // check if viewer has cards before showing view toggle
+  const hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
   // when toggle is false
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true
@@ -131,19 +132,21 @@ const App = () => {
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (
-        <div className='App'>
-          <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
-            <div className='icons-area'>
+        <div className="App">
+          <div className={theme === "light" ? "App-light" : "App-dark"}>
+            <div className="icons-area">
               {hasViewerCards ? (
-              <span className={toggleBtnClassName} onClick={handleClick}></span>
-              ): (
+                <span
+                  className={toggleBtnClassName}
+                  onClick={handleClick}
+                ></span>
+              ) : (
                 <></>
               )}
               {isMod ? (
-                  <a
-                    href='/config.html'
-                    target='_blank'
-                  ><span className='settings-icon'/></a>
+                <a href="/config.html" target="_blank">
+                  <span className="settings-icon" />
+                </a>
               ) : (
                 <></>
               )}
@@ -156,7 +159,7 @@ const App = () => {
           </div>
         </div>
       ) : (
-        <div className='App'>
+        <div className="App">
           <NotSharedIdScreen />
         </div>
       )}

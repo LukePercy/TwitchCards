@@ -17,7 +17,8 @@ export const authentication = new Authentication();
 
 const App = () => {
   //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
-  const twitch = window.Twitch.ext;
+  const twitch = window.Twitch ? window.Twitch.ext : null;
+  console.log("twitch helper window state >>>", twitch);
   const [twitchAuth, setTwitchAuth] = useState("");
   const [appInitState, setAppInitState] = useState({
     viewerId: "",

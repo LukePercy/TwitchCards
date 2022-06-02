@@ -6,17 +6,18 @@ import MyCollection from "./myCollection/MyCollection"; // Carousel component to
 import NotSharedIdScreen from "./notSharedId/NotSharedId";
 import useRedemption from "./customHooks/useRedemption";
 import useCardsForDisplay from "./customHooks/useCardsForDisplay";
+import { ChannelAuthContext } from "./ChannelAuthContext";
 
 const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
 const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-// const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com/api/authinfo'; // PRODUCTION
+// const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com'; // PRODUCTION
 // const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
 
 export const authentication = new Authentication();
 
 const App = () => {
   //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
-  const twitch = window.Twitch ? window.Twitch.ext : null;
+  const twitch = window.Twitch.ext;
   const [twitchAuth, setTwitchAuth] = useState("");
   const [appInitState, setAppInitState] = useState({
     viewerId: "",
@@ -87,6 +88,7 @@ const App = () => {
             token: authentication.getToken(),
             channelId: auth.channelId,
             finishedLoading: true,
+            isVisible: true,
           });
         }
       });
@@ -120,7 +122,7 @@ const App = () => {
 
   const { viewerId, finishedLoading, isVisible, theme, channelId } =
     appInitState;
-  const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
+  // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
   const toggleBtnClassName = clsx("toggle-view-icon", toggle && "deck"); // conditional styles
   const isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
   const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
@@ -132,32 +134,27 @@ const App = () => {
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (
-        <div className="App">
-          <div className={theme === "light" ? "App-light" : "App-dark"}>
-            <div className="icons-area">
-              {hasViewerCards ? (
-                <span
-                  className={toggleBtnClassName}
-                  onClick={handleClick}
-                ></span>
-              ) : (
-                <></>
-              )}
-              {isMod ? (
-                <a href="/config.html" target="_blank">
-                  <span className="settings-icon" />
-                </a>
-              ) : (
-                <></>
-              )}
+        <ChannelAuthContext.Provider value={twitchAuth}>
+          <div className="App">
+            <div className={theme === "light" ? "App-light" : "App-dark"}>
+              <div className="icons-area">
+                {hasViewerCards ? (
+                  <span
+                    className={toggleBtnClassName}
+                    onClick={handleClick}
+                  ></span>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <MyCollection
+                toggle={toggle}
+                viewerId={viewerId}
+                channelId={channelId}
+              />
             </div>
-            <MyCollection
-              toggle={toggle}
-              viewerId={viewerId}
-              channelId={channelId}
-            />
           </div>
-        </div>
+        </ChannelAuthContext.Provider>
       ) : (
         <div className="App">
           <NotSharedIdScreen />

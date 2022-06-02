@@ -37,8 +37,7 @@ const slidesReducer = (state, event) => {
 };
 
 // Render cards in slide - see carousel.css
-const MyCollection = ({ viewerId, channelId, toggle }) => {
-  const twitchAuth = useContext(ChannelAuthContext);
+const MyCollection = ({ viewerId, channelId, toggle, twitchAuth }) => {
   const [state, dispatch] = useReducer(slidesReducer, initialState);
   const [hasViewerExisted, setViewerExisted] = useState(false);
   const [isLoading, setLoading] = useState(true);

@@ -8,17 +8,16 @@ import useRedemption from "./customHooks/useRedemption";
 import useCardsForDisplay from "./customHooks/useCardsForDisplay";
 import { ChannelAuthContext } from "./ChannelAuthContext";
 
-const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
-const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-// const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com'; // PRODUCTION
-// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
+// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+// const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
+const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTION
+const ORIGIN_URL = "https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv"; // PRODUCTION
 
 export const authentication = new Authentication();
 
 const App = () => {
   //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
   const twitch = window.Twitch ? window.Twitch.ext : null;
-  console.log("twitch helper window state >>>", twitch);
   const [twitchAuth, setTwitchAuth] = useState("");
   const [appInitState, setAppInitState] = useState({
     viewerId: "",
@@ -46,7 +45,7 @@ const App = () => {
     headers.append("Origin", ORIGIN_URL);
     headers.append("Authorization", `Bearer ${token}`);
 
-    const response = await fetch(`${BASE_API_URL}/api/authinfo`, {
+    const response = await fetch(`${BASE_API_URL}/api/authinfo/`, {
       mode: "cors",
       method: "GET",
       headers: headers,
@@ -89,7 +88,7 @@ const App = () => {
             token: authentication.getToken(),
             channelId: auth.channelId,
             finishedLoading: true,
-            isVisible: true,
+            isVisible,
           });
         }
       });
@@ -119,7 +118,7 @@ const App = () => {
         );
       }
     };
-  }, []);
+  }, [appInitState.finishedLoading]);
 
   const { viewerId, finishedLoading, isVisible, theme, channelId } =
     appInitState;
@@ -132,6 +131,10 @@ const App = () => {
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true
   // toggleBtnClassName = 'toggle-view-icon deck'
+  console.log("viewerId", viewerId);
+  console.log("finishedLoading", finishedLoading);
+  console.log("isVisible", isVisible);
+  console.log("twitchAuth >>>", twitchAuth);
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (

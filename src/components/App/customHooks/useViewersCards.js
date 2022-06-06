@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 // Database API. Stores twitch userID and their card collection data
-const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
-const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-// const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com'; // PRODUCTION
-// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
+// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+// const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
+const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTION
+const ORIGIN_URL = "https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv"; // PRODUCTION
 
 // useViewersCards hook. Get which cards are held by the viewer, passing in viewerId
 const useViewersCards = (viewerId, isRewardRedeemed) => {

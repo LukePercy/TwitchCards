@@ -52,6 +52,7 @@ const App = () => {
     });
     const result = await response.json();
     const { success, data } = result;
+    console.log("result >>>", result);
     if (success) {
       setTwitchAuth(data);
     }
@@ -134,27 +135,26 @@ const App = () => {
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (
-        <ChannelAuthContext.Provider value={twitchAuth}>
-          <div className="App">
-            <div className={theme === "light" ? "App-light" : "App-dark"}>
-              <div className="icons-area">
-                {hasViewerCards ? (
-                  <span
-                    className={toggleBtnClassName}
-                    onClick={handleClick}
-                  ></span>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <MyCollection
-                toggle={toggle}
-                viewerId={viewerId}
-                channelId={channelId}
-              />
+        <div className="App">
+          <div className={theme === "light" ? "App-light" : "App-dark"}>
+            <div className="icons-area">
+              {hasViewerCards ? (
+                <span
+                  className={toggleBtnClassName}
+                  onClick={handleClick}
+                ></span>
+              ) : (
+                <></>
+              )}
             </div>
+            <MyCollection
+              toggle={toggle}
+              viewerId={viewerId}
+              channelId={channelId}
+              twitchAuth={twitchAuth}
+            />
           </div>
-        </ChannelAuthContext.Provider>
+        </div>
       ) : (
         <div className="App">
           <NotSharedIdScreen />

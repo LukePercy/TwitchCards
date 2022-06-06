@@ -87,7 +87,7 @@ const App = () => {
             ...appInitState,
             viewerId: authentication.getUserId(),
             token: authentication.getToken(),
-            channelId: auth.channelId,
+            channelId: "52092016",
             finishedLoading: true,
             isVisible,
           });
@@ -132,6 +132,7 @@ const App = () => {
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true
   // toggleBtnClassName = 'toggle-view-icon deck'
+  console.log("twitchAuth", twitchAuth);
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (

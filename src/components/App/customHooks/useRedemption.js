@@ -21,7 +21,8 @@ const useRedemption = (channelId, twitchAuth) => {
 
     return text;
   };
-
+  console.log("twitchAuth in useRedemtion", twitchAuth);
+  console.log("channelId in useRedemtion", channelId);
   useEffect(() => {
     ws.onopen = (e) => {
       ws.send(JSON.stringify({ type: "PING" }));
@@ -49,7 +50,7 @@ const useRedemption = (channelId, twitchAuth) => {
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
       let isRedeemed = false;
-
+      console.log("message", message);
       switch (message.type) {
         case "RESPONSE":
           if (message.error === "ERR_BADAUTH") {

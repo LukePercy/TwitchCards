@@ -131,10 +131,6 @@ const App = () => {
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true
   // toggleBtnClassName = 'toggle-view-icon deck'
-  console.log("viewerId", viewerId);
-  console.log("finishedLoading", finishedLoading);
-  console.log("isVisible", isVisible);
-  console.log("twitchAuth >>>", twitchAuth);
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (

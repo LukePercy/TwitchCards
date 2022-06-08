@@ -7,7 +7,6 @@
 
 #root {
   backgroud-color: #36013f;
-  margin: auto;
 }
 
 .App {
@@ -45,7 +44,7 @@ body {
   width: 100vw;
   margin: 0;
   padding: 0;
-  display: flex;
+  display: grid;
   justify-content: center;
 }
 
@@ -103,7 +102,6 @@ section {
   width: 50px;
   height: 50px;
   opacity: 0.3;
-  z-index: 999;
 }
 
 .toggle-view-icon.deck {
@@ -120,25 +118,7 @@ a:hover {
   position: absolute;
   top: 85vh;
   left: 68vw;
-}
-
-.settings-icon {
-  background-image: url("./assets/SettingsIcon2.png");
-  background-repeat: no-repeat;
-  background-position: auto;
-  background-size: contain;
-  bottom: 0px;
-  right: 50px;
-  position: fixed;
-  width: 50px;
-  height: 50px;
-  opacity: 0.3;
-  z-index: 999;
-}
-
-.settings-icon:hover,
-a:hover {
-  opacity: 0.8;
+  z-index: 10;
 }
 
 /* slide veiw */
@@ -154,7 +134,7 @@ a:hover {
   -moz-appearance: none;
   align-content: center center;
   appearance: none;
-  background: transparent;
+  background-color: transparent;
   border: none;
   color: white;
   position: absolute;
@@ -177,6 +157,15 @@ a:hover {
 }
 .slides > button:last-child {
   right: -20%;
+}
+
+.nocardsContainer {
+  width: 80vw;
+  height: 100vh;
+  background-size: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: -1;
 }
 
 .slideContent {
@@ -297,24 +286,27 @@ a:hover {
 }
 
 /* Deck View */
+.deckViewcontainer {
+  background-image: url("./assets/TableBack.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+}
 
 /* view container */
-#webkit-filter > html,
-.deckView {
+#webkit-filter > html .deckView {
   overscroll-behavior-y: contain;
-  margin: 0;
-  padding: 0;
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
 
 /* background element */
-.deckView {
-  background-image: url("./assets/TableBack.png");
+/* .deckView {
   width: 100vw;
   height: 100vh;
-}
+} */
 
 /* card container element */
 .deckView > div {

@@ -3,7 +3,8 @@ import clsx from 'clsx';
 import Authentication from '../../util/Authentication/Authentication';
 import './Config.css';
 
-const BASE_API_URL = process.env.REACT_APP_BASE_API_URL;
+// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com'; // PRODUCTON
 export default class ConfigPage extends React.Component {
   constructor(props) {
     super(props);
@@ -71,7 +72,7 @@ export default class ConfigPage extends React.Component {
                   )}
                   onClick={(e) => {
                     e.preventDefault();
-                    window.open(`${BASE_API_URL}/auth/twitch`, '_blank');
+                    window.open(`${BASE_API_URL}/api/auth/twitch`, '_blank');
                     this.setState({
                       ...this.state,
                       clickCounter: this.state.clickCounter + 1,

@@ -4,9 +4,14 @@ import clsx from 'clsx';
 import './App.css';
 import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
 import NotSharedIdScreen from './notSharedId/NotSharedId';
+import useRedemption from './customHooks/useRedemption';
+import useCardsForDisplay from './customHooks/useCardsForDisplay';
+import { ChannelAuthContext } from './ChannelAuthContext';
 
-const SERVER_OAUTH_URL = 'http://localhost:3003/api/authinfo';
-const ORIGIN_URL = 'https://localhost:8080';
+// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+// const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
+const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com'; // PRODUCTION
+const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
 
 export const authentication = new Authentication();
 
@@ -40,21 +45,16 @@ const App = () => {
     headers.append('Origin', ORIGIN_URL);
     headers.append('Authorization', `Bearer ${token}`);
 
-    try {
-      const response = await fetch(SERVER_OAUTH_URL, {
-        mode: 'cors',
-        method: 'GET',
-        headers: headers,
-      });
-      const result = await response.json();
-      const { success, data, message } = result;
-      if (success) {
-        setTwitchAuth(data);
-      } else {
-        throw new Error(`${message}`);
-      }
-    } catch (error) {
-      throw new Error(`${error.message}`);
+    const response = await fetch(`${BASE_API_URL}/api/authinfo/`, {
+      mode: 'cors',
+      method: 'GET',
+      headers: headers,
+    });
+    const result = await response.json();
+    const { success, data } = result;
+    console.log('result >>>', result);
+    if (success) {
+      setTwitchAuth(data);
     }
   };
 
@@ -87,8 +87,9 @@ const App = () => {
             ...appInitState,
             viewerId: authentication.getUserId(),
             token: authentication.getToken(),
-            channelId: auth.channelId,
+            channelId: '52092016',
             finishedLoading: true,
+            isVisible,
           });
         }
       });
@@ -119,30 +120,31 @@ const App = () => {
         );
       }
     };
-  }, []);
+  }, [appInitState.finishedLoading]);
 
   const { viewerId, finishedLoading, isVisible, theme, channelId } =
     appInitState;
-  const isMod = authentication.isModerator();
-  const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck');
+  // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
+  const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck'); // conditional styles
+  const isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
+  const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
+  const hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
   // when toggle is false
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true
   // toggleBtnClassName = 'toggle-view-icon deck'
+  console.log('twitchAuth', twitchAuth);
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (
         <div className='App'>
           <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
             <div className='icons-area'>
-              <span className={toggleBtnClassName} onClick={handleClick}></span>
-              {isMod ? (
-                <span className='settings-icon'>
-                  <a
-                    href='https://localhost:8080/config.html'
-                    target='_blank'
-                  ></a>
-                </span>
+              {hasViewerCards ? (
+                <span
+                  className={toggleBtnClassName}
+                  onClick={handleClick}
+                ></span>
               ) : (
                 <></>
               )}
@@ -151,6 +153,7 @@ const App = () => {
               toggle={toggle}
               viewerId={viewerId}
               channelId={channelId}
+              twitchAuth={twitchAuth}
             />
           </div>
         </div>

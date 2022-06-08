@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // Cards 3d effect tilting on mouseover
 const useTilt = (active) => {
@@ -29,14 +29,14 @@ const useTilt = (active) => {
       const px = (state.mouseX - state.rect.left) / state.rect.width;
       const py = (state.mouseY - state.rect.top) / state.rect.height;
 
-      el.style.setProperty('--px', px);
-      el.style.setProperty('--py', py);
+      el.style.setProperty("--px", px);
+      el.style.setProperty("--py", py);
     };
 
-    el.addEventListener('mousemove', handleMouseMove);
+    el.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      el.removeEventListener('mousemove', handleMouseMove);
+      el.removeEventListener("mousemove", handleMouseMove);
     };
   }, [active]);
 

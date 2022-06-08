@@ -40,15 +40,21 @@ const App = () => {
     headers.append('Origin', ORIGIN_URL);
     headers.append('Authorization', `Bearer ${token}`);
 
-    const response = await fetch(SERVER_OAUTH_URL, {
-      mode: 'cors',
-      method: 'GET',
-      headers: headers,
-    });
-    const result = await response.json();
-    const { success, data } = result;
-    if (success) {
-      setTwitchAuth(data);
+    try {
+      const response = await fetch(SERVER_OAUTH_URL, {
+        mode: 'cors',
+        method: 'GET',
+        headers: headers,
+      });
+      const result = await response.json();
+      const { success, data, message } = result;
+      if (success) {
+        setTwitchAuth(data);
+      } else {
+        throw new Error(`${message}`);
+      }
+    } catch (error) {
+      throw new Error(`${error.message}`);
     }
   };
 
@@ -97,6 +103,7 @@ const App = () => {
       });
 
       twitch.onVisibilityChanged((isVisible, _c) => {
+        console.log('isVisible :>> ', isVisible);
         visibilityChanged(isVisible);
       });
 
@@ -114,7 +121,8 @@ const App = () => {
     };
   }, []);
 
-  const { viewerId, finishedLoading, isVisible, theme, channelId } = appInitState;
+  const { viewerId, finishedLoading, isVisible, theme, channelId } =
+    appInitState;
   const isMod = authentication.isModerator();
   const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck');
   // when toggle is false

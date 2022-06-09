@@ -3,7 +3,6 @@ import React, { useState, useEffect, useReducer, useContext } from "react";
 import useCardsForDisplay from "../customHooks/useCardsForDisplay";
 import ShowCardsImage from "./ShowCardsImage/ShowCardsImage";
 import Loader from "react-loader-spinner";
-import { ChannelAuthContext } from "../ChannelAuthContext";
 import useRedemption from "../customHooks/useRedemption";
 
 // const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV

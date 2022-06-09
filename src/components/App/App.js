@@ -44,15 +44,21 @@ const App = () => {
     headers.append("Origin", ORIGIN_URL);
     headers.append("Authorization", `Bearer ${token}`);
 
-    const response = await fetch(`${BASE_API_URL}/api/authinfo/`, {
-      mode: "cors",
-      method: "GET",
-      headers: headers,
-    });
-    const result = await response.json();
-    const { success, data } = result;
-    if (success) {
-      setTwitchAuth(data);
+    try {
+      const response = await fetch(BASE_API_URL, {
+        mode: "cors",
+        method: "GET",
+        headers: headers,
+      });
+      const result = await response.json();
+      const { success, data, message } = result;
+      if (success) {
+        setTwitchAuth(data);
+      } else {
+        throw new Error(`${message}`);
+      }
+    } catch (error) {
+      throw new Error(`${error.message}`);
     }
   };
 

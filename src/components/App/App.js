@@ -52,7 +52,6 @@ const App = () => {
     });
     const result = await response.json();
     const { success, data } = result;
-    console.log("result >>>", result);
     if (success) {
       setTwitchAuth(data);
     }
@@ -132,7 +131,6 @@ const App = () => {
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true
   // toggleBtnClassName = 'toggle-view-icon deck'
-  console.log("twitchAuth", twitchAuth);
   return (
     <>
       {finishedLoading && isVisible && viewerId && twitchAuth ? (

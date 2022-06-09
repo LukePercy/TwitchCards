@@ -6,7 +6,6 @@ import MyCollection from "./myCollection/MyCollection"; // Carousel component to
 import NotSharedIdScreen from "./notSharedId/NotSharedId";
 import useRedemption from "./customHooks/useRedemption";
 import useCardsForDisplay from "./customHooks/useCardsForDisplay";
-import { ChannelAuthContext } from "./ChannelAuthContext";
 
 // const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
 // const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
@@ -103,6 +102,7 @@ const App = () => {
       });
 
       twitch.onVisibilityChanged((isVisible, _c) => {
+        console.log("isVisible :>> ", isVisible);
         visibilityChanged(isVisible);
       });
 

@@ -7,10 +7,10 @@ import NotSharedIdScreen from './notSharedId/NotSharedId';
 import useRedemption from './customHooks/useRedemption';
 import useCardsForDisplay from './customHooks/useCardsForDisplay';
 
-// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
-// const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com'; // PRODUCTION
-const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
+const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
+// const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com'; // PRODUCTION
+// const ORIGIN_URL = 'https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv'; // PRODUCTION
 
 export const authentication = new Authentication();
 
@@ -49,7 +49,7 @@ const App = () => {
     headers.append('Authorization', `Bearer ${token}`);
 
     try {
-      const response = await fetch(BASE_API_URL, {
+      const response = await fetch(`${BASE_API_URL}/api/authinfo`, {
         mode: 'cors',
         method: 'GET',
         headers: headers,
@@ -134,11 +134,11 @@ const App = () => {
     appInitState;
   // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
   const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck'); // conditional styles
-  if (viewerId && channelId && twitchAuth) {
-    isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
-    cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
-    hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
-  }
+
+  isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
+  cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
+  hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
+
   // when toggle is false
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true

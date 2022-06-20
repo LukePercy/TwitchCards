@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // Flip card over to see back images
 import ReactCardFlip from "react-card-flip";
 import useTilt from "../../../customHooks/useTilt";

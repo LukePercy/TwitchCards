@@ -32,6 +32,9 @@ const useViewersCards = (viewerId, isRewardRedeemed) => {
       }
     };
     getCardsViewer(viewerId);
+    return () => {
+      setViewersCards([]);
+    };
   }, [viewerId, isRewardRedeemed]);
   return viewersCards;
 };

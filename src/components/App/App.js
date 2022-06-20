@@ -17,15 +17,18 @@ export const authentication = new Authentication();
 const App = () => {
   //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
   const twitch = window.Twitch ? window.Twitch.ext : null;
-  const [twitchAuth, setTwitchAuth] = useState("");
+  const [twitchAuth, setTwitchAuth] = useState(
+    "rjjlpgzonyf46mttpv5hpwtu35o43h"
+  );
   const [appInitState, setAppInitState] = useState({
     viewerId: "",
     finishedLoading: false,
     theme: "light",
     isVisible: true,
     token: "",
-    channelId: "",
+    channelId: "52092016",
   });
+
   const [isViewToggle, setViewToggle] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();
@@ -36,9 +39,7 @@ const App = () => {
 
   const { token } = appInitState;
 
-  let isRewardRedeemed;
-  let cardsForDisplay;
-  let hasViewerCards;
+  let hasViewerCards = true;
 
   const getOAuth = async () => {
     if (!token) return;
@@ -57,7 +58,11 @@ const App = () => {
       const result = await response.json();
       const { success, data, message } = result;
       if (success) {
-        setTwitchAuth(data);
+        setTwitchAuth(data.token);
+        setAppInitState({
+          ...appInitState,
+          channelId: data.channelId,
+        });
       } else {
         throw new Error(`${message}`);
       }
@@ -134,9 +139,9 @@ const App = () => {
   // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
   const toggleBtnClassName = clsx("toggle-view-icon", toggle && "deck"); // conditional styles
 
-  isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
-  cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
-  hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
+  // isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
+  // cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
+  // hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
 
   // when toggle is false
   // toggleBtnClassName = 'toggle-view-icon'
@@ -144,7 +149,7 @@ const App = () => {
   // toggleBtnClassName = 'toggle-view-icon deck'
   return (
     <>
-      {finishedLoading && isVisible && viewerId && twitchAuth ? (
+      {finishedLoading && isVisible && viewerId && twitchAuth && channelId ? (
         <div className="App">
           <div className={theme === "light" ? "App-light" : "App-dark"}>
             <div className="icons-area">
@@ -160,8 +165,8 @@ const App = () => {
             <MyCollection
               toggle={toggle}
               viewerId={viewerId}
-              isRewardRedeemed={isRewardRedeemed}
-              cardsForDisplay={cardsForDisplay}
+              channelId={channelId}
+              twitchAuth={twitchAuth}
             />
           </div>
         </div>

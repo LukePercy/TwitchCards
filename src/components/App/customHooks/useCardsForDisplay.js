@@ -55,6 +55,10 @@ const useCardsForDisplay = (viewerId, isRewardRedeemed) => {
       setCardsForDisplay(matchedCards);
     }
     setRewarded(false);
+    return () => {
+      setCardsForDisplay([]);
+      setRewarded(false);
+    };
   }, [viewerId, isReward]);
   return cardsForDisplay.length ? cardsForDisplay : matchedCards;
 };

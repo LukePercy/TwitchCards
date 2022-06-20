@@ -49,7 +49,7 @@ const App = () => {
     headers.append("Authorization", `Bearer ${token}`);
 
     try {
-      const response = await fetch(`${BASE_API_URL}/api/authinfo/`, {
+      const response = await fetch(`${BASE_API_URL}/api/authinfo`, {
         mode: "cors",
         method: "GET",
         headers: headers,
@@ -133,11 +133,11 @@ const App = () => {
     appInitState;
   // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
   const toggleBtnClassName = clsx("toggle-view-icon", toggle && "deck"); // conditional styles
-  if (viewerId && channelId && twitchAuth) {
-    isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
-    cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
-    hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
-  }
+
+  isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
+  cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
+  hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
+
   // when toggle is false
   // toggleBtnClassName = 'toggle-view-icon'
   // when toggle is true

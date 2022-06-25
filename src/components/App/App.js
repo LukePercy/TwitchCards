@@ -1,66 +1,68 @@
-import React, { useState, useEffect } from "react";
-import Authentication from "../../util/Authentication/Authentication"; //Auth helper from twitch extension boilerplate
-import clsx from "clsx";
-import "./App.css";
-import MyCollection from "./myCollection/MyCollection"; // Carousel component to display users collection of cards
-import NotSharedIdScreen from "./notSharedId/NotSharedId";
-import useRedemption from "./customHooks/useRedemption";
-import useCardsForDisplay from "./customHooks/useCardsForDisplay";
+import React, { useState, useEffect } from 'react';
+import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
+import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
+import NotSharedIdScreen from './notSharedId/NotSharedId';
+import ToggleButton from './ToggleButton/ToggleButton';
+import './App.css';
 
-// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
-// const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTION
-const ORIGIN_URL = "https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv"; // PRODUCTION
+const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
+// const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTION
+// const ORIGIN_URL = "https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv"; // PRODUCTION
 
 export const authentication = new Authentication();
 
 const App = () => {
   //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
   const twitch = window.Twitch ? window.Twitch.ext : null;
-  const [twitchAuth, setTwitchAuth] = useState(
-    "rjjlpgzonyf46mttpv5hpwtu35o43h"
-  );
+
+  const [isViewerHasCards, setViewerHasCards] = useState(false);
+  const [toggle, setToggle] = useState(true);
+
+  // The token and viewerId will be retrieved first by calling twitch.onAuthorized.
+  // Then are the twitchAuth and channelId
   const [appInitState, setAppInitState] = useState({
-    viewerId: "",
     finishedLoading: false,
-    theme: "light",
+    theme: 'light',
     isVisible: true,
-    token: "",
-    channelId: "52092016",
+    token: '',
+    viewerId: '',
+    twitchAuth: '',
+    channelId: '',
   });
 
-  const [isViewToggle, setViewToggle] = useState(false);
-  const handleClick = (e) => {
-    e.preventDefault();
-    setViewToggle(!isViewToggle);
-  };
-
-  let toggle = !isViewToggle;
-
-  const { token } = appInitState;
-
-  let hasViewerCards = true;
+  const {
+    twitchAuth,
+    channelId,
+    viewerId,
+    finishedLoading,
+    isVisible,
+    theme,
+    token,
+  } = appInitState;
 
   const getOAuth = async () => {
     if (!token) return;
+
     let headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    headers.append("Accept", "application/json");
-    headers.append("Origin", ORIGIN_URL);
-    headers.append("Authorization", `Bearer ${token}`);
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Origin', ORIGIN_URL);
+    headers.append('Authorization', `Bearer ${token}`);
 
     try {
       const response = await fetch(`${BASE_API_URL}/api/authinfo`, {
-        mode: "cors",
-        method: "GET",
+        mode: 'cors',
+        method: 'GET',
         headers: headers,
       });
       const result = await response.json();
       const { success, data, message } = result;
+
       if (success) {
-        setTwitchAuth(data.token);
         setAppInitState({
           ...appInitState,
+          twitchAuth: data.token,
           channelId: data.channelId,
         });
       } else {
@@ -76,7 +78,7 @@ const App = () => {
   }, [twitchAuth, token]);
 
   const contextUpdate = (context, delta) => {
-    if (delta.includes("theme")) {
+    if (delta.includes('theme')) {
       setAppInitState({
         ...appInitState,
         theme: context.theme,
@@ -100,14 +102,12 @@ const App = () => {
             ...appInitState,
             viewerId: authentication.getUserId(),
             token: authentication.getToken(),
-            channelId: "52092016",
             finishedLoading: true,
-            isVisible,
           });
         }
       });
 
-      twitch.listen("broadcast", (target, contentType, body) => {
+      twitch.listen('broadcast', (target, contentType, body) => {
         twitch.rig.log(
           `New PubSub message!\n${target}\n${contentType}\n${body}`
         );
@@ -127,51 +127,37 @@ const App = () => {
 
     return () => {
       if (twitch) {
-        twitch.unlisten("broadcast", () =>
-          console.log("successfully unlistened")
+        twitch.unlisten('broadcast', () =>
+          console.log('successfully unlistened')
         );
       }
     };
   }, [appInitState.finishedLoading]);
 
-  const { viewerId, finishedLoading, isVisible, theme, channelId } =
-    appInitState;
   // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
-  const toggleBtnClassName = clsx("toggle-view-icon", toggle && "deck"); // conditional styles
 
-  // isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
-  // cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
-  // hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
+  const isReadyForRendering =
+    finishedLoading && isVisible && viewerId && twitchAuth && channelId;
 
-  // when toggle is false
-  // toggleBtnClassName = 'toggle-view-icon'
-  // when toggle is true
-  // toggleBtnClassName = 'toggle-view-icon deck'
   return (
     <>
-      {finishedLoading && isVisible && viewerId && twitchAuth && channelId ? (
-        <div className="App">
-          <div className={theme === "light" ? "App-light" : "App-dark"}>
-            <div className="icons-area">
-              {hasViewerCards ? (
-                <span
-                  className={toggleBtnClassName}
-                  onClick={handleClick}
-                ></span>
-              ) : (
-                <></>
-              )}
-            </div>
+      {isReadyForRendering ? (
+        <div className='App'>
+          <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
+            {isViewerHasCards && (
+              <ToggleButton toggle={toggle} setToggle={setToggle} />
+            )}
             <MyCollection
               toggle={toggle}
               viewerId={viewerId}
               channelId={channelId}
               twitchAuth={twitchAuth}
+              setViewerHasCards={setViewerHasCards}
             />
           </div>
         </div>
       ) : (
-        <div className="App">
+        <div className='App'>
           <NotSharedIdScreen />
         </div>
       )}

@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer } from "react";
 // Card info
-import useCardsForDisplay from '../customHooks/useCardsForDisplay';
-import ShowCardsImage from './ShowCardsImage/ShowCardsImage';
-import Loader from 'react-loader-spinner';
-import useRedemption from '../customHooks/useRedemption';
-import useViewersCards from '../customHooks/useViewersCards';
+import useCardsForDisplay from "../customHooks/useCardsForDisplay";
+import ShowCardsImage from "./ShowCardsImage/ShowCardsImage";
+import Loader from "react-loader-spinner";
+import useRedemption from "../customHooks/useRedemption";
+import useViewersCards from "../customHooks/useViewersCards";
 
-const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
-const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-// const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTION
-// const ORIGIN_URL = "https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv"; // PRODUCTION
+// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+// const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
+const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTION
+const ORIGIN_URL = "https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv"; // PRODUCTION
 
 const initialState = {
   slideIndex: 0,
@@ -19,7 +19,7 @@ const initialState = {
 const slidesReducer = (state, event) => {
   const { type, cardsForDisplay } = event;
 
-  if (type === 'NEXT') {
+  if (type === "NEXT") {
     return {
       ...state,
       slideIndex:
@@ -28,7 +28,7 @@ const slidesReducer = (state, event) => {
           : state.slideIndex - 1,
     };
   }
-  if (type === 'PREV') {
+  if (type === "PREV") {
     return {
       ...state,
       slideIndex: (state.slideIndex + 1) % cardsForDisplay.length,
@@ -52,7 +52,7 @@ const MyCollection = ({
   );
 
   return (
-    <div className='slides'>
+    <div className="slides">
       {!isLoading ? (
         <>
           <ShowCardsImage
@@ -67,7 +67,7 @@ const MyCollection = ({
           />
         </>
       ) : (
-        <Loader type='ThreeDots' color='#4d727d' height={100} width={100} />
+        <Loader type="ThreeDots" color="#4d727d" height={100} width={100} />
       )}
     </div>
   );

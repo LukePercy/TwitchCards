@@ -1,8 +1,8 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from "react";
+import clsx from "clsx";
 
-const ToggleButton = ({ toggle, setToggle, isViewerHasCards }) => {
-  const toggleBtnClassName = clsx('toggle-view-icon', toggle && 'deck'); // conditional styles
+const ToggleButton = ({ toggle, setToggle }) => {
+  const toggleBtnClassName = clsx("toggle-view-icon", toggle && "deck"); // conditional styles
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -10,7 +10,7 @@ const ToggleButton = ({ toggle, setToggle, isViewerHasCards }) => {
   };
 
   return (
-    <div className='icons-area'>
+    <div className="icons-area">
       <span className={toggleBtnClassName} onClick={handleClick}></span>
     </div>
   );

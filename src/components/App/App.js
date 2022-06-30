@@ -18,6 +18,7 @@ const App = () => {
 
   const [isViewerHasCards, setViewerHasCards] = useState(false);
   const [toggle, setToggle] = useState(true);
+  const [windowSizeChanged, setWindowSizeChanged] = useState(false);
 
   // The token and viewerId will be retrieved first by calling twitch.onAuthorized.
   // Then are the twitchAuth and channelId
@@ -29,7 +30,6 @@ const App = () => {
     viewerId: "",
     twitchAuth: "",
     channelId: "",
-    windowSizeChanged: false,
   });
 
   const {
@@ -87,13 +87,6 @@ const App = () => {
     }
   };
 
-  const windowChanged = (windowSizeChanged) => {
-    setAppInitState({
-      ...appInitState,
-      windowSizeChanged,
-    });
-  };
-
   const visibilityChanged = (isVisible) => {
     setAppInitState({
       ...appInitState,
@@ -122,10 +115,6 @@ const App = () => {
         // now that you've got a listener, do something with the result...
 
         // do something...
-      });
-
-      twitch.onPositionChanged((windowSizeChanged, _c) => {
-        windowChanged(windowSizeChanged);
       });
 
       twitch.onVisibilityChanged((isVisible, _c) => {

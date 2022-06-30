@@ -1,10 +1,10 @@
-import React from 'react';
-import clsx from 'clsx';
-import Authentication from '../../util/Authentication/Authentication';
-import './Config.css';
+import React from "react";
+import clsx from "clsx";
+import Authentication from "../../util/Authentication/Authentication";
+import "./Config.css";
 
-const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
-// const BASE_API_URL = 'https://diceydeckbackend.herokuapp.com'; // PRODUCTON
+// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTON
 export default class ConfigPage extends React.Component {
   constructor(props) {
     super(props);
@@ -14,13 +14,13 @@ export default class ConfigPage extends React.Component {
     this.twitch = window.Twitch ? window.Twitch.ext : null;
     this.state = {
       finishedLoading: false,
-      theme: 'light',
+      theme: "light",
       clickCounter: 0,
     };
   }
 
   contextUpdate(context, delta) {
-    if (delta.includes('theme')) {
+    if (delta.includes("theme")) {
       this.setState(() => {
         return { theme: context.theme };
       });
@@ -53,11 +53,11 @@ export default class ConfigPage extends React.Component {
       return (
         <div
           className={
-            this.state.theme === 'light' ? 'Config-light' : 'Config-dark'
+            this.state.theme === "light" ? "Config-light" : "Config-dark"
           }
         >
-          <div className='Config'>
-            <div className='container'>
+          <div className="Config">
+            <div className="container">
               <h2>Channel Point Trading Cards Configuration</h2>
               <section>
                 <p>
@@ -65,14 +65,14 @@ export default class ConfigPage extends React.Component {
                   to interact with your channel.
                 </p>
                 <button
-                  type='button'
+                  type="button"
                   className={clsx(
-                    'authbutton',
-                    this.state.clickCounter && 'disabled'
+                    "authbutton",
+                    this.state.clickCounter && "disabled"
                   )}
                   onClick={(e) => {
                     e.preventDefault();
-                    window.open(`${BASE_API_URL}/api/auth/twitch`, '_blank');
+                    window.open(`${BASE_API_URL}/api/auth/twitch`, "_blank");
                     this.setState({
                       ...this.state,
                       clickCounter: this.state.clickCounter + 1,
@@ -80,15 +80,15 @@ export default class ConfigPage extends React.Component {
                   }}
                 >
                   Authenticate with Twitch
-                  <div className='arrow-wrapper'>
-                    <div className='arrow' />
+                  <div className="arrow-wrapper">
+                    <div className="arrow" />
                   </div>
                 </button>
               </section>
               <section>
-                <div className='container'>
+                <div className="container">
                   <h3>Manage Rewards</h3>
-                  <span className='coming-soon-text'>coming soon</span>
+                  <span className="coming-soon-text">coming soon</span>
                   {/* <button type='button'>Create Reward
             <div class="plus-wrapper">
                 <div class="plus"></div>
@@ -97,9 +97,9 @@ export default class ConfigPage extends React.Component {
                 </div>
               </section>
               <section>
-                <div className='container'>
+                <div className="container">
                   <h3>Manage Your Trading Cards</h3>
-                  <span className='coming-soon-text'>coming soon</span>
+                  <span className="coming-soon-text">coming soon</span>
                 </div>
               </section>
             </div>
@@ -108,10 +108,10 @@ export default class ConfigPage extends React.Component {
       );
     } else {
       return (
-        <div className='Config'>
+        <div className="Config">
           <div
             className={
-              this.state.theme === 'light' ? 'Config-light' : 'Config-dark'
+              this.state.theme === "light" ? "Config-light" : "Config-dark"
             }
           >
             Loading...

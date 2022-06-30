@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // Database API. Stores twitch userID and their card collection data
 // const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
 // const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV

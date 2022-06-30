@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const useRedemption = (channelId, twitchAuth) => {
   const [isRewardFulfilled, setRewardFulfilled] = useState(false);
@@ -7,13 +7,13 @@ const useRedemption = (channelId, twitchAuth) => {
   let heartbeatHandle;
 
   // connect the twitch pubsub websocket
-  const ws = new WebSocket('wss://pubsub-edge.twitch.tv');
+  const ws = new WebSocket("wss://pubsub-edge.twitch.tv");
 
   // Source: https://www.thepolyglotdeveloper.com/2015/03/create-a-random-nonce-string-using-javascript/
   const nonce = (length) => {
-    let text = '';
+    let text = "";
     const possible =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     for (let i = 0; i < length; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -24,14 +24,14 @@ const useRedemption = (channelId, twitchAuth) => {
 
   useEffect(() => {
     ws.onopen = (e) => {
-      ws.send(JSON.stringify({ type: 'PING' }));
+      ws.send(JSON.stringify({ type: "PING" }));
       heartbeatHandle = setInterval(() => {
-        ws.send(JSON.stringify({ type: 'PING' }));
+        ws.send(JSON.stringify({ type: "PING" }));
       }, heartbeatInterval);
 
       // Listen to channel points topic
       let message = {
-        type: 'LISTEN',
+        type: "LISTEN",
         nonce: nonce(15),
         data: {
           topics: [`channel-points-channel-v1.${channelId}`],
@@ -50,24 +50,24 @@ const useRedemption = (channelId, twitchAuth) => {
       const message = JSON.parse(event.data);
       let isRedeemed = false;
       switch (message.type) {
-        case 'RESPONSE':
-          if (message.error === 'ERR_BADAUTH') {
-            console.error('PubSub Authentication Failure');
+        case "RESPONSE":
+          if (message.error === "ERR_BADAUTH") {
+            console.error("PubSub Authentication Failure");
           }
           break;
 
-        case 'RECONNECT':
+        case "RECONNECT":
           setTimeout(() => {
             pubsubConnect(channelId, twitchAuth);
           }, reconnectInterval);
           break;
 
-        case 'MESSAGE':
-          if (message.data.topic.startsWith('channel-points-channel')) {
+        case "MESSAGE":
+          if (message.data.topic.startsWith("channel-points-channel")) {
             let messageData = JSON.parse(message.data.message);
-            if (messageData.type === 'reward-redeemed') {
+            if (messageData.type === "reward-redeemed") {
               let redemption = messageData.data.redemption;
-              isRedeemed = redemption.status === 'FULFILLED';
+              isRedeemed = redemption.status === "FULFILLED";
             }
           }
           break;

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import Authentication from '../../util/Authentication/Authentication'; //Auth helper from twitch extension boilerplate
-import MyCollection from './myCollection/MyCollection'; // Carousel component to display users collection of cards
-import NotSharedIdScreen from './notSharedId/NotSharedId';
-import ToggleButton from './ToggleButton/ToggleButton';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Authentication from "../../util/Authentication/Authentication"; //Auth helper from twitch extension boilerplate
+import MyCollection from "./myCollection/MyCollection"; // Carousel component to display users collection of cards
+import NotSharedIdScreen from "./notSharedId/NotSharedId";
+import ToggleButton from "./ToggleButton/ToggleButton";
+import "./App.css";
 
-const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
-const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
-// const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTION
-// const ORIGIN_URL = "https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv"; // PRODUCTION
+// const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
+// const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
+const BASE_API_URL = "https://diceydeckbackend.herokuapp.com"; // PRODUCTION
+const ORIGIN_URL = "https://42xd9tib4hce93bavmhmseapyp7fwj.ext-twitch.tv"; // PRODUCTION
 
 export const authentication = new Authentication();
 
@@ -23,12 +23,13 @@ const App = () => {
   // Then are the twitchAuth and channelId
   const [appInitState, setAppInitState] = useState({
     finishedLoading: false,
-    theme: 'light',
+    theme: "light",
     isVisible: true,
-    token: '',
-    viewerId: '',
-    twitchAuth: '',
-    channelId: '',
+    token: "",
+    viewerId: "",
+    twitchAuth: "",
+    channelId: "",
+    windowSizeChanged: false,
   });
 
   const {
@@ -45,15 +46,15 @@ const App = () => {
     if (!token) return;
 
     let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
-    headers.append('Origin', ORIGIN_URL);
-    headers.append('Authorization', `Bearer ${token}`);
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+    headers.append("Origin", ORIGIN_URL);
+    headers.append("Authorization", `Bearer ${token}`);
 
     try {
       const response = await fetch(`${BASE_API_URL}/api/authinfo`, {
-        mode: 'cors',
-        method: 'GET',
+        mode: "cors",
+        method: "GET",
         headers: headers,
       });
       const result = await response.json();
@@ -78,12 +79,19 @@ const App = () => {
   }, [twitchAuth, token]);
 
   const contextUpdate = (context, delta) => {
-    if (delta.includes('theme')) {
+    if (delta.includes("theme")) {
       setAppInitState({
         ...appInitState,
         theme: context.theme,
       });
     }
+  };
+
+  const windowChanged = (windowSizeChanged) => {
+    setAppInitState({
+      ...appInitState,
+      windowSizeChanged,
+    });
   };
 
   const visibilityChanged = (isVisible) => {
@@ -107,13 +115,17 @@ const App = () => {
         }
       });
 
-      twitch.listen('broadcast', (target, contentType, body) => {
+      twitch.listen("broadcast", (target, contentType, body) => {
         twitch.rig.log(
           `New PubSub message!\n${target}\n${contentType}\n${body}`
         );
         // now that you've got a listener, do something with the result...
 
         // do something...
+      });
+
+      twitch.onPositionChanged((windowSizeChanged, _c) => {
+        windowChanged(windowSizeChanged);
       });
 
       twitch.onVisibilityChanged((isVisible, _c) => {
@@ -127,23 +139,22 @@ const App = () => {
 
     return () => {
       if (twitch) {
-        twitch.unlisten('broadcast', () =>
-          console.log('successfully unlistened')
+        twitch.unlisten("broadcast", () =>
+          console.log("successfully unlistened")
         );
       }
     };
   }, [appInitState.finishedLoading]);
 
   // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
-
+  console.log("appInitState", appInitState);
   const isReadyForRendering =
     finishedLoading && isVisible && viewerId && twitchAuth && channelId;
-
   return (
     <>
       {isReadyForRendering ? (
-        <div className='App'>
-          <div className={theme === 'light' ? 'App-light' : 'App-dark'}>
+        <div className="App">
+          <div className={theme === "light" ? "App-light" : "App-dark"}>
             {isViewerHasCards && (
               <ToggleButton toggle={toggle} setToggle={setToggle} />
             )}
@@ -157,7 +168,7 @@ const App = () => {
           </div>
         </div>
       ) : (
-        <div className='App'>
+        <div className="App">
           <NotSharedIdScreen />
         </div>
       )}

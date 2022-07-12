@@ -18,7 +18,6 @@ const App = () => {
 
   const [isViewerHasCards, setViewerHasCards] = useState(false);
   const [toggle, setToggle] = useState(true);
-  const [windowSizeChanged, setWindowSizeChanged] = useState(false);
 
   // The token and viewerId will be retrieved first by calling twitch.onAuthorized.
   // Then are the twitchAuth and channelId
@@ -59,7 +58,7 @@ const App = () => {
       });
       const result = await response.json();
       const { success, data, message } = result;
-
+      console.log("result", result);
       if (success) {
         setAppInitState({
           ...appInitState,
@@ -134,9 +133,8 @@ const App = () => {
       }
     };
   }, [appInitState.finishedLoading]);
-
-  // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
   console.log("appInitState", appInitState);
+  // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
   const isReadyForRendering =
     finishedLoading && isVisible && viewerId && twitchAuth && channelId;
   return (

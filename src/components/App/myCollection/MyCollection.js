@@ -45,6 +45,11 @@ const MyCollection = ({
     viewerId,
     isRewardRedeemed
   );
+  console.log("You are running the new version!");
+  useEffect(() => {
+    //refresh when reward Redeemed
+    console.log("Reward Redeemened!", isRewardRedeemed);
+  }, [isRewardRedeemed]);
 
   return (
     <div className="slides">

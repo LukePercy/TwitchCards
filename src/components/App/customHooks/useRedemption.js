@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 const useRedemption = (channelId, twitchAuth) => {
+  console.log("channelId in useRedempton", channelId);
+  console.log("twitchAuth in useRedempton", twitchAuth);
   const [isRewardFulfilled, setRewardFulfilled] = useState(false);
   const heartbeatInterval = 1000 * 60; //ms between PING"s
   const reconnectInterval = 1000 * 3; //ms to wait before reconnect
@@ -49,6 +51,7 @@ const useRedemption = (channelId, twitchAuth) => {
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
       let isRedeemed = false;
+      console.log("message", message);
       switch (message.type) {
         case "RESPONSE":
           if (message.error === "ERR_BADAUTH") {

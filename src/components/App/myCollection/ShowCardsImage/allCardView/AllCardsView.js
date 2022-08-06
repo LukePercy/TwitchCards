@@ -57,16 +57,19 @@ function Deck({ cards }) {
     }
 
     const allCards = [...foilCardArray, ...mintCardArray, ...wornCardArray];
-
     return allCards;
   });
 
+  // TO DO: This clean up is exensive and can cause issues with lots of cards.
   const cleanUpDeckImages = deckImages.flat();
-  const [gone] = useState(() => new Set()); // The set flags all the cards that are flicked out
+
+  // The set flags all the cards that are flicked out
+  const [gone] = useState(() => new Set());
   const [props, api] = useSprings(cleanUpDeckImages.length, (i) => ({
     ...to(i),
     from: from(i),
-  })); // Create a bunch of springs using the helpers above
+  }));
+  // Create a bunch of springs using the helpers above
   // Create a gesture from @use-gesture, we're interested in click and Drag state via useDrag, delta (current-pos - click-pos), direction and velocity
   const bind = useDrag(
     ({

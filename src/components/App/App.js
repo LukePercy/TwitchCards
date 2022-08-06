@@ -133,7 +133,7 @@ const App = () => {
       }
     };
   }, [appInitState.finishedLoading]);
-  console.log("appInitState", appInitState);
+
   // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
   const isReadyForRendering =
     finishedLoading && isVisible && viewerId && twitchAuth && channelId;

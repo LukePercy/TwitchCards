@@ -3,6 +3,7 @@ import React, { useReducer } from "react";
 import ShowCardsImage from "./ShowCardsImage/ShowCardsImage";
 import Loader from "react-loader-spinner";
 import useRedemption from "../customHooks/useRedemption";
+import useViewersCards from "../customHooks/useViewersCards";
 
 const initialState = {
   slideIndex: 0,

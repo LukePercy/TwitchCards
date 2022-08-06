@@ -121,24 +121,6 @@ a:hover {
   z-index: 10;
 }
 
-.settings-icon {
-  background-image: url("./assets/SettingsIcon2.png");
-  background-repeat: no-repeat;
-  background-position: auto;
-  background-size: contain;
-  bottom: 0px;
-  right: 50px;
-  position: fixed;
-  width: 50px;
-  height: 50px;
-  opacity: 0.3;
-}
-
-.settings-icon:hover,
-a:hover {
-  opacity: 0.8;
-}
-
 /* slide veiw */
 
 .slides {

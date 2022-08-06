@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Authentication from "../../util/Authentication/Authentication"; //Auth helper from twitch extension boilerplate
-import clsx from "clsx";
-import "./App.css";
 import MyCollection from "./myCollection/MyCollection"; // Carousel component to display users collection of cards
 import NotSharedIdScreen from "./notSharedId/NotSharedId";
-import useRedemption from "./customHooks/useRedemption";
-import useCardsForDisplay from "./customHooks/useCardsForDisplay";
+import ToggleButton from "./ToggleButton/ToggleButton";
+import "./App.css";
 
 // const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
 // const ORIGIN_URL = process.env.REACT_APP_ORIGIN_URL; // DEV
@@ -17,42 +15,61 @@ export const authentication = new Authentication();
 const App = () => {
   //if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
   const twitch = window.Twitch ? window.Twitch.ext : null;
-  const [twitchAuth, setTwitchAuth] = useState("");
+
+  const [isViewerHasCards, setViewerHasCards] = useState(false);
+  const [toggle, setToggle] = useState(true);
+
+  // The token and viewerId will be retrieved first by calling twitch.onAuthorized.
+  // Then are the twitchAuth and channelId
   const [appInitState, setAppInitState] = useState({
-    viewerId: "",
     finishedLoading: false,
     theme: "light",
     isVisible: true,
     token: "",
+    viewerId: "",
+    twitchAuth: "",
     channelId: "",
   });
-  const [isViewToggle, setViewToggle] = useState(false);
-  const handleClick = (e) => {
-    e.preventDefault();
-    setViewToggle(!isViewToggle);
-  };
 
-  let toggle = !isViewToggle;
-
-  const { token } = appInitState;
+  const {
+    twitchAuth,
+    channelId,
+    viewerId,
+    finishedLoading,
+    isVisible,
+    theme,
+    token,
+  } = appInitState;
 
   const getOAuth = async () => {
     if (!token) return;
+
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
     headers.append("Origin", ORIGIN_URL);
     headers.append("Authorization", `Bearer ${token}`);
 
-    const response = await fetch(`${BASE_API_URL}/api/authinfo`, {
-      mode: "cors",
-      method: "GET",
-      headers: headers,
-    });
-    const result = await response.json();
-    const { success, data } = result;
-    if (success) {
-      setTwitchAuth(data);
+    try {
+      const response = await fetch(`${BASE_API_URL}/api/authinfo`, {
+        mode: "cors",
+        method: "GET",
+        headers: headers,
+      });
+      const result = await response.json();
+      const { success, data, message } = result;
+
+      if (success) {
+        setAppInitState({
+          ...appInitState,
+          twitchAuth: data.token,
+          channelId: data.channelId,
+        });
+      } else {
+        throw new Error(`${message}`);
+      }
+    } catch (error) {
+      throw new Error(`${error.message}`);
     }
   };
 
@@ -85,7 +102,6 @@ const App = () => {
             ...appInitState,
             viewerId: authentication.getUserId(),
             token: authentication.getToken(),
-            channelId: auth.channelId,
             finishedLoading: true,
           });
         }
@@ -116,45 +132,25 @@ const App = () => {
         );
       }
     };
-  }, []);
+  }, [appInitState.finishedLoading]);
 
-  const { viewerId, finishedLoading, isVisible, theme, channelId } =
-    appInitState;
-  const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
-  const toggleBtnClassName = clsx("toggle-view-icon", toggle && "deck"); // conditional styles
-  const isRewardRedeemed = useRedemption(channelId, twitchAuth); // usehook for getting cards
-  const cardsForDisplay = useCardsForDisplay(viewerId, isRewardRedeemed); // usehook for getting cards
-  const hasViewerCards = cardsForDisplay.length > 1; // check if viewer has cards before showing view toggle
-  // when toggle is false
-  // toggleBtnClassName = 'toggle-view-icon'
-  // when toggle is true
-  // toggleBtnClassName = 'toggle-view-icon deck'
+  // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
+  const isReadyForRendering =
+    finishedLoading && isVisible && viewerId && twitchAuth && channelId;
   return (
     <>
-      {finishedLoading && isVisible && viewerId && twitchAuth ? (
+      {isReadyForRendering ? (
         <div className="App">
           <div className={theme === "light" ? "App-light" : "App-dark"}>
-            <div className="icons-area">
-              {hasViewerCards ? (
-                <span
-                  className={toggleBtnClassName}
-                  onClick={handleClick}
-                ></span>
-              ) : (
-                <></>
-              )}
-              {isMod ? (
-                <a href="/config.html" target="_blank">
-                  <span className="settings-icon" />
-                </a>
-              ) : (
-                <></>
-              )}
-            </div>
+            {isViewerHasCards && (
+              <ToggleButton toggle={toggle} setToggle={setToggle} />
+            )}
             <MyCollection
               toggle={toggle}
               viewerId={viewerId}
               channelId={channelId}
+              twitchAuth={twitchAuth}
+              setViewerHasCards={setViewerHasCards}
             />
           </div>
         </div>

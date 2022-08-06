@@ -1,44 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
+// Source: https://www.thepolyglotdeveloper.com/2015/03/create-a-random-nonce-string-using-javascript/
+const nonce = (length) => {
+  let text = "";
+  const possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
+};
+// This custom hook listens to the Twitch Channel chat through a web socket
+// When a user clicks on a reward we listen for the redemption message from the Twitch Channel
+// This triggers the useRedemption hook to update the viewer's collection of cards in the Front end
 const useRedemption = (channelId, twitchAuth) => {
   const [isRewardFulfilled, setRewardFulfilled] = useState(false);
-  const heartbeatInterval = 1000 * 60; //ms between PING's
+  const [heartbeatHandle, setHeartbeatHandle] = useState(null);
+  const [message, setMessage] = useState({
+    type: "LISTEN",
+    nonce: nonce(15),
+    data: {
+      topics: [`channel-points-channel-v1.${channelId}`],
+      auth_token: twitchAuth,
+    },
+  });
+
+  const heartbeatInterval = 1000 * 60; //ms between PING"s
   const reconnectInterval = 1000 * 3; //ms to wait before reconnect
-  let heartbeatHandle;
 
   // connect the twitch pubsub websocket
-  const ws = new WebSocket('wss://pubsub-edge.twitch.tv');
-
-  // Source: https://www.thepolyglotdeveloper.com/2015/03/create-a-random-nonce-string-using-javascript/
-  const nonce = (length) => {
-    let text = '';
-    const possible =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (let i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-
-    return text;
-  };
+  const ws = new WebSocket("wss://pubsub-edge.twitch.tv");
 
   useEffect(() => {
     ws.onopen = (e) => {
-      ws.send(JSON.stringify({ type: 'PING' }));
-      heartbeatHandle = setInterval(() => {
-        ws.send(JSON.stringify({ type: 'PING' }));
-      }, heartbeatInterval);
+      ws.send(JSON.stringify({ type: "PING" }));
+      setHeartbeatHandle(
+        setInterval(() => {
+          ws.send(JSON.stringify({ type: "PING" }));
+        }, heartbeatInterval)
+      );
 
       // Listen to channel points topic
-      let message = {
-        type: 'LISTEN',
-        nonce: nonce(15),
-        data: {
-          topics: [`channel-points-channel-v1.${channelId}`],
-          auth_token: twitchAuth,
-        },
-      };
-
       ws.send(JSON.stringify(message));
     };
 
@@ -47,34 +51,33 @@ const useRedemption = (channelId, twitchAuth) => {
     };
 
     ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      let isRedeemed = false;
+      const eventMessage = JSON.parse(event.data);
+      setMessage(eventMessage);
 
-      switch (message.type) {
-        case 'RESPONSE':
-          if (message.error === 'ERR_BADAUTH') {
-            console.error('PubSub Authentication Failure');
+      switch (eventMessage.type) {
+        case "RESPONSE":
+          if (eventMessage.error === "ERR_BADAUTH") {
+            console.error("PubSub Authentication Failure");
           }
           break;
 
-        case 'RECONNECT':
+        case "RECONNECT":
           setTimeout(() => {
             pubsubConnect(channelId, twitchAuth);
           }, reconnectInterval);
           break;
 
-        case 'MESSAGE':
-          if (message.data.topic.startsWith('channel-points-channel')) {
-            let messageData = JSON.parse(message.data.message);
-            if (messageData.type === 'reward-redeemed') {
-              let redemption = messageData.data.redemption;
-              isRedeemed = redemption.status === 'FULFILLED';
+        case "MESSAGE":
+          if (eventMessage.data.topic.startsWith("channel-points-channel")) {
+            const messageData = JSON.parse(eventMessage.data.message);
+            if (messageData.type === "reward-redeemed") {
+              const { redemption } = messageData.data;
+
+              setRewardFulfilled(redemption.status === "FULFILLED");
             }
           }
           break;
       }
-
-      setRewardFulfilled(isRedeemed);
     };
 
     return () => {
@@ -84,9 +87,9 @@ const useRedemption = (channelId, twitchAuth) => {
           pubsubConnect(channelId, twitchAuth);
         }, reconnectInterval);
       };
+      setRewardFulfilled(false);
     };
-  }, [isRewardFulfilled]);
-
+  }, [isRewardFulfilled, twitchAuth]);
   return isRewardFulfilled;
 };
 

@@ -12,7 +12,9 @@ const nonce = (length) => {
 
   return text;
 };
-
+// This custom hook listens to the Twitch Channel chat through a web socket
+// When a user clicks on a reward we listen for the redemption message from the Twitch Channel
+// This triggers the useRedemption hook to update the viewer's collection of cards in the Front end
 const useRedemption = (channelId, twitchAuth) => {
   const [isRewardFulfilled, setRewardFulfilled] = useState(false);
   const [heartbeatHandle, setHeartbeatHandle] = useState(null);

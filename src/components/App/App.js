@@ -58,7 +58,7 @@ const App = () => {
       });
       const result = await response.json();
       const { success, data, message } = result;
-      console.log("result", result);
+
       if (success) {
         setAppInitState({
           ...appInitState,

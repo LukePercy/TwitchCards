@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useReducer } from "react";
 // Card info
 import ShowCardsImage from "./ShowCardsImage/ShowCardsImage";
 import Loader from "react-loader-spinner";

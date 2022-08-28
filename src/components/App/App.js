@@ -151,6 +151,7 @@ const App = () => {
               channelId={channelId}
               twitchAuth={twitchAuth}
               setViewerHasCards={setViewerHasCards}
+              isViewerHasCards={isViewerHasCards}
             />
           </div>
         </div>

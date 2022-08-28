@@ -47,9 +47,6 @@ const useCardsForDisplay = (viewerId, viewersCards, isRewardRedeemed) => {
       }
     }
   });
-  console.log("isReward in useCardsForDisplay", isReward);
-  console.log("isRewardRedeemed useCardsForDisplay", isRewardRedeemed);
-
   useEffect(() => {
     setCardsForDisplay(matchedCards);
     setRewarded(isRewardRedeemed);
@@ -57,10 +54,9 @@ const useCardsForDisplay = (viewerId, viewersCards, isRewardRedeemed) => {
       setRewarded(false);
       setCardsForDisplay([]);
     };
-  }, [viewerId, matchedCards.length, isRewardRedeemed]);
-  console.log("cardsForDisplay", cardsForDisplay.length);
-  console.log("matchedCards", matchedCards);
-  return cardsForDisplay.length ? cardsForDisplay : matchedCards;
+  }, [viewerId, matchedCards.length, setCardsForDisplay, setRewarded]);
+
+  return matchedCards;
 };
 
 export default useCardsForDisplay;

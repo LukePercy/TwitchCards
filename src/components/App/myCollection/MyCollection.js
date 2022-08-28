@@ -37,22 +37,14 @@ const MyCollection = ({
   channelId,
   twitchAuth,
   setViewerHasCards,
+  isViewerHasCards,
 }) => {
   const [state, dispatch] = useReducer(slidesReducer, initialState);
-  let isRewardRedeemed = useRedemption(channelId, twitchAuth);
+  const isRewardRedeemed = useRedemption(channelId, twitchAuth);
   const { viewersCards, hasViewerExisted, isLoading } = useViewersCards(
     viewerId,
     isRewardRedeemed
   );
-
-  useEffect(() => {
-    if (isRewardRedeemed) {
-      useViewersCards(viewerId, isRewardRedeemed);
-    }
-    return () => {
-      isRewardRedeemed = false;
-    };
-  }, [isRewardRedeemed]);
 
   return (
     <div className="slides">
@@ -67,6 +59,7 @@ const MyCollection = ({
             isRewardRedeemed={isRewardRedeemed}
             hasViewerExisted={hasViewerExisted}
             setViewerHasCards={setViewerHasCards}
+            isViewerHasCards={isViewerHasCards}
           />
         </>
       ) : (

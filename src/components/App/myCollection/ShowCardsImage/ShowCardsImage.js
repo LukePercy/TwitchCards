@@ -14,6 +14,7 @@ const ShowCardsImage = ({
   isRewardRedeemed,
   hasViewerExisted,
   setViewerHasCards,
+  isViewerHasCards,
 }) => {
   const cardsForDisplay = useCardsForDisplay(
     viewerId,
@@ -25,18 +26,9 @@ const ShowCardsImage = ({
   if (cardsForDisplay.length) {
     setViewerHasCards(true);
   }
-
-  // This useEffect hack below is to delay the refresh and update the holding Amount number on cards
-  // As we return the cards for display from the API response, the holding amount can take a moment to update
-  // after react mounts the child components
-  useEffect(() => {
-    console.log("inside SetTimeoutUseEffect on Redeem", isRewardRedeemed);
-    setTimeout(() => {}, 3000);
-  }, [isRewardRedeemed]);
-  console.log("outside SetTimeoutUseEffect on Redeem", isRewardRedeemed);
   return (
     <>
-      {hasViewerExisted ? (
+      {hasViewerExisted && isViewerHasCards ? (
         <>
           {toggle ? (
             <>
@@ -48,7 +40,14 @@ const ShowCardsImage = ({
               {[...cardsForDisplay, ...cardsForDisplay, ...cardsForDisplay].map(
                 (slide, i) => {
                   let offset = cardsForDisplay.length + (state.slideIndex - i);
-                  return <Slide slide={slide} offset={offset} key={i} />;
+                  return (
+                    <Slide
+                      slide={slide}
+                      offset={offset}
+                      key={i}
+                      isRewardRedeemed={isRewardRedeemed}
+                    />
+                  );
                 }
               )}
               <button

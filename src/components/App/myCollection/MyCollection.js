@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 // Card info
 import ShowCardsImage from "./ShowCardsImage/ShowCardsImage";
 import Loader from "react-loader-spinner";
@@ -39,11 +39,20 @@ const MyCollection = ({
   setViewerHasCards,
 }) => {
   const [state, dispatch] = useReducer(slidesReducer, initialState);
-  const isRewardRedeemed = useRedemption(channelId, twitchAuth);
+  let isRewardRedeemed = useRedemption(channelId, twitchAuth);
   const { viewersCards, hasViewerExisted, isLoading } = useViewersCards(
     viewerId,
     isRewardRedeemed
   );
+
+  useEffect(() => {
+    if (isRewardRedeemed) {
+      useViewersCards(viewerId, isRewardRedeemed);
+    }
+    return () => {
+      isRewardRedeemed = false;
+    };
+  }, [isRewardRedeemed]);
 
   return (
     <div className="slides">

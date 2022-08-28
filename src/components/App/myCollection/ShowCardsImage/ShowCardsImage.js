@@ -30,9 +30,10 @@ const ShowCardsImage = ({
   // As we return the cards for display from the API response, the holding amount can take a moment to update
   // after react mounts the child components
   useEffect(() => {
+    console.log("inside SetTimeoutUseEffect on Redeem", isRewardRedeemed);
     setTimeout(() => {}, 3000);
   }, [isRewardRedeemed]);
-
+  console.log("outside SetTimeoutUseEffect on Redeem", isRewardRedeemed);
   return (
     <>
       {hasViewerExisted ? (

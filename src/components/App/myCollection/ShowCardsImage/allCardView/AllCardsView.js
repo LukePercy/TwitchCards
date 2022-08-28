@@ -123,4 +123,4 @@ function Deck({ cards }) {
   );
 }
 
-export default Deck;
+export default React.memo(Deck);

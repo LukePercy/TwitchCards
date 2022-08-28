@@ -90,6 +90,7 @@ const useRedemption = (channelId, twitchAuth) => {
       setRewardFulfilled(false);
     };
   }, [isRewardFulfilled, twitchAuth]);
+  console.log("isRewardFulfilled in useRedemption hook", isRewardFulfilled);
   return isRewardFulfilled;
 };
 

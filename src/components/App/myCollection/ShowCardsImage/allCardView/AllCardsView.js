@@ -57,6 +57,7 @@ function Deck({ cards }) {
     }
 
     const allCards = [...foilCardArray, ...mintCardArray, ...wornCardArray];
+
     return allCards;
   });
 
@@ -123,4 +124,4 @@ function Deck({ cards }) {
   );
 }
 
-export default React.memo(Deck);
+export default Deck;

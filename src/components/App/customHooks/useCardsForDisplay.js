@@ -56,7 +56,7 @@ const useCardsForDisplay = (viewerId, viewersCards, isRewardRedeemed) => {
     };
   }, [viewerId, matchedCards.length, setCardsForDisplay, setRewarded]);
 
-  return matchedCards;
+  return cardsForDisplay;
 };
 
 export default useCardsForDisplay;

@@ -18,29 +18,42 @@ const trans = (r, s) =>
     r / 10
   }deg) rotateZ(${r}deg) scale(${s})`;
 
+// Get the total number of cards the viewer has of each card character
+// IF the viewer has less than 5 cards of that character,
+// display the worn card image for each individual card.
+// IF the viewer has between 6 and 10 cards of that character,
+// display mint cards > 5 and 5 worn cards < 5.
+// IF the viewer has more than 10 cards of that character,
+// display the foil card image for each card above 15 cards
+// and 5 mint cards and 5 worn cards.
+
 function Deck({ cards }) {
-  const deckImages = cards.map((cards) => {
+  const deckImages = cards.map((card) => {
     let foilCardsNumber;
     let mintCardsNumber;
     let wornCardsNumber;
 
-    if (cards.holdingAmount - 15) {
-      foilCardsNumber = cards.holdingAmount - 15;
-      mintCardsNumber = 10;
-      wornCardsNumber = 5;
-    } else if (cards.holdingAmount - 10) {
-      foilCardsNumber = 0;
-      mintCardsNumber = cards.holdingAmount - 10;
-      wornCardsNumber = 5;
-    } else if (cards.holdingAmount - 5) {
-      foilCardsNumber = 0;
+    if (card.holdingAmount < 5) {
+      wornCardsNumber = card.holdingAmount;
       mintCardsNumber = 0;
-      wornCardsNumber = cards.holdingAmount;
+      foilCardsNumber = 0;
+    } else if (card.holdingAmount >= 5 && card.holdingAmount <= 10) {
+      wornCardsNumber = 5;
+      mintCardsNumber = card.holdingAmount - 5;
+      foilCardsNumber = 0;
+    } else if (card.holdingAmount > 10) {
+      wornCardsNumber = 5;
+      mintCardsNumber = 5;
+      foilCardsNumber = card.holdingAmount - 10;
+    } else {
+      throw new Error(
+        "Should not happen. Holding amount out of numbered ranges"
+      );
     }
 
-    const foilCardImage = require(`../../../cards/${cards.title}-s1_foil.jpg`);
-    const mintCardImage = require(`../../../cards/${cards.title}-s1_mint.jpg`);
-    const wornCardImage = require(`../../../cards/${cards.title}-s1_worn.jpg`);
+    const foilCardImage = require(`../../../cards/${card.title}-s1_foil.jpg`);
+    const mintCardImage = require(`../../../cards/${card.title}-s1_mint.jpg`);
+    const wornCardImage = require(`../../../cards/${card.title}-s1_worn.jpg`);
 
     const foilCardArray = [];
     const mintCardArray = [];

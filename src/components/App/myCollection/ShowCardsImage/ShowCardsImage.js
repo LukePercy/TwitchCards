@@ -26,6 +26,7 @@ const ShowCardsImage = ({
   if (cardsForDisplay.length) {
     setViewerHasCards(true);
   }
+
   return (
     <>
       {hasViewerExisted && isViewerHasCards ? (

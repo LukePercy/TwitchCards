@@ -51,12 +51,12 @@ const useCardsForDisplay = (viewerId, viewersCards, isRewardRedeemed) => {
     setCardsForDisplay(matchedCards);
     setRewarded(isRewardRedeemed);
     return () => {
-      setRewarded(false);
-      setCardsForDisplay([]);
+      isReward(false);
+      cardsForDisplay([]);
     };
   }, [viewerId, matchedCards.length, setCardsForDisplay, setRewarded]);
 
-  return cardsForDisplay;
+  return matchedCards;
 };
 
 export default useCardsForDisplay;

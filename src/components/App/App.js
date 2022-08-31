@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Authentication from "../../util/Authentication/Authentication"; //Auth helper from twitch extension boilerplate
 import MyCollection from "./myCollection/MyCollection"; // Carousel component to display users collection of cards
 import NotSharedIdScreen from "./notSharedId/NotSharedId";
-// import ToggleButton from "./ToggleButton/ToggleButton";
+import ToggleButton from "./ToggleButton/ToggleButton";
 import "./App.css";
 
 // const BASE_API_URL = process.env.REACT_APP_BASE_API_URL; // DEV
@@ -142,9 +142,9 @@ const App = () => {
       {isReadyForRendering ? (
         <div className="App">
           <div className={theme === "light" ? "App-light" : "App-dark"}>
-            {/* {isViewerHasCards && (
+            {isViewerHasCards && (
               <ToggleButton toggle={toggle} setToggle={setToggle} /> // toggle button to toggle between my collection and full deck view, disabled while I fix bugs
-            )} */}
+            )}
             <MyCollection
               toggle={toggle}
               viewerId={viewerId}

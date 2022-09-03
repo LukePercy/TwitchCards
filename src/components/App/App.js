@@ -132,7 +132,7 @@ const App = () => {
         );
       }
     };
-  }, [appInitState.finishedLoading]);
+  }, [appInitState.finishedLoading, isVisible]);
 
   // const isMod = authentication.isModerator(); // store if user is moderator/broadcaster to see settings admin
   const isReadyForRendering =

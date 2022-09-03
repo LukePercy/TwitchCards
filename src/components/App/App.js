@@ -75,6 +75,9 @@ const App = () => {
 
   useEffect(() => {
     getOAuth();
+    return () => {
+      setAppInitState({}); // cleanup
+    };
   }, [twitchAuth, token]);
 
   const contextUpdate = (context, delta) => {
@@ -126,6 +129,7 @@ const App = () => {
     }
 
     return () => {
+      // clean up event listeners
       if (twitch) {
         twitch.unlisten("broadcast", () =>
           console.log("successfully unlistened")

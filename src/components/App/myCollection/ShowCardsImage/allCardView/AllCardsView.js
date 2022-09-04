@@ -37,14 +37,14 @@ function Deck({ cards }) {
       wornCardsNumber = card.holdingAmount;
       mintCardsNumber = 0;
       foilCardsNumber = 0;
-    } else if (card.holdingAmount >= 5 && card.holdingAmount <= 10) {
+    } else if (card.holdingAmount >= 5 && card.holdingAmount <= 14) {
       wornCardsNumber = 5;
       mintCardsNumber = card.holdingAmount - 5;
       foilCardsNumber = 0;
-    } else if (card.holdingAmount > 10) {
+    } else if (card.holdingAmount >= 15) {
       wornCardsNumber = 5;
       mintCardsNumber = 5;
-      foilCardsNumber = card.holdingAmount - 10;
+      foilCardsNumber = card.holdingAmount - 14;
     } else {
       throw new Error(
         "Should not happen. Holding amount out of numbered ranges"

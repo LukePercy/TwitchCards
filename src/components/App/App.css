@@ -211,7 +211,7 @@ a:hover {
 
 .slideContentInner .slideSubtitle,
 .slideContentInner .slideTitle {
-  font-size: 0.6rem;
+  font-size: 3vw;
   font-weight: bold;
   letter-spacing: 0.2ch;
   text-transform: uppercase;
@@ -224,7 +224,7 @@ a:hover {
 
 .slideContentInner .slideDescription {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 4vw;
   letter-spacing: 0.2ch;
 }
 

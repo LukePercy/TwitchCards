@@ -4,7 +4,7 @@ import ReactCardFlip from "react-card-flip";
 import useTilt from "../../../customHooks/useTilt";
 
 // Slide content. Includes card image and flip behavior.
-const Slide = ({ slide, offset, isRewardRedeemed }) => {
+const Slide = ({ slide, offset }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClick = (e) => {
     e.preventDefault();

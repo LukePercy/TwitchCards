@@ -54,7 +54,7 @@ const useCardsForDisplay = (viewerId, viewersCards, isRewardRedeemed) => {
       setRewarded(false);
       setCardsForDisplay([]);
     };
-  }, [viewerId, matchedCards.length, isReward]);
+  }, [viewerId, matchedCards.length, isReward, cardsForDisplay.holdingAmount]);
 
   return matchedCards;
 };

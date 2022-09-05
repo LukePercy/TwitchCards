@@ -75,9 +75,6 @@ const App = () => {
 
   useEffect(() => {
     getOAuth();
-    return () => {
-      setAppInitState({}); // cleanup
-    };
   }, [twitchAuth, token]);
 
   const contextUpdate = (context, delta) => {

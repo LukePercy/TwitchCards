@@ -1,5 +1,7 @@
 # Twitch Cards
 
+No longer maintained sorry. But a cool project https://www.ljpercy.com/wip/gettingdiceytc
+
 Twitch cards is a Twitch extension for stream viewers to be rewarded collectable cards using Channel Points
 
 Developed from https://github.com/twitchdev/extensions-boilerplate
